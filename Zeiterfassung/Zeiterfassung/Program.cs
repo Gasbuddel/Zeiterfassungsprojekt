@@ -15,6 +15,7 @@ namespace Zeiterfassung
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+            SqlConnection.GetConnection();
             Application.Run(new Hauptmaske());
         }
     }

@@ -66,7 +66,7 @@
             // 
             this.login_PW_Box.Location = new System.Drawing.Point(76, 39);
             this.login_PW_Box.Name = "login_PW_Box";
-            this.login_PW_Box.PasswordChar = '卍';
+            this.login_PW_Box.PasswordChar = '•';
             this.login_PW_Box.Size = new System.Drawing.Size(205, 20);
             this.login_PW_Box.TabIndex = 3;
             // 
