@@ -58,6 +58,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Classes\DataHauptmaske.cs" />
     <Compile Include="Classes\SqlConnection.cs" />
     <Compile Include="Forms\Administration.cs">
       <SubType>Form</SubType>

@@ -11,9 +11,8 @@ namespace Zeiterfassung
         public static MySqlConnection GetConnection()
         {
             string myConnectionString = "SERVER=localhost;" +
-                                        "DATABASE=mydatabase;" +
-                                        "UID=user;" +
-                                        "PASSWORD=mypassword;";
+                                        "DATABASE=zeiterfassung;" +
+                                        "UID=root;";
 
             MySqlConnection connection = new MySqlConnection(myConnectionString);
             return connection;
