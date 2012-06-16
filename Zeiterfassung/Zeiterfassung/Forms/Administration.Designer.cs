@@ -31,12 +31,6 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Administration));
             this.tabbi = new System.Windows.Forms.TabControl();
             this.kunden_Tab = new System.Windows.Forms.TabPage();
-            this.label3 = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.bearb_Butt = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.mitarbeiter_Tab = new System.Windows.Forms.TabPage();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.button10 = new System.Windows.Forms.Button();
@@ -74,6 +68,26 @@
             this.label2 = new System.Windows.Forms.Label();
             this.comboBox2 = new System.Windows.Forms.ComboBox();
             this.close_Butt = new System.Windows.Forms.Button();
+            this.bearb_Butt = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.label15 = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
+            this.label17 = new System.Windows.Forms.Label();
+            this.label18 = new System.Windows.Forms.Label();
+            this.label_anspr = new System.Windows.Forms.Label();
+            this.label20 = new System.Windows.Forms.Label();
+            this.ku_firma_box = new Zeiterfassung.RegExTextbox();
+            this.ku_anspr_box = new Zeiterfassung.RegExTextbox();
+            this.ku_mail_box = new Zeiterfassung.RegExTextbox();
+            this.ku_str_box = new Zeiterfassung.RegExTextbox();
+            this.ku_plz_box = new Zeiterfassung.RegExTextbox();
+            this.ku_ort_box = new Zeiterfassung.RegExTextbox();
+            this.ku_tel_box = new Zeiterfassung.RegExTextbox();
+            this.ku_fax_box = new Zeiterfassung.RegExTextbox();
             this.tabbi.SuspendLayout();
             this.kunden_Tab.SuspendLayout();
             this.mitarbeiter_Tab.SuspendLayout();
@@ -94,8 +108,22 @@
             // 
             // kunden_Tab
             // 
+            this.kunden_Tab.Controls.Add(this.ku_fax_box);
+            this.kunden_Tab.Controls.Add(this.ku_tel_box);
+            this.kunden_Tab.Controls.Add(this.ku_ort_box);
+            this.kunden_Tab.Controls.Add(this.ku_plz_box);
+            this.kunden_Tab.Controls.Add(this.ku_str_box);
+            this.kunden_Tab.Controls.Add(this.ku_mail_box);
+            this.kunden_Tab.Controls.Add(this.ku_anspr_box);
+            this.kunden_Tab.Controls.Add(this.ku_firma_box);
+            this.kunden_Tab.Controls.Add(this.label20);
+            this.kunden_Tab.Controls.Add(this.label_anspr);
+            this.kunden_Tab.Controls.Add(this.label18);
+            this.kunden_Tab.Controls.Add(this.label17);
+            this.kunden_Tab.Controls.Add(this.label16);
+            this.kunden_Tab.Controls.Add(this.label15);
+            this.kunden_Tab.Controls.Add(this.label14);
             this.kunden_Tab.Controls.Add(this.label3);
-            this.kunden_Tab.Controls.Add(this.textBox2);
             this.kunden_Tab.Controls.Add(this.bearb_Butt);
             this.kunden_Tab.Controls.Add(this.button1);
             this.kunden_Tab.Controls.Add(this.label1);
@@ -107,61 +135,6 @@
             this.kunden_Tab.TabIndex = 0;
             this.kunden_Tab.Text = "Kunden";
             this.kunden_Tab.UseVisualStyleBackColor = true;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(6, 78);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(114, 13);
-            this.label3.TabIndex = 7;
-            this.label3.Text = "Weitere Informationen:";
-            // 
-            // textBox2
-            // 
-            this.textBox2.Location = new System.Drawing.Point(9, 94);
-            this.textBox2.Multiline = true;
-            this.textBox2.Name = "textBox2";
-            this.textBox2.ReadOnly = true;
-            this.textBox2.Size = new System.Drawing.Size(509, 412);
-            this.textBox2.TabIndex = 6;
-            // 
-            // bearb_Butt
-            // 
-            this.bearb_Butt.Location = new System.Drawing.Point(423, 37);
-            this.bearb_Butt.Name = "bearb_Butt";
-            this.bearb_Butt.Size = new System.Drawing.Size(95, 23);
-            this.bearb_Butt.TabIndex = 5;
-            this.bearb_Butt.Text = "Bearbeiten";
-            this.bearb_Butt.UseVisualStyleBackColor = true;
-            this.bearb_Butt.Click += new System.EventHandler(this.bearb_Butt_Click);
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(423, 8);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(95, 23);
-            this.button1.TabIndex = 2;
-            this.button1.Text = "Neuer Kunde";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(6, 13);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(41, 13);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "Kunde:";
-            // 
-            // comboBox1
-            // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(53, 10);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(256, 21);
-            this.comboBox1.TabIndex = 0;
             // 
             // mitarbeiter_Tab
             // 
@@ -520,6 +493,179 @@
             this.close_Butt.UseVisualStyleBackColor = true;
             this.close_Butt.Click += new System.EventHandler(this.close_Butt_Click);
             // 
+            // bearb_Butt
+            // 
+            this.bearb_Butt.Location = new System.Drawing.Point(423, 37);
+            this.bearb_Butt.Name = "bearb_Butt";
+            this.bearb_Butt.Size = new System.Drawing.Size(95, 23);
+            this.bearb_Butt.TabIndex = 5;
+            this.bearb_Butt.Text = "Bearbeiten";
+            this.bearb_Butt.UseVisualStyleBackColor = true;
+            this.bearb_Butt.Click += new System.EventHandler(this.bearb_Butt_Click);
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(423, 8);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(95, 23);
+            this.button1.TabIndex = 2;
+            this.button1.Text = "Neuer Kunde";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(6, 13);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(41, 13);
+            this.label1.TabIndex = 1;
+            this.label1.Text = "Kunde:";
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Location = new System.Drawing.Point(53, 10);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(256, 21);
+            this.comboBox1.TabIndex = 0;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(6, 47);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(35, 13);
+            this.label3.TabIndex = 6;
+            this.label3.Text = "Firma:";
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(5, 142);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(41, 13);
+            this.label14.TabIndex = 7;
+            this.label14.Text = "Straße:";
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(6, 174);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(30, 13);
+            this.label15.TabIndex = 8;
+            this.label15.Text = "PLZ:";
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(6, 203);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(24, 13);
+            this.label16.TabIndex = 9;
+            this.label16.Text = "Ort:";
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(6, 243);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(25, 13);
+            this.label17.TabIndex = 10;
+            this.label17.Text = "Tel:";
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(6, 292);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(27, 13);
+            this.label18.TabIndex = 11;
+            this.label18.Text = "Fax:";
+            // 
+            // label_anspr
+            // 
+            this.label_anspr.AutoSize = true;
+            this.label_anspr.Location = new System.Drawing.Point(6, 80);
+            this.label_anspr.Name = "label_anspr";
+            this.label_anspr.Size = new System.Drawing.Size(88, 13);
+            this.label_anspr.TabIndex = 12;
+            this.label_anspr.Text = "Ansprechpartner:";
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Location = new System.Drawing.Point(6, 110);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(36, 13);
+            this.label20.TabIndex = 13;
+            this.label20.Text = "E-Mail";
+            // 
+            // ku_firma_box
+            // 
+            this.ku_firma_box.Location = new System.Drawing.Point(101, 47);
+            this.ku_firma_box.Name = "ku_firma_box";
+            this.ku_firma_box.Regular_Expression = null;
+            this.ku_firma_box.Size = new System.Drawing.Size(208, 20);
+            this.ku_firma_box.TabIndex = 14;
+            // 
+            // ku_anspr_box
+            // 
+            this.ku_anspr_box.Location = new System.Drawing.Point(100, 80);
+            this.ku_anspr_box.Name = "ku_anspr_box";
+            this.ku_anspr_box.Regular_Expression = null;
+            this.ku_anspr_box.Size = new System.Drawing.Size(209, 20);
+            this.ku_anspr_box.TabIndex = 15;
+            // 
+            // ku_mail_box
+            // 
+            this.ku_mail_box.Location = new System.Drawing.Point(101, 110);
+            this.ku_mail_box.Name = "ku_mail_box";
+            this.ku_mail_box.Regular_Expression = null;
+            this.ku_mail_box.Size = new System.Drawing.Size(208, 20);
+            this.ku_mail_box.TabIndex = 16;
+            // 
+            // ku_str_box
+            // 
+            this.ku_str_box.Location = new System.Drawing.Point(100, 142);
+            this.ku_str_box.Name = "ku_str_box";
+            this.ku_str_box.Regular_Expression = null;
+            this.ku_str_box.Size = new System.Drawing.Size(209, 20);
+            this.ku_str_box.TabIndex = 17;
+            // 
+            // ku_plz_box
+            // 
+            this.ku_plz_box.Location = new System.Drawing.Point(100, 174);
+            this.ku_plz_box.Name = "ku_plz_box";
+            this.ku_plz_box.Regular_Expression = null;
+            this.ku_plz_box.Size = new System.Drawing.Size(82, 20);
+            this.ku_plz_box.TabIndex = 18;
+            // 
+            // ku_ort_box
+            // 
+            this.ku_ort_box.Location = new System.Drawing.Point(100, 200);
+            this.ku_ort_box.Name = "ku_ort_box";
+            this.ku_ort_box.Regular_Expression = null;
+            this.ku_ort_box.Size = new System.Drawing.Size(209, 20);
+            this.ku_ort_box.TabIndex = 19;
+            // 
+            // ku_tel_box
+            // 
+            this.ku_tel_box.Location = new System.Drawing.Point(101, 243);
+            this.ku_tel_box.Name = "ku_tel_box";
+            this.ku_tel_box.Regular_Expression = null;
+            this.ku_tel_box.Size = new System.Drawing.Size(208, 20);
+            this.ku_tel_box.TabIndex = 20;
+            // 
+            // ku_fax_box
+            // 
+            this.ku_fax_box.Location = new System.Drawing.Point(101, 289);
+            this.ku_fax_box.Name = "ku_fax_box";
+            this.ku_fax_box.Regular_Expression = null;
+            this.ku_fax_box.Size = new System.Drawing.Size(208, 20);
+            this.ku_fax_box.TabIndex = 21;
+            // 
             // Administration
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -550,13 +696,7 @@
         private System.Windows.Forms.TabControl tabbi;
         private System.Windows.Forms.TabPage kunden_Tab;
         private System.Windows.Forms.TabPage projekt_Tab;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.TabPage mitarbeiter_Tab;
-        private System.Windows.Forms.Button bearb_Butt;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.Button close_Butt;
         private System.Windows.Forms.Button pro_Bearb_Butt;
         private System.Windows.Forms.Button newPro_Butt;
@@ -592,5 +732,25 @@
         private System.Windows.Forms.Button button7;
         private System.Windows.Forms.Button button10;
         private System.Windows.Forms.PictureBox pictureBox1;
+        private RegExTextbox ku_fax_box;
+        private RegExTextbox ku_tel_box;
+        private RegExTextbox ku_ort_box;
+        private RegExTextbox ku_plz_box;
+        private RegExTextbox ku_str_box;
+        private RegExTextbox ku_mail_box;
+        private RegExTextbox ku_anspr_box;
+        private RegExTextbox ku_firma_box;
+        private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.Label label_anspr;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Button bearb_Butt;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ComboBox comboBox1;
     }
 }

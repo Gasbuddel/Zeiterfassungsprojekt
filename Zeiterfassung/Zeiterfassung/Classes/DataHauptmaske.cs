@@ -29,12 +29,13 @@ namespace Zeiterfassung.Classes
            con.Open();
            reader = cmd.ExecuteReader();
        
-          for(int i =0;reader.Read();i++)
+           for(int i =0;reader.Read();i++)
            {
               projects.Add(reader.GetValue(i).ToString());
            }
 
-               return projects;
+           con.Close();
+           return projects;
        }
     }
 }

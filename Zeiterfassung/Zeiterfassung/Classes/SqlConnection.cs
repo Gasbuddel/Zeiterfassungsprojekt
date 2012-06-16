@@ -8,6 +8,10 @@ namespace Zeiterfassung
 {
     public class SqlConnection
     {
+        /// <summary>
+        /// Funktion zum erhalten der Datenbakverbindung
+        /// </summary>
+        /// <returns>Die Datenbankverbindung</returns>
         public static MySqlConnection GetConnection()
         {
             string myConnectionString = "SERVER=localhost;" +
