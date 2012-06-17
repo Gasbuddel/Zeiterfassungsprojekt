@@ -49,12 +49,12 @@ namespace Zeiterfassung.Classes
 
        public void loadBookings()
        {
-           int prID;
-           int miID;
+           int prID =1;
+           int miID=1;
            string sql = "SELECT zeTag, zeDauer, ze Taetigkeit, zeReisekosten FROM TZeiterfassung WHERE prID = "+ prID + 
                         " AND miID = "+ miID;
            MySqlCommand cmd = con.CreateCommand();
-           MySqlDataReader reader= new MySqlDataReader();
+           MySqlDataReader reader;
            con.Open();
            reader = cmd.ExecuteReader();
 
