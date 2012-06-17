@@ -31,31 +31,34 @@ namespace Zeiterfassung.Classes
            con.Open();
            reader = cmd.ExecuteReader();
        
-<<<<<<< HEAD
+
            for(int i =0;reader.Read();i++)
-=======
+
           while(reader.Read())
->>>>>>> loadProjects fertig
+
            {
               projects.Add(reader.GetInt32(1), reader.GetString(0));
            }
 
-<<<<<<< HEAD
+
            con.Close();
-           return projects;
-=======
+           
+
           con.Close();    
        }
 
        public void loadBookings()
        {
-           string sql = "Select";
+           int prID;
+           int miID;
+           string sql = "SELECT zeTag, zeDauer, ze Taetigkeit, zeReisekosten FROM TZeiterfassung WHERE prID = "+ prID + 
+                        " AND miID = "+ miID;
            MySqlCommand cmd = con.CreateCommand();
            MySqlDataReader reader= new MySqlDataReader();
            con.Open();
            reader = cmd.ExecuteReader();
 
->>>>>>> loadProjects fertig
+
        }
     }
 }
