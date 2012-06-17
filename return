@@ -1,0 +1,59 @@
+[33mcommit 70a16c9aaf46080d40cc158a8dfd7837fbd7a27f[m
+Author: Gasbuddel <ibrattka@web.de>
+Date:   Sun Jun 17 19:07:30 2012 +0200
+
+    Session um MitarbeiterId erweitert
+
+[33mcommit 9dbb1ac967bf205c8f1d2c33cfe48ac1ffd05bf2[m
+Author: bjoern <bjoern@ia210.com>
+Date:   Sun Jun 17 12:41:44 2012 +0200
+
+    bugfix
+
+[33mcommit 4c65b8733a214a3be97840739f34f5b74a1067cb[m
+Author: bjoern <bjoern@ia210.com>
+Date:   Sun Jun 17 09:56:11 2012 +0200
+
+    loadProjects() fertig
+
+[33mcommit 744888427e63e85413fd3c4b49cbba567990a253[m
+Author: Gasbuddel <ibrattka@web.de>
+Date:   Sat Jun 16 17:46:23 2012 +0200
+
+    Login + Session hinzugefügt, Kundenadministration
+
+[33mcommit 3e274f6515edb5e3e066ad8a79848eb3c9cf1d06[m
+Author: unknown <bjoern>
+Date:   Fri Jun 15 18:46:58 2012 +0200
+
+    Klasse HauptmaskeData
+
+[33mcommit 58d4d9f5be315223c4f1420b2455f8599f0fb136[m
+Author: Gasbuddel <ibrattka@web.de>
+Date:   Fri Jun 15 18:33:27 2012 +0200
+
+    Grunddaten für die Datenbank erstellt
+
+[33mcommit 7b092abc0d374894d4894052ae16f2dabe3044a4[m
+Author: unknown <bjoern>
+Date:   Fri Jun 15 18:14:16 2012 +0200
+
+    test
+
+[33mcommit 58a4ba5894165ab57a277edb9b98a6b7d086ac53[m
+Author: Gasbuddel <ibrattka@web.de>
+Date:   Thu Jun 14 20:32:05 2012 +0200
+
+    Datenbank hinzugefügt
+
+[33mcommit af20ce9830d62e50a22e2120c4b19373a49615b9[m
+Author: Gasbuddel <ibrattka@web.de>
+Date:   Thu Jun 14 20:02:45 2012 +0200
+
+    Aktuelle Version
+
+[33mcommit a7be234e1a58e6723bf4069e2df9e65ea29ca578[m
+Author: Gasbuddel <ibrattka@web.de>
+Date:   Thu Jun 14 19:36:37 2012 +0200
+
+    Testentwurf
