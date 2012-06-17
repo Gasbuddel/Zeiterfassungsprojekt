@@ -15,21 +15,24 @@ namespace Zeiterfassung
     {
         private int authorization = 0;
 
+        private int userId;
+
         private static Session instance;
 
-        private Session(int authorization)
+        private Session(int authorization, int userId)
         {
             this.authorization = authorization;
+            this.userId = 0;
         }
         /// <summary>
         /// Erstellt eine neue Session, es darf nur eine Existieren und der Wert der Authorisierung darf nur einmal gesetzt werden.
         /// </summary>
         /// <param name="authorization">Authorisationsstufe 1 = Admin, 2 = User</param>
-        public static void CreateSession(int authorization)
+        public static void CreateSession(int authorization, int userId)
         {
             if (instance == null)
                 if (authorization == 1 || authorization == 2)
-                    instance = new Session(authorization);
+                    instance = new Session(authorization, userId);
                 else
                     throw new FormatException("Es sind nur die Berechtigungsstufen 1, oder 2 zulässig");
             else
@@ -51,6 +54,14 @@ namespace Zeiterfassung
             { 
                 return authorization;
             } 
+        }
+
+        public int UserId
+        {
+            get
+            {
+                return userId;
+            }
         }
     }
 }

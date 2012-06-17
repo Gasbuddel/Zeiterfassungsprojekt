@@ -34,7 +34,7 @@ namespace Zeiterfassung
                     //Abfrage an die Tabelle Mitarbeiter wird erstellt nach Name und Passwort, um die Rolle herauszufinden
                     MySqlConnection con = SqlConnection.GetConnection();
                     MySqlCommand cmd = con.CreateCommand();
-                    cmd.CommandText = "SELECT roID FROM tmitarbeiter WHERE miUsername LIKE '" + login_Name_Box.Text + "' AND miPasswort LIKE '" + login_PW_Box.Text + "'";
+                    cmd.CommandText = "SELECT  miId, roID FROM tmitarbeiter WHERE miUsername LIKE '" + login_Name_Box.Text + "' AND miPasswort LIKE '" + login_PW_Box.Text + "'";
                     MySqlDataReader reader;
 
                     con.Open();
@@ -46,7 +46,8 @@ namespace Zeiterfassung
                     {
                         //Rolle abspeichern
                         reader.Read();
-                        int rolle = Convert.ToInt32(reader.GetValue(0).ToString());
+                        int rolle = reader.GetInt32(1);
+                        int userId = reader.GetInt32(0);
 
                         //Verbindung nach Verwendung immer schließen!
                         con.Close();
@@ -54,7 +55,7 @@ namespace Zeiterfassung
                         try
                         {
                             //Die Session mit der Rolle wird erstellt und die Hauptmaske geöffnet.
-                            Session.CreateSession(rolle);
+                            Session.CreateSession(rolle, userId);
                             this.DialogResult = DialogResult.OK;
                             this.Close();
                         }
