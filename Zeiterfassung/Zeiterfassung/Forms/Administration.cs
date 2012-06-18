@@ -41,6 +41,8 @@ namespace Zeiterfassung
             this.Close();
         }
 
+#region 'Kundenadministration'
+
         /// <summary>
         /// Methode zum Initialiseren der Kundenliste, die Namen werden in der Combobox gespeichert und die Ids in einem Dictionary hinterlegt.
         /// </summary>
@@ -102,9 +104,28 @@ namespace Zeiterfassung
             ku_tel_box.Text = reader.GetString(5);
             ku_fax_box.Text = reader.GetString(6);
 
+			setKundenTextboxReadonly(true);
+
+
             con.Close();
 
         }
+
+		/// <summary>
+		/// Setzt alle Textboxes auf dem Tab Kunde in Readonly.. oder nicht
+		/// </summary>
+		/// <param name="value">True = Readonly, False = Nicht-Readonly</param>
+		private void setKundenTextboxReadonly(bool value)
+		{
+			ku_firma_box.ReadOnly = value;
+			ku_anspr_box.ReadOnly = value;
+			ku_mail_box.ReadOnly = value;
+			ku_str_box.ReadOnly = value;
+			ku_plz_box.ReadOnly = value;
+			ku_ort_box.ReadOnly = value;
+			ku_tel_box.ReadOnly = value;
+			ku_fax_box.ReadOnly = value;
+		}
 
         private void kunden_Tab_Enter(object sender, EventArgs e)
         {
@@ -114,6 +135,8 @@ namespace Zeiterfassung
         private void kunden_box_SelectedIndexChanged(object sender, EventArgs e)
         {
             kundenAktualisieren(kundenIds[kunden_box.SelectedIndex]);
-        }
-    }
+		}
+
+#endregion
+	}
 }
