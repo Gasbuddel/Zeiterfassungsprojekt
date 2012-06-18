@@ -11,7 +11,7 @@ namespace Zeiterfassung
         User = 2
     }
 
-    class Session
+    public class Session
     {
         private int authorization = 0;
 
@@ -24,6 +24,7 @@ namespace Zeiterfassung
             this.authorization = authorization;
             this.userId = 0;
         }
+
         /// <summary>
         /// Erstellt eine neue Session, es darf nur eine Existieren und der Wert der Authorisierung darf nur einmal gesetzt werden.
         /// </summary>
@@ -39,7 +40,10 @@ namespace Zeiterfassung
                 throw new UnauthorizedAccessException("Es darf nur eine Session erstellt werden");
         }
 
-
+		/// <summary>
+		/// Gibt die aktuelle Session zurück, dafür muss aber zuerst eine Session erstellt worden sein
+		/// </summary>
+		/// <returns>Die aktuelle Session</returns>
         public static Session GetSession()
         {
             if (instance != null)
@@ -48,6 +52,9 @@ namespace Zeiterfassung
                 throw new AccessViolationException("Es existiert keine Session");
         }
 
+		/// <summary>
+		/// Authorisationsstufe (1 = Administrator, 2 = User)
+		/// </summary>
         public int Authorization 
         { 
             get 
@@ -56,6 +63,9 @@ namespace Zeiterfassung
             } 
         }
 
+		/// <summary>
+		/// BenutzerId aus der Datenbank
+		/// </summary>
         public int UserId
         {
             get
