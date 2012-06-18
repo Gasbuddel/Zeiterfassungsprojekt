@@ -69,7 +69,7 @@ namespace Zeiterfassung
                         kunden_box.Items.Add(reader.GetString(2));
 
                     //KundenID festhalten
-                    kundenIds.Add(0, reader.GetInt32(0));
+                    kundenIds.Add(index, reader.GetInt32(0));
 
                     index++;
                 }
