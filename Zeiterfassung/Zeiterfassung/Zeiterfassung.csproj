@@ -59,6 +59,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\DataHauptmaske.cs" />
+    <Compile Include="Classes\md5.cs" />
     <Compile Include="Classes\Session.cs" />
     <Compile Include="Classes\SqlConnection.cs" />
     <Compile Include="Forms\Administration.cs">
