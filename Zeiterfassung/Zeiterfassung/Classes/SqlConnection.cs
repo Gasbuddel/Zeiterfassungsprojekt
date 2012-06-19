@@ -42,5 +42,20 @@ namespace Zeiterfassung
 
             return result;
         }
+
+        public static void UpdateStatement(string sql)
+        {
+            MySqlConnection con = SqlConnection.GetConnection();
+            MySqlCommand cmd = con.CreateCommand();
+            cmd.CommandText = sql;
+
+
+            con.Open();
+
+            cmd.ExecuteNonQuery();
+
+            con.Close();
+
+        }
     }
 }

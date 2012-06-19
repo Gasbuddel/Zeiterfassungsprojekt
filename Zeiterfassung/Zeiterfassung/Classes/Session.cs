@@ -17,14 +17,27 @@ namespace Zeiterfassung
 
         private int userId;
 
+        private bool startPw = false;
+
         private static Session instance;
 
         private Session(int authorization, int userId)
         {
             this.authorization = authorization;
-            this.userId = 0;
+            this.userId = userId;
         }
 
+        public void StartPwChange()
+        {
+            if (this.startPw == false)
+            {
+                this.startPw = true;
+            }
+            else
+            {
+                this.startPw = false;
+            }
+        }
         /// <summary>
         /// Erstellt eine neue Session, es darf nur eine Existieren und der Wert der Authorisierung darf nur einmal gesetzt werden.
         /// </summary>
@@ -52,6 +65,7 @@ namespace Zeiterfassung
                 throw new AccessViolationException("Es existiert keine Session");
         }
 
+
 		/// <summary>
 		/// Authorisationsstufe (1 = Administrator, 2 = User)
 		/// </summary>
@@ -71,6 +85,14 @@ namespace Zeiterfassung
             get
             {
                 return userId;
+            }
+        }
+
+        public bool StartPw
+        {
+            get
+            {
+                return startPw;
             }
         }
     }

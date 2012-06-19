@@ -1,4 +1,4 @@
-﻿namespace Zeiterfassung.Forms
+﻿namespace Zeiterfassung
 {
     partial class changepw
     {
@@ -28,35 +28,38 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.altesPW = new System.Windows.Forms.TextBox();
+            this.newPW = new System.Windows.Forms.TextBox();
+            this.newPW2 = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // textBox1
+            // altesPW
             // 
-            this.textBox1.Location = new System.Drawing.Point(49, 24);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 20);
-            this.textBox1.TabIndex = 1;
+            this.altesPW.Location = new System.Drawing.Point(49, 24);
+            this.altesPW.Name = "altesPW";
+            this.altesPW.PasswordChar = '*';
+            this.altesPW.Size = new System.Drawing.Size(100, 20);
+            this.altesPW.TabIndex = 1;
             // 
-            // textBox2
+            // newPW
             // 
-            this.textBox2.Location = new System.Drawing.Point(49, 64);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(100, 20);
-            this.textBox2.TabIndex = 2;
+            this.newPW.Location = new System.Drawing.Point(49, 64);
+            this.newPW.Name = "newPW";
+            this.newPW.PasswordChar = '*';
+            this.newPW.Size = new System.Drawing.Size(100, 20);
+            this.newPW.TabIndex = 2;
             // 
-            // textBox3
+            // newPW2
             // 
-            this.textBox3.Location = new System.Drawing.Point(49, 103);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(100, 20);
-            this.textBox3.TabIndex = 3;
+            this.newPW2.Location = new System.Drawing.Point(49, 103);
+            this.newPW2.Name = "newPW2";
+            this.newPW2.PasswordChar = '*';
+            this.newPW2.Size = new System.Drawing.Size(100, 20);
+            this.newPW2.TabIndex = 3;
             // 
             // label2
             // 
@@ -94,6 +97,7 @@
             this.button1.TabIndex = 7;
             this.button1.Text = "Passwort ändern";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // changepw
             // 
@@ -104,9 +108,9 @@
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.textBox3);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.newPW2);
+            this.Controls.Add(this.newPW);
+            this.Controls.Add(this.altesPW);
             this.Name = "changepw";
             this.Text = "changepw";
             this.ResumeLayout(false);
@@ -116,9 +120,9 @@
 
         #endregion
 
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.TextBox altesPW;
+        private System.Windows.Forms.TextBox newPW;
+        private System.Windows.Forms.TextBox newPW2;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;

@@ -52,11 +52,14 @@ namespace Zeiterfassung
                         try
                         {
                             //Die Session mit der Rolle wird erstellt und die Hauptmaske geöffnet.
-                            /* if (startpw == pw)
-                             {
-                                change
-                             }*/
+                           
                             Session.CreateSession(rolle, userId);
+                            if (startpw == pw)
+                            {
+                                Session.GetSession().StartPwChange();
+                                changepw changepwform = new changepw();
+                                changepwform.ShowDialog();
+                            }
                             this.DialogResult = DialogResult.OK;
                             this.Close();
                         }
