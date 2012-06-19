@@ -31,7 +31,9 @@ namespace Zeiterfassung
             {
                 try
                 {
-                    DataTable user = SqlConnection.SelectStatement("SELECT  miId, roID FROM tmitarbeiter WHERE miUsername LIKE '" + login_Name_Box.Text + "' AND miPasswort LIKE '" + login_PW_Box.Text + "'");
+                    string startpw = "83095e7ae40304e6c03c9da2f1ce2302";
+                    string pw = md5.getMD5(login_PW_Box.Text);
+                    DataTable user = SqlConnection.SelectStatement("SELECT  miId, roID FROM tmitarbeiter WHERE miUsername = '" + login_Name_Box.Text + "' AND miPasswort = '" + pw + "'");
 
                     DataTableReader reader = user.CreateDataReader();
 
@@ -50,6 +52,10 @@ namespace Zeiterfassung
                         try
                         {
                             //Die Session mit der Rolle wird erstellt und die Hauptmaske geöffnet.
+                            /* if (startpw == pw)
+                             {
+                                change
+                             }*/
                             Session.CreateSession(rolle, userId);
                             this.DialogResult = DialogResult.OK;
                             this.Close();
