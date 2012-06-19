@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Erstellungszeit: 17. Jun 2012 um 20:22
+-- Erstellungszeit: 19. Jun 2012 um 17:43
 -- Server Version: 5.5.16
 -- PHP-Version: 5.3.8
 
@@ -37,14 +37,18 @@ CREATE TABLE IF NOT EXISTS `tkunde` (
   `kuAnsprechpartner` varchar(64) NOT NULL,
   `kuEMail` varchar(32) NOT NULL,
   PRIMARY KEY (`kuID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
 
 --
 -- Daten für Tabelle `tkunde`
 --
 
 INSERT INTO `tkunde` (`kuID`, `kuFirma`, `kuStrasse`, `kuPLZ`, `kuOrt`, `kuTel`, `kuFax`, `kuAnsprechpartner`, `kuEMail`) VALUES
-(1, 'Testfirma', 'Teststraße 23', '12312', 'Testhausen', '12312312', '1234234', 'Schorsch', 'sch@orsch.de');
+(1, 'Testfirma', 'Teststraße 23', '12312', 'Testhausen', '12312312', '1234234', 'Schorsch', 'sch@orsch.de'),
+(2, 'MultiCom', 'Blumenstrasse 2', '45878', 'Aachen', '454-6874554', '454-68745545', 'Diddi Schubert', 'Diddi@hotmail.mobi.co.uk'),
+(3, 'Blumen AG', 'Auf der Terrasse 17', '85878', 'Hamburg', '0221-6544554', '02221-68745548', 'Oskar Lafontaine', 'Oskar@web.de'),
+(4, 'Telekom GmbH', 'Bonner Talweg 1-9999', '50545', 'Bonn', '0228-523447', '0228-524654', 'Pamela Schultze', 'Pamela@Schultzens.de'),
+(5, 'ICEA GmbH & Co. KG', 'Auf den Wegen 1-3', '45874', 'Münster', '0229-5478756', '0229-5465466', 'Jürgen  Schuster', 'Juergen.Schuster@office.de');
 
 -- --------------------------------------------------------
 
@@ -62,7 +66,7 @@ CREATE TABLE IF NOT EXISTS `tmitarbeiter` (
   `miEMail` varchar(32) DEFAULT NULL,
   PRIMARY KEY (`miID`),
   KEY `fk_miroID` (`roID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=11 ;
 
 --
 -- Daten für Tabelle `tmitarbeiter`
@@ -71,7 +75,11 @@ CREATE TABLE IF NOT EXISTS `tmitarbeiter` (
 INSERT INTO `tmitarbeiter` (`miID`, `roID`, `miName`, `miVorname`, `miUsername`, `miPasswort`, `miEMail`) VALUES
 (1, 1, 'Admin', 'NA', 'Admin', 'admin', 'NA'),
 (2, 2, 'User', 'NA', 'User', 'user', 'NA'),
-(3, 2, 'Seipel', 'Günther', 'gseipel', 'passwort', 'gunther@seipel.de');
+(3, 2, 'Seipel', 'Günther', 'gseipel', 'passwort', 'gunther@seipel.de'),
+(7, 2, 'Müller', 'Horst', 'Horsti', 'horst123', 'horst@horst.de'),
+(8, 2, 'Vogt', 'Holger', 'H01gA', 'arbeit1234', 'holger@office.de'),
+(9, 2, 'Müller', 'Juppi', 'Jupp', '123456', 'Juppinator@webmail.to'),
+(10, 1, 'Frings', 'Thorsten', 'Toddy', 'Ball', 'Toddy@webmail.to');
 
 -- --------------------------------------------------------
 
@@ -92,7 +100,11 @@ CREATE TABLE IF NOT EXISTS `tmita_proj` (
 --
 
 INSERT INTO `tmita_proj` (`miID`, `prID`, `mpAktiv`) VALUES
-(3, 1, 1);
+(3, 1, 1),
+(7, 1, 1),
+(8, 2, 1),
+(9, 3, 0),
+(10, 4, 1);
 
 -- --------------------------------------------------------
 
@@ -107,14 +119,18 @@ CREATE TABLE IF NOT EXISTS `tprojekt` (
   `prBeschreibung` varchar(128) DEFAULT NULL,
   PRIMARY KEY (`prID`),
   KEY `fk_prkuID` (`kuID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
 
 --
 -- Daten für Tabelle `tprojekt`
 --
 
 INSERT INTO `tprojekt` (`prID`, `kuID`, `prName`, `prBeschreibung`) VALUES
-(1, 1, 'Essen gehen', 'Man isst ein Brötchen.');
+(1, 1, 'Essen gehen', 'Man isst ein Brötchen.'),
+(2, 1, 'Operation Flashpoint', 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquy'),
+(3, 2, 'Operation Walküre', 'Die Operation Walküre war ursprünglich ein Plan der deutschen Wehrmacht zur Unterdrückung eines möglichen Aufstandes während der'),
+(4, 3, 'Project Zero', 'Project Zero, in den USA als Fatal Frame vertrieben, ist ein japanisches Survival-Horror-Adventure von Tecmo aus dem Jahr 2001, '),
+(5, 4, 'Project X', 'Three seemingly anonymous high school seniors attempt to finally make a name for themselves. Their idea is innocent enough - let');
 
 -- --------------------------------------------------------
 
@@ -134,7 +150,15 @@ CREATE TABLE IF NOT EXISTS `tproj_taet` (
 --
 
 INSERT INTO `tproj_taet` (`prID`, `taID`) VALUES
-(1, 1);
+(1, 1),
+(3, 1),
+(2, 2),
+(3, 2),
+(1, 3),
+(4, 3),
+(1, 5),
+(4, 6),
+(2, 7);
 
 -- --------------------------------------------------------
 
@@ -166,14 +190,21 @@ CREATE TABLE IF NOT EXISTS `ttaetigkeitenvorlage` (
   `taID` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `taBeschreibung` varchar(50) NOT NULL,
   PRIMARY KEY (`taID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
 
 --
 -- Daten für Tabelle `ttaetigkeitenvorlage`
 --
 
 INSERT INTO `ttaetigkeitenvorlage` (`taID`, `taBeschreibung`) VALUES
-(1, 'Essen');
+(1, 'Essen'),
+(2, 'feißig arbeiten'),
+(3, 'Konzeptentwicklung'),
+(4, 'Konzeptumsetzung'),
+(5, 'Ideensammlung'),
+(6, 'Brain Storming'),
+(7, 'Meeting'),
+(8, 'Dientreise');
 
 -- --------------------------------------------------------
 
@@ -192,7 +223,17 @@ CREATE TABLE IF NOT EXISTS `tzeiterfassung` (
   PRIMARY KEY (`zeID`),
   KEY `fk_zemiID` (`miID`),
   KEY `fk_zeprID` (`prID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
+
+--
+-- Daten für Tabelle `tzeiterfassung`
+--
+
+INSERT INTO `tzeiterfassung` (`zeID`, `miID`, `prID`, `zeTag`, `zeTaetigkeit`, `zeDauer`, `zeReisekosten`) VALUES
+(1, 7, 1, '2012-06-18', 'arbeiten', 1.50, 0.00),
+(2, 8, 2, '2012-06-17', 'gearbeitet', 9.50, 3.00),
+(3, 9, 3, '2011-05-17', 'gearbeitet', 4.50, 60.00),
+(4, 10, 4, '2012-04-01', 'geschufftet', 12.15, 0.00);
 
 --
 -- Constraints der exportierten Tabellen
