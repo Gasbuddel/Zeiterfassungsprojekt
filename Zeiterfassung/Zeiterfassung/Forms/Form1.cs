@@ -31,26 +31,21 @@ namespace Zeiterfassung
             {
                 try
                 {
-                    //Abfrage an die Tabelle Mitarbeiter wird erstellt nach Name und Passwort, um die Rolle herauszufinden
-                    MySqlConnection con = SqlConnection.GetConnection();
-                    MySqlCommand cmd = con.CreateCommand();
-                    cmd.CommandText = "SELECT  miId, roID FROM tmitarbeiter WHERE miUsername LIKE '" + login_Name_Box.Text + "' AND miPasswort LIKE '" + login_PW_Box.Text + "'";
-                    MySqlDataReader reader;
+                    DataTable user = SqlConnection.SelectStatement("SELECT  miId, roID FROM tmitarbeiter WHERE miUsername LIKE '" + login_Name_Box.Text + "' AND miPasswort LIKE '" + login_PW_Box.Text + "'");
 
-                    con.Open();
+                    DataTableReader reader = user.CreateDataReader();
 
-                    reader = cmd.ExecuteReader();
 
                     //Wurde kein Treffer gefunden, existiert der Mitarbeiter nicht, bzw falsches Passwort
                     if (reader.HasRows)
                     {
                         //Rolle abspeichern
                         reader.Read();
-                        int rolle = reader.GetInt32(1);
-                        int userId = reader.GetInt32(0);
 
-                        //Verbindung nach Verwendung immer schließen!
-                        con.Close();
+                        //Vorrübegehende Lösung weil das so ist!
+                        int rolle = Convert.ToInt32(reader[1].ToString());
+                        //int rolle = reader.GetInt32(1);
+                        int userId = reader.GetInt32(0);
 
                         try
                         {
@@ -67,7 +62,6 @@ namespace Zeiterfassung
                     }
                     else
                     {
-                        con.Close();
                         MessageBox.Show("Sie konnten nicht angemeldet werden.");
                     }
                 }

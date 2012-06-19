@@ -48,16 +48,13 @@ namespace Zeiterfassung
         /// </summary>
         private void kundenInitialisieren()
         {
+            //Saubermachen, sonst wirds schmutzig!
             kundenIds.Clear();
+            kunden_box.Items.Clear();
 
-            MySqlConnection con = SqlConnection.GetConnection();
-            MySqlCommand cmd = con.CreateCommand();
-            cmd.CommandText = "SELECT  kuId, kuFirma, kuAnsprechpartner FROM tKunde";
-            MySqlDataReader reader;
+            DataTable kunden = SqlConnection.SelectStatement("SELECT  kuId, kuFirma, kuAnsprechpartner FROM tKunde");
 
-            con.Open();
-
-            reader = cmd.ExecuteReader();
+            DataTableReader reader = kunden.CreateDataReader();
 
             if (reader.HasRows)
             {
@@ -78,20 +75,14 @@ namespace Zeiterfassung
                 kunden_box.SelectedIndex = 0;
             }
 
-            con.Close();
-
         }
 
         private void kundenAktualisieren(int kuId)
         {
-            MySqlConnection con = SqlConnection.GetConnection();
-            MySqlCommand cmd = con.CreateCommand();
-            cmd.CommandText = "SELECT  * FROM tKunde WHERE kuID =" + kuId;
-            MySqlDataReader reader;
 
-            con.Open();
+            DataTable kunden = SqlConnection.SelectStatement("SELECT  * FROM tKunde WHERE kuID =" + kuId);
 
-            reader = cmd.ExecuteReader();
+            DataTableReader reader = kunden.CreateDataReader();
 
             reader.Read();
 
@@ -105,10 +96,6 @@ namespace Zeiterfassung
             ku_fax_box.Text = reader.GetString(6);
 
 			setKundenTextboxReadonly(true);
-
-
-            con.Close();
-
         }
 
 		/// <summary>
