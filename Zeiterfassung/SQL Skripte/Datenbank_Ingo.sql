@@ -73,13 +73,13 @@ CREATE TABLE IF NOT EXISTS `tmitarbeiter` (
 --
 
 INSERT INTO `tmitarbeiter` (`miID`, `roID`, `miName`, `miVorname`, `miUsername`, `miPasswort`, `miEMail`) VALUES
-(1, 1, 'Admin', 'NA', 'Admin', 'admin', 'NA'),
-(2, 2, 'User', 'NA', 'User', 'user', 'NA'),
-(3, 2, 'Seipel', 'Günther', 'gseipel', 'passwort', 'gunther@seipel.de'),
-(7, 2, 'Müller', 'Horst', 'Horsti', 'horst123', 'horst@horst.de'),
-(8, 2, 'Vogt', 'Holger', 'H01gA', 'arbeit1234', 'holger@office.de'),
-(9, 2, 'Müller', 'Juppi', 'Jupp', '123456', 'Juppinator@webmail.to'),
-(10, 1, 'Frings', 'Thorsten', 'Toddy', 'Ball', 'Toddy@webmail.to');
+(1, 1, 'Admin', 'NA', 'Admin', '83095e7ae40304e6c03c9da2f1ce2302', 'NA'),
+(2, 2, 'User', 'NA', 'User', '83095e7ae40304e6c03c9da2f1ce2302', 'NA'),
+(3, 2, 'Seipel', 'Günther', 'gseipel', '83095e7ae40304e6c03c9da2f1ce2302', 'gunther@seipel.de'),
+(7, 2, 'Müller', 'Horst', 'Horsti', '83095e7ae40304e6c03c9da2f1ce2302', 'horst@horst.de'),
+(8, 2, 'Vogt', 'Holger', 'H01gA', '83095e7ae40304e6c03c9da2f1ce2302', 'holger@office.de'),
+(9, 2, 'Müller', 'Juppi', 'Jupp', '83095e7ae40304e6c03c9da2f1ce2302', 'Juppinator@webmail.to'),
+(10, 1, 'Frings', 'Thorsten', 'Toddy', '83095e7ae40304e6c03c9da2f1ce2302', 'Toddy@webmail.to');
 
 -- --------------------------------------------------------
 
