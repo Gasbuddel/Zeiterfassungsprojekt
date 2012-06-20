@@ -22,26 +22,19 @@ namespace Zeiterfassung
             kundenIds = new Dictionary<int, int>();
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            NeuKunde neuKund = new NeuKunde();
-            neuKund.StartPosition = FormStartPosition.CenterParent;
-            neuKund.ShowDialog();
-        }
-
-        private void bearb_Butt_Click(object sender, EventArgs e)
-        {
-            NeuKunde neuKund = new NeuKunde();
-            neuKund.StartPosition = FormStartPosition.CenterParent;
-            neuKund.ShowDialog();
-        }
-
         private void close_Butt_Click(object sender, EventArgs e)
         {
             this.Close();
         }
 
-#region 'Kundenadministration'
+        #region 'Kundenadministration'
+
+
+        //KundenTab wird angezeigt
+        private void kunden_Tab_Enter(object sender, EventArgs e)
+        {
+            kundenInitialisieren();
+        }
 
         /// <summary>
         /// Methode zum Initialiseren der Kundenliste, die Namen werden in der Combobox gespeichert und die Ids in einem Dictionary hinterlegt.
@@ -77,6 +70,12 @@ namespace Zeiterfassung
 
         }
 
+        //Kunde wurde in der Combobox ausgewählt
+        private void kunden_box_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            kundenAktualisieren(kundenIds[kunden_box.SelectedIndex]);
+        }
+
         private void kundenAktualisieren(int kuId)
         {
 
@@ -95,35 +94,166 @@ namespace Zeiterfassung
             ku_tel_box.Text = reader.GetString(5);
             ku_fax_box.Text = reader.GetString(6);
 
-			setKundenTextboxReadonly(true);
+            setKundenTextboxReadonly(true);
         }
 
-		/// <summary>
-		/// Setzt alle Textboxes auf dem Tab Kunde in Readonly.. oder nicht
-		/// </summary>
-		/// <param name="value">True = Readonly, False = Nicht-Readonly</param>
-		private void setKundenTextboxReadonly(bool value)
-		{
-			ku_firma_box.ReadOnly = value;
-			ku_anspr_box.ReadOnly = value;
-			ku_mail_box.ReadOnly = value;
-			ku_str_box.ReadOnly = value;
-			ku_plz_box.ReadOnly = value;
-			ku_ort_box.ReadOnly = value;
-			ku_tel_box.ReadOnly = value;
-			ku_fax_box.ReadOnly = value;
-		}
-
-        private void kunden_Tab_Enter(object sender, EventArgs e)
+        /// <summary>
+        /// Setzt alle Textboxes auf dem Tab Kunde in Readonly.. oder nicht
+        /// </summary>
+        /// <param name="value">True = Readonly, False = Nicht-Readonly</param>
+        private void setKundenTextboxReadonly(bool value)
         {
-            kundenInitialisieren();
+            ku_firma_box.ReadOnly = value;
+            ku_anspr_box.ReadOnly = value;
+            ku_mail_box.ReadOnly = value;
+            ku_str_box.ReadOnly = value;
+            ku_plz_box.ReadOnly = value;
+            ku_ort_box.ReadOnly = value;
+            ku_tel_box.ReadOnly = value;
+            ku_fax_box.ReadOnly = value;
         }
 
-        private void kunden_box_SelectedIndexChanged(object sender, EventArgs e)
+
+        private void bearb_Butt_Click(object sender, EventArgs e)
         {
+            setKundenTextboxReadonly(false);
+
+            kunden_box.Enabled = false;
+
+            ku_Ok_Butt.Enabled = true;
+
+            ku_Cancel_Butt.Enabled = true;
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            ku_firma_box.Text = "";
+            ku_anspr_box.Text = "";
+            ku_mail_box.Text = "";
+            ku_str_box.Text = "";
+            ku_plz_box.Text = "";
+            ku_ort_box.Text = "";
+            ku_tel_box.Text = "";
+            ku_fax_box.Text = "";
+
+            setKundenTextboxReadonly(false);
+        }
+
+        private void ku_Ok_Butt_Click(object sender, EventArgs e)
+        {
+            kunden_box.Enabled = true;
+            ku_Ok_Butt.Enabled = false;
+            ku_Cancel_Butt.Enabled = false;
+            setKundenTextboxReadonly(true);
+
+            SqlConnection.UpdateStatement("UPDATE tkunde SET kuFirma = '" + ku_firma_box.Text +
+                "',kuStrasse = '" + ku_str_box.Text +
+                "',kuOrt = '" + ku_ort_box.Text +
+                "',kuTel = '" + ku_tel_box.Text +
+                "',kuFax = '" + ku_fax_box.Text +
+                "',kuAnsprechpartner = '" + ku_anspr_box.Text +
+                "',`kuEMail` = '" + ku_mail_box.Text +
+                "' WHERE kuID = " + kundenIds[kunden_box.SelectedIndex]);
+        }
+
+        private void ku_Cancel_Butt_Click(object sender, EventArgs e)
+        {
+            kunden_box.Enabled = true;
+            ku_Ok_Butt.Enabled = false;
+            ku_Cancel_Butt.Enabled = false;
+            setKundenTextboxReadonly(true);
             kundenAktualisieren(kundenIds[kunden_box.SelectedIndex]);
-		}
+            MessageBox.Show("No changes for you today!");
+        }
 
-#endregion
-	}
+        #endregion
+
+
+        #region 'Mitarbeiter'
+
+        private void tabbi_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            //Mitarbeiter
+            if (tabbi.SelectedIndex == 1)
+            {
+
+                //Mitarbeiter einfügen
+                DataTable allema = SqlConnection.SelectStatement("SELECT  * FROM tMitarbeiter");
+
+                DataTableReader reader = allema.CreateDataReader();
+
+                if (reader.HasRows)
+                {
+                    int index = 0;
+
+                    while (reader.Read())
+                    {
+                        userNameBox.Items.Add(reader.GetString(4));
+
+                        index++;
+                    }
+                    userNameBox.SelectedIndex = 0;
+                }
+
+
+                //Mitarbeiter einfügen
+                DataTable alleRollen = SqlConnection.SelectStatement("SELECT  roBezeichnung FROM tRolle");
+
+                DataTableReader roreader = alleRollen.CreateDataReader();
+
+                if (roreader.HasRows)
+                {
+                    int index = 0;
+
+                    while (roreader.Read())
+                    {
+                        roleBox.Items.Add(roreader.GetString(0));
+
+                        index++;
+                    }
+                    userNameBox.SelectedIndex = 0;
+                }
+            }
+
+            //Projekte
+            if (tabbi.SelectedIndex == 2)
+            {
+
+                MessageBox.Show(tabbi.SelectedIndex.ToString());
+            }
+        }
+
+        private void comboBox3_SelectedValueChanged(object sender, EventArgs e)
+        {
+            DataTable mareader = SqlConnection.SelectStatement("SELECT  tMitarbeiter.*, roBezeichnung FROM tMitarbeiter left join trolle using (roID) where miUsername='" + userNameBox.SelectedValue + "'");
+
+            DataTableReader reader = mareader.CreateDataReader();
+
+            if (reader.HasRows)
+            {
+                int index = 0;
+
+                while (reader.Read())
+                {
+                    nameTB.Text = reader.GetString(2);
+                    vornameTB.Text = reader.GetString(3);
+                    mailTB.Text = reader.GetString(6);
+
+                    //KundenID festhalten
+                    // kundenIds.Add(index, reader.GetInt32(0));
+
+                    index++;
+                }
+
+            }
+
+        }
+
+        #endregion
+
+
+
+
+    }
 }

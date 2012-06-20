@@ -17,8 +17,16 @@ namespace Zeiterfassung
             InitializeComponent();
             this.StartPosition = FormStartPosition.CenterScreen;
             Login login = new Login();
-            if(login.ShowDialog() != DialogResult.OK)
+            if (login.ShowDialog() != DialogResult.OK)
                 Environment.Exit(0);
+            //New
+            if (Session.GetSession().Authorization == 2)
+            {
+                administrationToolStripMenuItem.Enabled = false;
+                administrationToolStripMenuItem.Visible = false;
+
+            }
+
         }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)

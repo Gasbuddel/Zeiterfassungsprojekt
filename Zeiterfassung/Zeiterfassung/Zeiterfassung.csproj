@@ -74,11 +74,11 @@
     <Compile Include="Forms\Buchung.Designer.cs">
       <DependentUpon>Buchung.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\changepw.cs">
+    <Compile Include="Forms\ChangePW.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\changepw.Designer.cs">
-      <DependentUpon>changepw.cs</DependentUpon>
+    <Compile Include="Forms\ChangePW.Designer.cs">
+      <DependentUpon>ChangePW.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\Form1.cs">
       <SubType>Form</SubType>
@@ -112,8 +112,8 @@
     <EmbeddedResource Include="Forms\Buchung.resx">
       <DependentUpon>Buchung.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\changepw.resx">
-      <DependentUpon>changepw.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\ChangePW.resx">
+      <DependentUpon>ChangePW.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
