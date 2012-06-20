@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using MySql.Data.MySqlClient;
-
+//test
 namespace Zeiterfassung.Classes
 {
     class DataHauptmaske
