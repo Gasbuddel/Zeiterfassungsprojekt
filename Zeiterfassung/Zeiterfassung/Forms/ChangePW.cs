@@ -9,9 +9,9 @@ using System.Windows.Forms;
 
 namespace Zeiterfassung
 {
-    public partial class changepw : Form
+    public partial class ChangePW : Form
     {
-        public changepw()
+        public ChangePW()
         {
             this.StartPosition = FormStartPosition.CenterScreen;
             InitializeComponent();
@@ -27,9 +27,9 @@ namespace Zeiterfassung
 
         private void button1_Click(object sender, EventArgs e)
         {
-            string oldpw = md5.getMD5(altesPW.Text);
-            string newpw1 = md5.getMD5(newPW.Text);
-            string newpw2 = md5.getMD5(newPW2.Text);
+            string oldpw = Md5.GetMD5(altesPW.Text);
+            string newpw1 = Md5.GetMD5(newPW.Text);
+            string newpw2 = Md5.GetMD5(newPW2.Text);
             int userid = Session.GetSession().UserId;
             DataTable user = SqlConnection.SelectStatement("SELECT  miId, roID FROM tmitarbeiter WHERE miID = " + userid + " AND miPasswort = '" + oldpw + "'");
 

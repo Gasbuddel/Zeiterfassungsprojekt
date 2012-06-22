@@ -32,7 +32,7 @@ namespace Zeiterfassung
                 try
                 {
                     string startpw = "83095e7ae40304e6c03c9da2f1ce2302";
-                    string pw = md5.getMD5(login_PW_Box.Text);
+                    string pw = Md5.GetMD5(login_PW_Box.Text);
                     DataTable user = SqlConnection.SelectStatement("SELECT  miId, roID FROM tmitarbeiter WHERE miUsername = '" + login_Name_Box.Text + "' AND miPasswort = '" + pw + "'");
 
                     DataTableReader reader = user.CreateDataReader();
@@ -57,7 +57,7 @@ namespace Zeiterfassung
                             if (startpw == pw)
                             {
                                 Session.GetSession().StartPwChange();
-                                changepw changepwform = new changepw();
+                                ChangePW changepwform = new ChangePW();
                                 // changepwform.ShowDialog();
                                 if (changepwform.ShowDialog() != DialogResult.OK)
                                     Environment.Exit(0);

@@ -43,7 +43,7 @@ namespace Zeiterfassung
             return result;
         }
 
-        public static void UpdateStatement(string sql)
+        public static void ExecuteStatement(string sql)
         {
             MySqlConnection con = SqlConnection.GetConnection();
             MySqlCommand cmd = con.CreateCommand();

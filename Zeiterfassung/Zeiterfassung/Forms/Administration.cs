@@ -147,7 +147,7 @@ namespace Zeiterfassung
             ku_Cancel_Butt.Enabled = false;
             setKundenTextboxReadonly(true);
 
-            SqlConnection.UpdateStatement("UPDATE tkunde SET kuFirma = '" + ku_firma_box.Text +
+            SqlConnection.ExecuteStatement("UPDATE tkunde SET kuFirma = '" + ku_firma_box.Text +
                 "',kuStrasse = '" + ku_str_box.Text +
                 "',kuOrt = '" + ku_ort_box.Text +
                 "',kuTel = '" + ku_tel_box.Text +
@@ -164,7 +164,6 @@ namespace Zeiterfassung
             ku_Cancel_Butt.Enabled = false;
             setKundenTextboxReadonly(true);
             kundenAktualisieren(kundenIds[kunden_box.SelectedIndex]);
-            MessageBox.Show("No changes for you today!");
         }
 
         #endregion

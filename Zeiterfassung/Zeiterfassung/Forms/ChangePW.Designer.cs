@@ -1,6 +1,6 @@
 ﻿namespace Zeiterfassung
 {
-    partial class changepw
+    partial class ChangePW
     {
         /// <summary>
         /// Erforderliche Designervariable.

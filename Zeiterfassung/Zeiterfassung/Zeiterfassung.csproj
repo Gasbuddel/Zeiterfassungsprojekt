@@ -59,7 +59,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\DataHauptmaske.cs" />
-    <Compile Include="Classes\md5.cs" />
+    <Compile Include="Classes\Md5.cs" />
     <Compile Include="Classes\Session.cs" />
     <Compile Include="Classes\SqlConnection.cs" />
     <Compile Include="Forms\Administration.cs">
@@ -80,11 +80,11 @@
     <Compile Include="Forms\ChangePW.Designer.cs">
       <DependentUpon>ChangePW.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Form1.cs">
+    <Compile Include="Forms\Login.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Forms\Login.Designer.cs">
+      <DependentUpon>Login.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\Hauptmaske.cs">
       <SubType>Form</SubType>
@@ -115,8 +115,8 @@
     <EmbeddedResource Include="Forms\ChangePW.resx">
       <DependentUpon>ChangePW.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\Login.resx">
+      <DependentUpon>Login.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Hauptmaske.resx">
       <DependentUpon>Hauptmaske.cs</DependentUpon>
