@@ -29,6 +29,9 @@ namespace Zeiterfassung
 
         #region 'Kundenadministration'
 
+		//Variable zum merken, welcher Vorgang gerade bearbeitet wird, 0 = Keiner, 1 = Bearbeiten, 2 = Neuer Kunde
+		private int bearbeitungsStatus = 0;
+
 
         //KundenTab wird angezeigt
         private void kunden_Tab_Enter(object sender, EventArgs e)
@@ -113,6 +116,30 @@ namespace Zeiterfassung
             ku_fax_box.ReadOnly = value;
         }
 
+		private void ku_New_Butt_Click(object sender, EventArgs e)
+		{
+			kunden_box.Enabled = false;
+
+			ku_Ok_Butt.Enabled = true;
+			ku_Cancel_Butt.Enabled = true;
+
+			ku_firma_box.Text = "";
+			ku_anspr_box.Text = "";
+			ku_mail_box.Text = "";
+			ku_str_box.Text = "";
+			ku_plz_box.Text = "";
+			ku_ort_box.Text = "";
+			ku_tel_box.Text = "";
+			ku_fax_box.Text = "";
+
+			setKundenTextboxReadonly(false);
+
+
+
+			//Bearbeitungsstatus auf "Neuer Kunde" setzen
+			bearbeitungsStatus = 2;
+		}
+
 
         private void bearb_Butt_Click(object sender, EventArgs e)
         {
@@ -124,22 +151,22 @@ namespace Zeiterfassung
 
             ku_Cancel_Butt.Enabled = true;
 
+			//Bearbeitungsstatus auf "Bearbeiten" setzen
+			bearbeitungsStatus = 1;
+
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            ku_firma_box.Text = "";
-            ku_anspr_box.Text = "";
-            ku_mail_box.Text = "";
-            ku_str_box.Text = "";
-            ku_plz_box.Text = "";
-            ku_ort_box.Text = "";
-            ku_tel_box.Text = "";
-            ku_fax_box.Text = "";
+		private void ku_Delete_Butt_Click(object sender, EventArgs e)
+		{
+			if(MessageBox.Show("Möchten sie diesen Kunden wirklich löschen?","Warnung!",MessageBoxButtons.OKCancel) == DialogResult.OK)
+			{
+				SqlConnection.ExecuteStatement("DELETE FROM tkunde WHERE kuID = " + kundenIds[kunden_box.SelectedIndex]);
+				kundenInitialisieren();
+				kunden_box.SelectedIndex = 0;
+			}
+		}
 
-            setKundenTextboxReadonly(false);
-        }
-
+		//Änderungen annehmen
         private void ku_Ok_Butt_Click(object sender, EventArgs e)
         {
             kunden_box.Enabled = true;
@@ -147,14 +174,32 @@ namespace Zeiterfassung
             ku_Cancel_Butt.Enabled = false;
             setKundenTextboxReadonly(true);
 
-            SqlConnection.ExecuteStatement("UPDATE tkunde SET kuFirma = '" + ku_firma_box.Text +
-                "',kuStrasse = '" + ku_str_box.Text +
-                "',kuOrt = '" + ku_ort_box.Text +
-                "',kuTel = '" + ku_tel_box.Text +
-                "',kuFax = '" + ku_fax_box.Text +
-                "',kuAnsprechpartner = '" + ku_anspr_box.Text +
-                "',`kuEMail` = '" + ku_mail_box.Text +
-                "' WHERE kuID = " + kundenIds[kunden_box.SelectedIndex]);
+			if (bearbeitungsStatus == 1)
+			{
+				SqlConnection.ExecuteStatement("UPDATE tkunde SET kuFirma = '" + ku_firma_box.Text +
+					"',kuStrasse = '" + ku_str_box.Text +
+					"',kuOrt = '" + ku_ort_box.Text +
+					"',kuTel = '" + ku_tel_box.Text +
+					"',kuFax = '" + ku_fax_box.Text +
+					"',kuAnsprechpartner = '" + ku_anspr_box.Text +
+					"',`kuEMail` = '" + ku_mail_box.Text +
+					"' WHERE kuID = " + kundenIds[kunden_box.SelectedIndex]);
+			}
+			else if(bearbeitungsStatus == 2)
+			{
+				SqlConnection.ExecuteStatement("INSERT INTO tkunde ( kuFirma, kuStrasse, kuPLz, kuOrt, kuTel, kuFax, kuAnsprechpartner, kuEMail)" +
+					"VALUES ( '" + ku_firma_box.Text + "', '" +
+					ku_str_box.Text + "', '" +
+					ku_plz_box.Text + "', '" +
+					ku_ort_box.Text + "', '" + 
+					ku_tel_box.Text + "', '" +
+					ku_fax_box.Text + "', '" +
+					ku_anspr_box.Text + "', '" +
+					ku_mail_box.Text + "')");
+				kundenInitialisieren();
+				kunden_box.SelectedIndex = kunden_box.Items.Count - 1;
+			}
+			bearbeitungsStatus = 0;
         }
 
         private void ku_Cancel_Butt_Click(object sender, EventArgs e)
@@ -164,6 +209,8 @@ namespace Zeiterfassung
             ku_Cancel_Butt.Enabled = false;
             setKundenTextboxReadonly(true);
             kundenAktualisieren(kundenIds[kunden_box.SelectedIndex]);
+
+			bearbeitungsStatus = 0;
         }
 
         #endregion
@@ -250,6 +297,8 @@ namespace Zeiterfassung
         }
 
         #endregion
+
+
 
 
 
