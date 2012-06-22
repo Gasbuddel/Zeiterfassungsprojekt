@@ -31,8 +31,17 @@
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Administration));
 			this.tabbi = new System.Windows.Forms.TabControl();
 			this.kunden_Tab = new System.Windows.Forms.TabPage();
+			this.ku_Delete_Butt = new System.Windows.Forms.Button();
 			this.ku_Ok_Butt = new System.Windows.Forms.Button();
 			this.ku_Cancel_Butt = new System.Windows.Forms.Button();
+			this.ku_fax_box = new Zeiterfassung.RegExTextbox();
+			this.ku_tel_box = new Zeiterfassung.RegExTextbox();
+			this.ku_ort_box = new Zeiterfassung.RegExTextbox();
+			this.ku_plz_box = new Zeiterfassung.RegExTextbox();
+			this.ku_str_box = new Zeiterfassung.RegExTextbox();
+			this.ku_mail_box = new Zeiterfassung.RegExTextbox();
+			this.ku_anspr_box = new Zeiterfassung.RegExTextbox();
+			this.ku_firma_box = new Zeiterfassung.RegExTextbox();
 			this.label20 = new System.Windows.Forms.Label();
 			this.label_anspr = new System.Windows.Forms.Label();
 			this.label18 = new System.Windows.Forms.Label();
@@ -82,15 +91,6 @@
 			this.label2 = new System.Windows.Forms.Label();
 			this.comboBox2 = new System.Windows.Forms.ComboBox();
 			this.close_Butt = new System.Windows.Forms.Button();
-			this.ku_Delete_Butt = new System.Windows.Forms.Button();
-			this.ku_fax_box = new Zeiterfassung.RegExTextbox();
-			this.ku_tel_box = new Zeiterfassung.RegExTextbox();
-			this.ku_ort_box = new Zeiterfassung.RegExTextbox();
-			this.ku_plz_box = new Zeiterfassung.RegExTextbox();
-			this.ku_str_box = new Zeiterfassung.RegExTextbox();
-			this.ku_mail_box = new Zeiterfassung.RegExTextbox();
-			this.ku_anspr_box = new Zeiterfassung.RegExTextbox();
-			this.ku_firma_box = new Zeiterfassung.RegExTextbox();
 			this.tabbi.SuspendLayout();
 			this.kunden_Tab.SuspendLayout();
 			this.mitarbeiter_Tab.SuspendLayout();
@@ -143,6 +143,16 @@
 			this.kunden_Tab.UseVisualStyleBackColor = true;
 			this.kunden_Tab.Enter += new System.EventHandler(this.kunden_Tab_Enter);
 			// 
+			// ku_Delete_Butt
+			// 
+			this.ku_Delete_Butt.Location = new System.Drawing.Point(423, 67);
+			this.ku_Delete_Butt.Name = "ku_Delete_Butt";
+			this.ku_Delete_Butt.Size = new System.Drawing.Size(95, 23);
+			this.ku_Delete_Butt.TabIndex = 24;
+			this.ku_Delete_Butt.Text = "Löschen";
+			this.ku_Delete_Butt.UseVisualStyleBackColor = true;
+			this.ku_Delete_Butt.Click += new System.EventHandler(this.ku_Delete_Butt_Click);
+			// 
 			// ku_Ok_Butt
 			// 
 			this.ku_Ok_Butt.Enabled = false;
@@ -164,6 +174,70 @@
 			this.ku_Cancel_Butt.Text = "Abbrechen";
 			this.ku_Cancel_Butt.UseVisualStyleBackColor = true;
 			this.ku_Cancel_Butt.Click += new System.EventHandler(this.ku_Cancel_Butt_Click);
+			// 
+			// ku_fax_box
+			// 
+			this.ku_fax_box.Location = new System.Drawing.Point(101, 289);
+			this.ku_fax_box.Name = "ku_fax_box";
+			this.ku_fax_box.Regular_Expression = null;
+			this.ku_fax_box.Size = new System.Drawing.Size(208, 20);
+			this.ku_fax_box.TabIndex = 21;
+			// 
+			// ku_tel_box
+			// 
+			this.ku_tel_box.Location = new System.Drawing.Point(101, 243);
+			this.ku_tel_box.Name = "ku_tel_box";
+			this.ku_tel_box.Regular_Expression = null;
+			this.ku_tel_box.Size = new System.Drawing.Size(208, 20);
+			this.ku_tel_box.TabIndex = 20;
+			// 
+			// ku_ort_box
+			// 
+			this.ku_ort_box.Location = new System.Drawing.Point(100, 200);
+			this.ku_ort_box.Name = "ku_ort_box";
+			this.ku_ort_box.Regular_Expression = null;
+			this.ku_ort_box.Size = new System.Drawing.Size(209, 20);
+			this.ku_ort_box.TabIndex = 19;
+			// 
+			// ku_plz_box
+			// 
+			this.ku_plz_box.Location = new System.Drawing.Point(100, 174);
+			this.ku_plz_box.Name = "ku_plz_box";
+			this.ku_plz_box.Regular_Expression = null;
+			this.ku_plz_box.Size = new System.Drawing.Size(82, 20);
+			this.ku_plz_box.TabIndex = 18;
+			// 
+			// ku_str_box
+			// 
+			this.ku_str_box.Location = new System.Drawing.Point(100, 142);
+			this.ku_str_box.Name = "ku_str_box";
+			this.ku_str_box.Regular_Expression = null;
+			this.ku_str_box.Size = new System.Drawing.Size(209, 20);
+			this.ku_str_box.TabIndex = 17;
+			// 
+			// ku_mail_box
+			// 
+			this.ku_mail_box.Location = new System.Drawing.Point(101, 110);
+			this.ku_mail_box.Name = "ku_mail_box";
+			this.ku_mail_box.Regular_Expression = null;
+			this.ku_mail_box.Size = new System.Drawing.Size(208, 20);
+			this.ku_mail_box.TabIndex = 16;
+			// 
+			// ku_anspr_box
+			// 
+			this.ku_anspr_box.Location = new System.Drawing.Point(100, 80);
+			this.ku_anspr_box.Name = "ku_anspr_box";
+			this.ku_anspr_box.Regular_Expression = null;
+			this.ku_anspr_box.Size = new System.Drawing.Size(209, 20);
+			this.ku_anspr_box.TabIndex = 15;
+			// 
+			// ku_firma_box
+			// 
+			this.ku_firma_box.Location = new System.Drawing.Point(101, 47);
+			this.ku_firma_box.Name = "ku_firma_box";
+			this.ku_firma_box.Regular_Expression = null;
+			this.ku_firma_box.Size = new System.Drawing.Size(208, 20);
+			this.ku_firma_box.TabIndex = 14;
 			// 
 			// label20
 			// 
@@ -631,80 +705,6 @@
 			this.close_Butt.Text = "Schließen";
 			this.close_Butt.UseVisualStyleBackColor = true;
 			this.close_Butt.Click += new System.EventHandler(this.close_Butt_Click);
-			// 
-			// ku_Delete_Butt
-			// 
-			this.ku_Delete_Butt.Location = new System.Drawing.Point(423, 67);
-			this.ku_Delete_Butt.Name = "ku_Delete_Butt";
-			this.ku_Delete_Butt.Size = new System.Drawing.Size(95, 23);
-			this.ku_Delete_Butt.TabIndex = 24;
-			this.ku_Delete_Butt.Text = "Löschen";
-			this.ku_Delete_Butt.UseVisualStyleBackColor = true;
-			this.ku_Delete_Butt.Click += new System.EventHandler(this.ku_Delete_Butt_Click);
-			// 
-			// ku_fax_box
-			// 
-			this.ku_fax_box.Location = new System.Drawing.Point(101, 289);
-			this.ku_fax_box.Name = "ku_fax_box";
-			this.ku_fax_box.Regular_Expression = null;
-			this.ku_fax_box.Size = new System.Drawing.Size(208, 20);
-			this.ku_fax_box.TabIndex = 21;
-			// 
-			// ku_tel_box
-			// 
-			this.ku_tel_box.Location = new System.Drawing.Point(101, 243);
-			this.ku_tel_box.Name = "ku_tel_box";
-			this.ku_tel_box.Regular_Expression = null;
-			this.ku_tel_box.Size = new System.Drawing.Size(208, 20);
-			this.ku_tel_box.TabIndex = 20;
-			// 
-			// ku_ort_box
-			// 
-			this.ku_ort_box.Location = new System.Drawing.Point(100, 200);
-			this.ku_ort_box.Name = "ku_ort_box";
-			this.ku_ort_box.Regular_Expression = null;
-			this.ku_ort_box.Size = new System.Drawing.Size(209, 20);
-			this.ku_ort_box.TabIndex = 19;
-			// 
-			// ku_plz_box
-			// 
-			this.ku_plz_box.Location = new System.Drawing.Point(100, 174);
-			this.ku_plz_box.Name = "ku_plz_box";
-			this.ku_plz_box.Regular_Expression = null;
-			this.ku_plz_box.Size = new System.Drawing.Size(82, 20);
-			this.ku_plz_box.TabIndex = 18;
-			// 
-			// ku_str_box
-			// 
-			this.ku_str_box.Location = new System.Drawing.Point(100, 142);
-			this.ku_str_box.Name = "ku_str_box";
-			this.ku_str_box.Regular_Expression = null;
-			this.ku_str_box.Size = new System.Drawing.Size(209, 20);
-			this.ku_str_box.TabIndex = 17;
-			// 
-			// ku_mail_box
-			// 
-			this.ku_mail_box.Location = new System.Drawing.Point(101, 110);
-			this.ku_mail_box.Name = "ku_mail_box";
-			this.ku_mail_box.Regular_Expression = null;
-			this.ku_mail_box.Size = new System.Drawing.Size(208, 20);
-			this.ku_mail_box.TabIndex = 16;
-			// 
-			// ku_anspr_box
-			// 
-			this.ku_anspr_box.Location = new System.Drawing.Point(100, 80);
-			this.ku_anspr_box.Name = "ku_anspr_box";
-			this.ku_anspr_box.Regular_Expression = null;
-			this.ku_anspr_box.Size = new System.Drawing.Size(209, 20);
-			this.ku_anspr_box.TabIndex = 15;
-			// 
-			// ku_firma_box
-			// 
-			this.ku_firma_box.Location = new System.Drawing.Point(101, 47);
-			this.ku_firma_box.Name = "ku_firma_box";
-			this.ku_firma_box.Regular_Expression = null;
-			this.ku_firma_box.Size = new System.Drawing.Size(208, 20);
-			this.ku_firma_box.TabIndex = 14;
 			// 
 			// Administration
 			// 

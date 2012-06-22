@@ -17,6 +17,8 @@ namespace Zeiterfassung
 
         private int userId;
 
+		private int ProID;
+
         private bool startPw = false;
 
         private static Session instance;
@@ -88,6 +90,19 @@ namespace Zeiterfassung
                 return userId;
             }
         }
+
+		public int ProId
+		{
+			get
+			{
+				return ProID;
+			}
+
+			set
+			{
+				this.ProID = value;
+			}
+		}
 
         public bool StartPw
         {
