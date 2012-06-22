@@ -38,6 +38,7 @@ namespace Zeiterfassung
                 this.startPw = false;
             }
         }
+
         /// <summary>
         /// Erstellt eine neue Session, es darf nur eine Existieren und der Wert der Authorisierung darf nur einmal gesetzt werden.
         /// </summary>

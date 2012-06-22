@@ -23,6 +23,11 @@ namespace Zeiterfassung
             return connection;
         }
 
+		/// <summary>
+		/// Führt Select-Abfragen aus und gibt diese als DataTable Objekt zurück
+		/// </summary>
+		/// <param name="sql">Select-Abfrage</param>
+		/// <returns>Datatable mit den Ergebnissen</returns>
         public static DataTable SelectStatement(string sql)
         {
             MySqlConnection con = SqlConnection.GetConnection();
@@ -43,6 +48,10 @@ namespace Zeiterfassung
             return result;
         }
 
+		/// <summary>
+		/// Führt alle SQL-Aufträge ohne Rückgabe aus
+		/// </summary>
+		/// <param name="sql">SQL-Auftrag</param>
         public static void ExecuteStatement(string sql)
         {
             MySqlConnection con = SqlConnection.GetConnection();
