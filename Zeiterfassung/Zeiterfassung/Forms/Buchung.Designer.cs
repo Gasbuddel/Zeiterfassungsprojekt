@@ -30,17 +30,17 @@
 		{
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Buchung));
 			this.label1 = new System.Windows.Forms.Label();
-			this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
+			this.buchungsDatum = new System.Windows.Forms.DateTimePicker();
 			this.label2 = new System.Windows.Forms.Label();
 			this.label3 = new System.Windows.Forms.Label();
 			this.stunden_Box = new System.Windows.Forms.TextBox();
 			this.kosten_Box = new System.Windows.Forms.TextBox();
 			this.label4 = new System.Windows.Forms.Label();
 			this.tätigkeits_Box = new System.Windows.Forms.ComboBox();
-			this.textBox1 = new System.Windows.Forms.TextBox();
+			this.custom_Box = new System.Windows.Forms.TextBox();
 			this.book_Cancel_Butt = new System.Windows.Forms.Button();
 			this.book_Booking_Butt = new System.Windows.Forms.Button();
-			this.checkBox1 = new System.Windows.Forms.CheckBox();
+			this.bu_Custom_CheckBox = new System.Windows.Forms.CheckBox();
 			this.label5 = new System.Windows.Forms.Label();
 			this.SuspendLayout();
 			// 
@@ -53,12 +53,12 @@
 			this.label1.TabIndex = 0;
 			this.label1.Text = "Datum:";
 			// 
-			// dateTimePicker1
+			// buchungsDatum
 			// 
-			this.dateTimePicker1.Location = new System.Drawing.Point(61, 13);
-			this.dateTimePicker1.Name = "dateTimePicker1";
-			this.dateTimePicker1.Size = new System.Drawing.Size(200, 20);
-			this.dateTimePicker1.TabIndex = 1;
+			this.buchungsDatum.Location = new System.Drawing.Point(61, 13);
+			this.buchungsDatum.Name = "buchungsDatum";
+			this.buchungsDatum.Size = new System.Drawing.Size(200, 20);
+			this.buchungsDatum.TabIndex = 1;
 			// 
 			// label2
 			// 
@@ -85,7 +85,6 @@
 			this.stunden_Box.Size = new System.Drawing.Size(100, 20);
 			this.stunden_Box.TabIndex = 4;
 			this.stunden_Box.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-			this.stunden_Box.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
 			// 
 			// kosten_Box
 			// 
@@ -111,15 +110,14 @@
 			this.tätigkeits_Box.Name = "tätigkeits_Box";
 			this.tätigkeits_Box.Size = new System.Drawing.Size(397, 21);
 			this.tätigkeits_Box.TabIndex = 7;
-			this.tätigkeits_Box.SelectedIndexChanged += new System.EventHandler(this.tätigkeits_Box_SelectedIndexChanged);
 			// 
-			// textBox1
+			// custom_Box
 			// 
-			this.textBox1.Location = new System.Drawing.Point(16, 149);
-			this.textBox1.Multiline = true;
-			this.textBox1.Name = "textBox1";
-			this.textBox1.Size = new System.Drawing.Size(521, 158);
-			this.textBox1.TabIndex = 8;
+			this.custom_Box.Location = new System.Drawing.Point(16, 149);
+			this.custom_Box.Multiline = true;
+			this.custom_Box.Name = "custom_Box";
+			this.custom_Box.Size = new System.Drawing.Size(521, 158);
+			this.custom_Box.TabIndex = 8;
 			// 
 			// book_Cancel_Butt
 			// 
@@ -141,16 +139,16 @@
 			this.book_Booking_Butt.UseVisualStyleBackColor = true;
 			this.book_Booking_Butt.Click += new System.EventHandler(this.book_Booking_Butt_Click);
 			// 
-			// checkBox1
+			// bu_Custom_CheckBox
 			// 
-			this.checkBox1.AutoSize = true;
-			this.checkBox1.Location = new System.Drawing.Point(16, 126);
-			this.checkBox1.Name = "checkBox1";
-			this.checkBox1.Size = new System.Drawing.Size(177, 17);
-			this.checkBox1.TabIndex = 11;
-			this.checkBox1.Text = "Eigene Beschreiung verwenden";
-			this.checkBox1.UseVisualStyleBackColor = true;
-			this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+			this.bu_Custom_CheckBox.AutoSize = true;
+			this.bu_Custom_CheckBox.Location = new System.Drawing.Point(16, 126);
+			this.bu_Custom_CheckBox.Name = "bu_Custom_CheckBox";
+			this.bu_Custom_CheckBox.Size = new System.Drawing.Size(177, 17);
+			this.bu_Custom_CheckBox.TabIndex = 11;
+			this.bu_Custom_CheckBox.Text = "Eigene Beschreiung verwenden";
+			this.bu_Custom_CheckBox.UseVisualStyleBackColor = true;
+			this.bu_Custom_CheckBox.CheckedChanged += new System.EventHandler(this.bu_Custom_Checkbox_CheckedChanged);
 			// 
 			// label5
 			// 
@@ -167,17 +165,17 @@
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(549, 346);
 			this.Controls.Add(this.label5);
-			this.Controls.Add(this.checkBox1);
+			this.Controls.Add(this.bu_Custom_CheckBox);
 			this.Controls.Add(this.book_Booking_Butt);
 			this.Controls.Add(this.book_Cancel_Butt);
-			this.Controls.Add(this.textBox1);
+			this.Controls.Add(this.custom_Box);
 			this.Controls.Add(this.tätigkeits_Box);
 			this.Controls.Add(this.label4);
 			this.Controls.Add(this.kosten_Box);
 			this.Controls.Add(this.stunden_Box);
 			this.Controls.Add(this.label3);
 			this.Controls.Add(this.label2);
-			this.Controls.Add(this.dateTimePicker1);
+			this.Controls.Add(this.buchungsDatum);
 			this.Controls.Add(this.label1);
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -185,7 +183,6 @@
 			this.MinimizeBox = false;
 			this.Name = "Buchung";
 			this.Text = "Buchung";
-			this.Load += new System.EventHandler(this.Buchung_Load);
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -194,17 +191,17 @@
 		#endregion
 
 		private System.Windows.Forms.Label label1;
-		private System.Windows.Forms.DateTimePicker dateTimePicker1;
+		private System.Windows.Forms.DateTimePicker buchungsDatum;
 		private System.Windows.Forms.Label label2;
 		private System.Windows.Forms.Label label3;
 		private System.Windows.Forms.TextBox stunden_Box;
 		private System.Windows.Forms.TextBox kosten_Box;
 		private System.Windows.Forms.Label label4;
 		private System.Windows.Forms.ComboBox tätigkeits_Box;
-		private System.Windows.Forms.TextBox textBox1;
+		private System.Windows.Forms.TextBox custom_Box;
 		private System.Windows.Forms.Button book_Cancel_Butt;
 		private System.Windows.Forms.Button book_Booking_Butt;
-		private System.Windows.Forms.CheckBox checkBox1;
+		private System.Windows.Forms.CheckBox bu_Custom_CheckBox;
 		private System.Windows.Forms.Label label5;
 
 	}

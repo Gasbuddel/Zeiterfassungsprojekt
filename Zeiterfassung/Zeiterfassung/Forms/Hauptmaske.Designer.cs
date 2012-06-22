@@ -54,7 +54,7 @@
 			this.zeit_Box = new System.Windows.Forms.TextBox();
 			this.label3 = new System.Windows.Forms.Label();
 			this.label2 = new System.Windows.Forms.Label();
-			this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
+			this.anzeigeTag = new System.Windows.Forms.DateTimePicker();
 			this.label1 = new System.Windows.Forms.Label();
 			this.pro_Box = new System.Windows.Forms.ComboBox();
 			this.menuStrip1.SuspendLayout();
@@ -157,7 +157,7 @@
 			this.groupBox1.Controls.Add(this.zeit_Box);
 			this.groupBox1.Controls.Add(this.label3);
 			this.groupBox1.Controls.Add(this.label2);
-			this.groupBox1.Controls.Add(this.dateTimePicker1);
+			this.groupBox1.Controls.Add(this.anzeigeTag);
 			this.groupBox1.Controls.Add(this.label1);
 			this.groupBox1.Controls.Add(this.pro_Box);
 			this.groupBox1.Location = new System.Drawing.Point(13, 28);
@@ -166,7 +166,6 @@
 			this.groupBox1.TabIndex = 1;
 			this.groupBox1.TabStop = false;
 			this.groupBox1.Text = "Zeit erfassen";
-			this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
 			// 
 			// buch_Butt
 			// 
@@ -210,7 +209,6 @@
 			this.tabelleGebuchteZeiten.Name = "tabelleGebuchteZeiten";
 			this.tabelleGebuchteZeiten.Size = new System.Drawing.Size(700, 188);
 			this.tabelleGebuchteZeiten.TabIndex = 8;
-			this.tabelleGebuchteZeiten.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
 			// 
 			// Zeit
 			// 
@@ -284,13 +282,13 @@
 			this.label2.TabIndex = 3;
 			this.label2.Text = "Datum:";
 			// 
-			// dateTimePicker1
+			// anzeigeTag
 			// 
-			this.dateTimePicker1.Location = new System.Drawing.Point(506, 20);
-			this.dateTimePicker1.Name = "dateTimePicker1";
-			this.dateTimePicker1.Size = new System.Drawing.Size(200, 20);
-			this.dateTimePicker1.TabIndex = 2;
-			this.dateTimePicker1.ValueChanged += new System.EventHandler(this.dateTimePicker1_ValueChanged);
+			this.anzeigeTag.Location = new System.Drawing.Point(506, 20);
+			this.anzeigeTag.Name = "anzeigeTag";
+			this.anzeigeTag.Size = new System.Drawing.Size(200, 20);
+			this.anzeigeTag.TabIndex = 2;
+			this.anzeigeTag.ValueChanged += new System.EventHandler(this.dateTimePicker1_ValueChanged);
 			// 
 			// label1
 			// 
@@ -353,7 +351,7 @@
 		private System.Windows.Forms.TextBox zeit_Box;
 		private System.Windows.Forms.Label label3;
 		private System.Windows.Forms.Label label2;
-		private System.Windows.Forms.DateTimePicker dateTimePicker1;
+		private System.Windows.Forms.DateTimePicker anzeigeTag;
 		private System.Windows.Forms.Label label1;
 		private System.Windows.Forms.ComboBox pro_Box;
 		private System.Windows.Forms.DataGridViewTextBoxColumn Zeit;

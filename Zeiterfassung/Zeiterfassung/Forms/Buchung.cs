@@ -16,11 +16,6 @@ namespace Zeiterfassung
 			InitializeComponent();
 		}
 
-		private void textBox1_TextChanged(object sender, EventArgs e)
-		{
-
-		}
-
 		private void book_Cancel_Butt_Click(object sender, EventArgs e)
 		{
 			this.Close();
@@ -33,11 +28,11 @@ namespace Zeiterfassung
 			decimal k = Convert.ToDecimal(kosten_Box.Text);
 			string aktiv1 = tätigkeits_Box.Text.ToString();
 
-			DateTime da = dateTimePicker1.Value;
+			DateTime da = buchungsDatum.Value;
 			string date = da.ToString("yyyy-MM-dd");
-			string aktiv2 = textBox1.Text.ToString();
+			string aktiv2 = custom_Box.Text.ToString();
 
-			if (checkBox1.Checked == true)
+			if (bu_Custom_CheckBox.Checked == true)
 			{
 				SqlConnection.ExecuteStatement("insert into tzeiterfassung (miID, prID, zeTag, zeTaetigkeit, zeDauer, zeReisekosten) values(" + Session.GetSession().UserId + "," + Session.GetSession().ProId + ",'" + date + "','" + aktiv2 + "'," + h + " ," + k + ")");
 			}
@@ -52,20 +47,11 @@ namespace Zeiterfassung
 			this.Close();
 		}
 
-		private void Buchung_Load(object sender, EventArgs e)
+
+		private void bu_Custom_Checkbox_CheckedChanged(object sender, EventArgs e)
 		{
 
-		}
-
-		private void tätigkeits_Box_SelectedIndexChanged(object sender, EventArgs e)
-		{
-
-		}
-
-		private void checkBox1_CheckedChanged(object sender, EventArgs e)
-		{
-
-			if (checkBox1.Checked == true)
+			if (bu_Custom_CheckBox.Checked == true)
 			{
 
 				tätigkeits_Box.Enabled = false;

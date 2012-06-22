@@ -62,10 +62,6 @@ namespace Zeiterfassung
 			}
 		}
 
-		private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-		{
-
-		}
 
 		private void cancel_Butt_Click(object sender, EventArgs e)
 		{
@@ -89,11 +85,6 @@ namespace Zeiterfassung
 			Administration admin = new Administration();
 			admin.StartPosition = FormStartPosition.CenterParent;
 			admin.ShowDialog();
-		}
-
-		private void groupBox1_Enter(object sender, EventArgs e)
-		{
-
 		}
 
 		private void pro_Box_SelectedValueChanged(object sender, EventArgs e)
@@ -194,7 +185,7 @@ namespace Zeiterfassung
 
 		private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
 		{
-			DateTime da = dateTimePicker1.Value;
+			DateTime da = anzeigeTag.Value;
 
 			string date = da.ToString("yyyy-MM-dd");
 			getBuchungen(date);
