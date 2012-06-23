@@ -11,26 +11,36 @@ namespace Zeiterfassung
 {
     public partial class AddWorkerToProject : Form
     {
+        private int prID;
 
-        private int prID { get; set; }
-        private Administration admin { get; set; }
-        
-        public AddWorkerToProject(int proj_id_temp, Administration admin_temp)
+        private Dictionary<int, int> mitarbeiterIds;
+
+        public AddWorkerToProject(int proj_id_temp)
         {
             InitializeComponent();
 
             this.prID = proj_id_temp;
-            this.admin = admin_temp;
 
-            DataTable AllWorkers = SqlConnection.SelectStatement("SELECT miName,miVorname FROM `tmitarbeiter`");
+            mitarbeiterIds = new Dictionary<int, int>();
 
-            DataTableReader AllWorkers_reader = AllWorkers.CreateDataReader();
+            DataTable AllWorkers = SqlConnection.SelectStatement("SELECT miID, miName, miVorname " +
+            "FROM tmitarbeiter " +
+            "WHERE miID NOT IN (" +
+            "SELECT miID " + 
+            "FROM tmita_proj " +
+            "WHERE prID = " + prID +")");
 
-            if (AllWorkers_reader.HasRows)
+            DataTableReader reader = AllWorkers.CreateDataReader();
+
+            int index = 0;
+
+            if (reader.HasRows)
             {
-                while (AllWorkers_reader.Read())
+                while (reader.Read())
                 {
-                    checkedListBox1.Items.Add(AllWorkers_reader.GetString(0) + ", " + AllWorkers_reader.GetString(1));
+                    arbeiterListe.Items.Add(reader.GetString(1) + ", " + reader.GetString(2));
+                    mitarbeiterIds.Add(index,reader.GetInt32(0));
+                    index++;
                 }
             }
 
@@ -43,39 +53,15 @@ namespace Zeiterfassung
 
         private void AddWorkers_Click(object sender, EventArgs e)
         {
-           
-
-                // Next show the object title and check state for each item selected.
-                foreach(object itemChecked in checkedListBox1.CheckedItems) 
+                  // Next show the object title and check state for each item selected.
+                foreach(object itemChecked in arbeiterListe.CheckedItems) 
                 {
-                    string ArbeiterToAdd = itemChecked.ToString();
-                    string[] split = ArbeiterToAdd.Split(",".ToCharArray());
-                    string nachname = split[0];
-                    String delim = " ";
-                    string vorname = split[1].Trim(delim.ToCharArray());
-
-                    try
-                    {
-                        DataTable AddWorkers = SqlConnection.SelectStatement("INSERT INTO `tmita_proj`(`miID`, `prID`, `mpAktiv`) VALUES ((SELECT miID FROM tmitarbeiter WHERE miName='" + nachname + "' AND miVorname='" + vorname + "' )," + prID + ",1)");
-                    }
-                    catch
-                    { 
-                        //mitarbeiter ist wahrscheinlich schon zugewiesen?? egal weiter gehts...
-                        MessageBox.Show( vorname + " " + nachname + " ist diesem Projekt bereits zugewiesen.");
-                    }
-                        
-                    
+                    SqlConnection.ExecuteStatement("INSERT INTO tmita_proj(miID, prID, mpAktiv) " +
+                        "VALUES (" + mitarbeiterIds[arbeiterListe.Items.IndexOf(itemChecked)] + ", " + prID + ",1)");
+                  
                 }
-
-
-                admin.selectBoxProjekt_SelectedIndexChanged();
-                this.Close();
-
-
-
-             
-         
-
+                this.DialogResult = DialogResult.OK;
+                this.Close(); 
         }
 
        

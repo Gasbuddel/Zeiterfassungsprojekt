@@ -42,9 +42,7 @@ namespace Zeiterfassung
 
         private void ok_Click(object sender, EventArgs e)
         {
-
-
-           
+     
                 foreach (object itemChecked in checkedListBox1.CheckedItems)
                 {
                     try

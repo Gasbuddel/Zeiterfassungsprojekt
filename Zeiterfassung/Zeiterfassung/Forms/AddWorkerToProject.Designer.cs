@@ -28,18 +28,18 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.checkedListBox1 = new System.Windows.Forms.CheckedListBox();
+            this.arbeiterListe = new System.Windows.Forms.CheckedListBox();
             this.AddWorkers = new System.Windows.Forms.Button();
             this.Abort = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // checkedListBox1
+            // arbeiterListe
             // 
-            this.checkedListBox1.FormattingEnabled = true;
-            this.checkedListBox1.Location = new System.Drawing.Point(15, 32);
-            this.checkedListBox1.Name = "checkedListBox1";
-            this.checkedListBox1.Size = new System.Drawing.Size(405, 169);
-            this.checkedListBox1.TabIndex = 0;
+            this.arbeiterListe.FormattingEnabled = true;
+            this.arbeiterListe.Location = new System.Drawing.Point(15, 32);
+            this.arbeiterListe.Name = "arbeiterListe";
+            this.arbeiterListe.Size = new System.Drawing.Size(405, 169);
+            this.arbeiterListe.TabIndex = 0;
             // 
             // AddWorkers
             // 
@@ -53,6 +53,7 @@
             // 
             // Abort
             // 
+            this.Abort.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.Abort.Location = new System.Drawing.Point(216, 215);
             this.Abort.Name = "Abort";
             this.Abort.Size = new System.Drawing.Size(171, 31);
@@ -63,21 +64,25 @@
             // 
             // AddWorkerToProject
             // 
+            this.AcceptButton = this.AddWorkers;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.CancelButton = this.Abort;
             this.ClientSize = new System.Drawing.Size(432, 258);
             this.Controls.Add(this.Abort);
             this.Controls.Add(this.AddWorkers);
-            this.Controls.Add(this.checkedListBox1);
+            this.Controls.Add(this.arbeiterListe);
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "AddWorkerToProject";
-            this.Text = "AddWorkerToPrject";
+            this.Text = "Neue Mitarbeiter hinzufügen";
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.CheckedListBox checkedListBox1;
+        private System.Windows.Forms.CheckedListBox arbeiterListe;
         private System.Windows.Forms.Button AddWorkers;
         private System.Windows.Forms.Button Abort;
     }

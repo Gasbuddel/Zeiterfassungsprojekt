@@ -33,6 +33,14 @@
             this.kunden_Tab = new System.Windows.Forms.TabPage();
             this.ku_Ok_Butt = new System.Windows.Forms.Button();
             this.ku_Cancel_Butt = new System.Windows.Forms.Button();
+            this.ku_fax_box = new Zeiterfassung.RegExTextbox();
+            this.ku_tel_box = new Zeiterfassung.RegExTextbox();
+            this.ku_ort_box = new Zeiterfassung.RegExTextbox();
+            this.ku_plz_box = new Zeiterfassung.RegExTextbox();
+            this.ku_str_box = new Zeiterfassung.RegExTextbox();
+            this.ku_mail_box = new Zeiterfassung.RegExTextbox();
+            this.ku_anspr_box = new Zeiterfassung.RegExTextbox();
+            this.ku_firma_box = new Zeiterfassung.RegExTextbox();
             this.label20 = new System.Windows.Forms.Label();
             this.label_anspr = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
@@ -58,8 +66,11 @@
             this.label9 = new System.Windows.Forms.Label();
             this.userNameBox = new System.Windows.Forms.ComboBox();
             this.label8 = new System.Windows.Forms.Label();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.mailTB = new Zeiterfassung.RegExTextbox();
+            this.vornameTB = new Zeiterfassung.RegExTextbox();
+            this.nameTB = new Zeiterfassung.RegExTextbox();
             this.projekt_Tab = new System.Windows.Forms.TabPage();
-            this.close_Butt = new System.Windows.Forms.Button();
             this.pro_Tät_Bearb_Butt = new System.Windows.Forms.Button();
             this.pro_Tät_Entf_Butt = new System.Windows.Forms.Button();
             this.deleteArbeiter = new System.Windows.Forms.Button();
@@ -77,23 +88,12 @@
             this.newPro_Butt = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.selectBoxProjekt = new System.Windows.Forms.ComboBox();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.ku_fax_box = new Zeiterfassung.RegExTextbox();
-            this.ku_tel_box = new Zeiterfassung.RegExTextbox();
-            this.ku_ort_box = new Zeiterfassung.RegExTextbox();
-            this.ku_plz_box = new Zeiterfassung.RegExTextbox();
-            this.ku_str_box = new Zeiterfassung.RegExTextbox();
-            this.ku_mail_box = new Zeiterfassung.RegExTextbox();
-            this.ku_anspr_box = new Zeiterfassung.RegExTextbox();
-            this.ku_firma_box = new Zeiterfassung.RegExTextbox();
-            this.mailTB = new Zeiterfassung.RegExTextbox();
-            this.vornameTB = new Zeiterfassung.RegExTextbox();
-            this.nameTB = new Zeiterfassung.RegExTextbox();
+            this.close_Butt = new System.Windows.Forms.Button();
             this.project_Tab.SuspendLayout();
             this.kunden_Tab.SuspendLayout();
             this.mitarbeiter_Tab.SuspendLayout();
-            this.projekt_Tab.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.projekt_Tab.SuspendLayout();
             this.SuspendLayout();
             // 
             // project_Tab
@@ -160,6 +160,70 @@
             this.ku_Cancel_Butt.Text = "Abbrechen";
             this.ku_Cancel_Butt.UseVisualStyleBackColor = true;
             this.ku_Cancel_Butt.Click += new System.EventHandler(this.ku_Cancel_Butt_Click);
+            // 
+            // ku_fax_box
+            // 
+            this.ku_fax_box.Location = new System.Drawing.Point(101, 289);
+            this.ku_fax_box.Name = "ku_fax_box";
+            this.ku_fax_box.Regular_Expression = null;
+            this.ku_fax_box.Size = new System.Drawing.Size(208, 20);
+            this.ku_fax_box.TabIndex = 21;
+            // 
+            // ku_tel_box
+            // 
+            this.ku_tel_box.Location = new System.Drawing.Point(101, 243);
+            this.ku_tel_box.Name = "ku_tel_box";
+            this.ku_tel_box.Regular_Expression = null;
+            this.ku_tel_box.Size = new System.Drawing.Size(208, 20);
+            this.ku_tel_box.TabIndex = 20;
+            // 
+            // ku_ort_box
+            // 
+            this.ku_ort_box.Location = new System.Drawing.Point(100, 200);
+            this.ku_ort_box.Name = "ku_ort_box";
+            this.ku_ort_box.Regular_Expression = null;
+            this.ku_ort_box.Size = new System.Drawing.Size(209, 20);
+            this.ku_ort_box.TabIndex = 19;
+            // 
+            // ku_plz_box
+            // 
+            this.ku_plz_box.Location = new System.Drawing.Point(100, 174);
+            this.ku_plz_box.Name = "ku_plz_box";
+            this.ku_plz_box.Regular_Expression = null;
+            this.ku_plz_box.Size = new System.Drawing.Size(82, 20);
+            this.ku_plz_box.TabIndex = 18;
+            // 
+            // ku_str_box
+            // 
+            this.ku_str_box.Location = new System.Drawing.Point(100, 142);
+            this.ku_str_box.Name = "ku_str_box";
+            this.ku_str_box.Regular_Expression = null;
+            this.ku_str_box.Size = new System.Drawing.Size(209, 20);
+            this.ku_str_box.TabIndex = 17;
+            // 
+            // ku_mail_box
+            // 
+            this.ku_mail_box.Location = new System.Drawing.Point(101, 110);
+            this.ku_mail_box.Name = "ku_mail_box";
+            this.ku_mail_box.Regular_Expression = null;
+            this.ku_mail_box.Size = new System.Drawing.Size(208, 20);
+            this.ku_mail_box.TabIndex = 16;
+            // 
+            // ku_anspr_box
+            // 
+            this.ku_anspr_box.Location = new System.Drawing.Point(100, 80);
+            this.ku_anspr_box.Name = "ku_anspr_box";
+            this.ku_anspr_box.Regular_Expression = null;
+            this.ku_anspr_box.Size = new System.Drawing.Size(209, 20);
+            this.ku_anspr_box.TabIndex = 15;
+            // 
+            // ku_firma_box
+            // 
+            this.ku_firma_box.Location = new System.Drawing.Point(101, 47);
+            this.ku_firma_box.Name = "ku_firma_box";
+            this.ku_firma_box.Regular_Expression = null;
+            this.ku_firma_box.Size = new System.Drawing.Size(208, 20);
+            this.ku_firma_box.TabIndex = 14;
             // 
             // label20
             // 
@@ -409,6 +473,40 @@
             this.label8.TabIndex = 0;
             this.label8.Text = "Benutzername:";
             // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = global::Zeiterfassung.Properties.Resources.work_in_progress;
+            this.pictureBox1.Location = new System.Drawing.Point(10, 194);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(508, 315);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox1.TabIndex = 16;
+            this.pictureBox1.TabStop = false;
+            // 
+            // mailTB
+            // 
+            this.mailTB.Location = new System.Drawing.Point(85, 71);
+            this.mailTB.Name = "mailTB";
+            this.mailTB.Regular_Expression = null;
+            this.mailTB.Size = new System.Drawing.Size(254, 20);
+            this.mailTB.TabIndex = 19;
+            // 
+            // vornameTB
+            // 
+            this.vornameTB.Location = new System.Drawing.Point(360, 38);
+            this.vornameTB.Name = "vornameTB";
+            this.vornameTB.Regular_Expression = null;
+            this.vornameTB.Size = new System.Drawing.Size(126, 20);
+            this.vornameTB.TabIndex = 18;
+            // 
+            // nameTB
+            // 
+            this.nameTB.Location = new System.Drawing.Point(88, 38);
+            this.nameTB.Name = "nameTB";
+            this.nameTB.Regular_Expression = null;
+            this.nameTB.Size = new System.Drawing.Size(127, 20);
+            this.nameTB.TabIndex = 17;
+            // 
             // projekt_Tab
             // 
             this.projekt_Tab.Controls.Add(this.pro_Tät_Bearb_Butt);
@@ -437,16 +535,6 @@
             this.projekt_Tab.UseVisualStyleBackColor = true;
             this.projekt_Tab.Enter += new System.EventHandler(this.projekt_Tab_Enter);
             // 
-            // close_Butt
-            // 
-            this.close_Butt.Location = new System.Drawing.Point(458, 543);
-            this.close_Butt.Name = "close_Butt";
-            this.close_Butt.Size = new System.Drawing.Size(75, 23);
-            this.close_Butt.TabIndex = 1;
-            this.close_Butt.Text = "Schließen";
-            this.close_Butt.UseVisualStyleBackColor = true;
-            this.close_Butt.Click += new System.EventHandler(this.close_Butt_Click);
-            // 
             // pro_Tät_Bearb_Butt
             // 
             this.pro_Tät_Bearb_Butt.Location = new System.Drawing.Point(253, 457);
@@ -473,6 +561,7 @@
             this.deleteArbeiter.TabIndex = 31;
             this.deleteArbeiter.Text = "Mitarbeiter entfernen";
             this.deleteArbeiter.UseVisualStyleBackColor = true;
+            this.deleteArbeiter.Click += new System.EventHandler(this.deleteArbeiter_Click);
             // 
             // pro_New_Tät_Butt
             // 
@@ -491,6 +580,7 @@
             this.addWorkerToProject_butt.TabIndex = 29;
             this.addWorkerToProject_butt.Text = "Mitarbeiter zuweisen";
             this.addWorkerToProject_butt.UseVisualStyleBackColor = true;
+            this.addWorkerToProject_butt.Click += new System.EventHandler(this.addWorkerToProject_butt_Click);
             // 
             // label7
             // 
@@ -590,110 +680,23 @@
             // 
             // selectBoxProjekt
             // 
+            this.selectBoxProjekt.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.selectBoxProjekt.FormattingEnabled = true;
             this.selectBoxProjekt.Location = new System.Drawing.Point(119, 10);
             this.selectBoxProjekt.Name = "selectBoxProjekt";
             this.selectBoxProjekt.Size = new System.Drawing.Size(184, 21);
             this.selectBoxProjekt.TabIndex = 17;
-            this.selectBoxProjekt.SelectedIndexChanged += new System.EventHandler(this.selectBoxProjekt_SelectedIndexChanged_1);
+            this.selectBoxProjekt.SelectedIndexChanged += new System.EventHandler(this.selectBoxProjekt_SelectedIndexChanged);
             // 
-            // pictureBox1
+            // close_Butt
             // 
-            this.pictureBox1.Image = global::Zeiterfassung.Properties.Resources.work_in_progress;
-            this.pictureBox1.Location = new System.Drawing.Point(10, 194);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(508, 315);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox1.TabIndex = 16;
-            this.pictureBox1.TabStop = false;
-            // 
-            // ku_fax_box
-            // 
-            this.ku_fax_box.Location = new System.Drawing.Point(101, 289);
-            this.ku_fax_box.Name = "ku_fax_box";
-            this.ku_fax_box.Regular_Expression = null;
-            this.ku_fax_box.Size = new System.Drawing.Size(208, 20);
-            this.ku_fax_box.TabIndex = 21;
-            // 
-            // ku_tel_box
-            // 
-            this.ku_tel_box.Location = new System.Drawing.Point(101, 243);
-            this.ku_tel_box.Name = "ku_tel_box";
-            this.ku_tel_box.Regular_Expression = null;
-            this.ku_tel_box.Size = new System.Drawing.Size(208, 20);
-            this.ku_tel_box.TabIndex = 20;
-            // 
-            // ku_ort_box
-            // 
-            this.ku_ort_box.Location = new System.Drawing.Point(100, 200);
-            this.ku_ort_box.Name = "ku_ort_box";
-            this.ku_ort_box.Regular_Expression = null;
-            this.ku_ort_box.Size = new System.Drawing.Size(209, 20);
-            this.ku_ort_box.TabIndex = 19;
-            // 
-            // ku_plz_box
-            // 
-            this.ku_plz_box.Location = new System.Drawing.Point(100, 174);
-            this.ku_plz_box.Name = "ku_plz_box";
-            this.ku_plz_box.Regular_Expression = null;
-            this.ku_plz_box.Size = new System.Drawing.Size(82, 20);
-            this.ku_plz_box.TabIndex = 18;
-            // 
-            // ku_str_box
-            // 
-            this.ku_str_box.Location = new System.Drawing.Point(100, 142);
-            this.ku_str_box.Name = "ku_str_box";
-            this.ku_str_box.Regular_Expression = null;
-            this.ku_str_box.Size = new System.Drawing.Size(209, 20);
-            this.ku_str_box.TabIndex = 17;
-            // 
-            // ku_mail_box
-            // 
-            this.ku_mail_box.Location = new System.Drawing.Point(101, 110);
-            this.ku_mail_box.Name = "ku_mail_box";
-            this.ku_mail_box.Regular_Expression = null;
-            this.ku_mail_box.Size = new System.Drawing.Size(208, 20);
-            this.ku_mail_box.TabIndex = 16;
-            // 
-            // ku_anspr_box
-            // 
-            this.ku_anspr_box.Location = new System.Drawing.Point(100, 80);
-            this.ku_anspr_box.Name = "ku_anspr_box";
-            this.ku_anspr_box.Regular_Expression = null;
-            this.ku_anspr_box.Size = new System.Drawing.Size(209, 20);
-            this.ku_anspr_box.TabIndex = 15;
-            // 
-            // ku_firma_box
-            // 
-            this.ku_firma_box.Location = new System.Drawing.Point(101, 47);
-            this.ku_firma_box.Name = "ku_firma_box";
-            this.ku_firma_box.Regular_Expression = null;
-            this.ku_firma_box.Size = new System.Drawing.Size(208, 20);
-            this.ku_firma_box.TabIndex = 14;
-            // 
-            // mailTB
-            // 
-            this.mailTB.Location = new System.Drawing.Point(85, 71);
-            this.mailTB.Name = "mailTB";
-            this.mailTB.Regular_Expression = null;
-            this.mailTB.Size = new System.Drawing.Size(254, 20);
-            this.mailTB.TabIndex = 19;
-            // 
-            // vornameTB
-            // 
-            this.vornameTB.Location = new System.Drawing.Point(360, 38);
-            this.vornameTB.Name = "vornameTB";
-            this.vornameTB.Regular_Expression = null;
-            this.vornameTB.Size = new System.Drawing.Size(126, 20);
-            this.vornameTB.TabIndex = 18;
-            // 
-            // nameTB
-            // 
-            this.nameTB.Location = new System.Drawing.Point(88, 38);
-            this.nameTB.Name = "nameTB";
-            this.nameTB.Regular_Expression = null;
-            this.nameTB.Size = new System.Drawing.Size(127, 20);
-            this.nameTB.TabIndex = 17;
+            this.close_Butt.Location = new System.Drawing.Point(458, 543);
+            this.close_Butt.Name = "close_Butt";
+            this.close_Butt.Size = new System.Drawing.Size(75, 23);
+            this.close_Butt.TabIndex = 1;
+            this.close_Butt.Text = "Schließen";
+            this.close_Butt.UseVisualStyleBackColor = true;
+            this.close_Butt.Click += new System.EventHandler(this.close_Butt_Click);
             // 
             // Administration
             // 
@@ -713,9 +716,9 @@
             this.kunden_Tab.PerformLayout();
             this.mitarbeiter_Tab.ResumeLayout(false);
             this.mitarbeiter_Tab.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.projekt_Tab.ResumeLayout(false);
             this.projekt_Tab.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
         }
