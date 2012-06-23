@@ -232,7 +232,7 @@ namespace Zeiterfassung
         private void tabbi_SelectedIndexChanged(object sender, EventArgs e)
         {
             //Mitarbeiter
-            if (tabbi.SelectedIndex == 1)
+            if (project_Tab.SelectedIndex == 1)
             {
                 mi_Cancel_Butt.Visible = false;
                 //Mitarbeiter einfügen
@@ -276,72 +276,72 @@ namespace Zeiterfassung
                 }
             }
 
-            //Projekte
-            if (tabbi.SelectedIndex == 2)
-            {
-                DataTable allema = SqlConnection.SelectStatement("SELECT  * FROM tProjekt");
+            ////Projekte
+            //if (project_Tab.SelectedIndex == 2)
+            //{
+            //    DataTable allema = SqlConnection.SelectStatement("SELECT  * FROM tProjekt");
 
-                DataTableReader reader = allema.CreateDataReader();
+            //    DataTableReader reader = allema.CreateDataReader();
 
-                if (reader.HasRows)
-                {
-                    int index = 0;
+            //    if (reader.HasRows)
+            //    {
+            //        int index = 0;
 
-                    while (reader.Read())
-                    {
-                        if (userNameBox.Items.Contains(reader.GetString(2)) == false)
-                        {
+            //        while (reader.Read())
+            //        {
+            //            if (userNameBox.Items.Contains(reader.GetString(2)) == false)
+            //            {
 
-                            cBProjekt.Items.Add(reader.GetString(2));
-                        }
-                        index++;
-                    }
-                    cBProjekt.SelectedIndex = 0;
-                }
+            //                cBProjekt.Items.Add(reader.GetString(2));
+            //            }
+            //            index++;
+            //        }
+            //        cBProjekt.SelectedIndex = 0;
+            //    }
 
-            }
+            //}
         }
 
-        //Gehört in die Projectregion
-        private void cBProjekt_SelectedValueChanged(object sender, EventArgs e)
-        {
-            cBProjekt.Select();
-            listMitarbeiter.Items.Clear();
-            //SELECT tmitarbeiter.miID, tmitarbeiter.miUsername FROM tmita_proj LEFT JOIN tmitarbeiter USING ( miID ) WHERE prID =1
-            DataTable allema = SqlConnection.SelectStatement("SELECT tprojekt . * , tkunde.kufirma FROM tprojekt LEFT JOIN tkunde USING ( kuID ) where prName ='" + cBProjekt.SelectedItem.ToString() + "'");
+        ////Gehört in die Projectregion
+        //private void cBProjekt_SelectedValueChanged(object sender, EventArgs e)
+        //{
+        //    cBProjekt.Select();
+        //    listMitarbeiter.Items.Clear();
+        //    //SELECT tmitarbeiter.miID, tmitarbeiter.miUsername FROM tmita_proj LEFT JOIN tmitarbeiter USING ( miID ) WHERE prID =1
+        //    DataTable allema = SqlConnection.SelectStatement("SELECT tprojekt . * , tkunde.kufirma FROM tprojekt LEFT JOIN tkunde USING ( kuID ) where prName ='" + cBProjekt.SelectedItem.ToString() + "'");
 
-            DataTableReader reader = allema.CreateDataReader();
+        //    DataTableReader reader = allema.CreateDataReader();
 
-            if (reader.HasRows)
-            {
-                int index = 0;
+        //    if (reader.HasRows)
+        //    {
+        //        int index = 0;
 
-                while (reader.Read())
-                {
-                    proID.Text = reader.GetInt32(0).ToString();
-                    textKunde.Text = reader.GetString(4);
-                    textPBeschreibung.Text = reader.GetString(3);
-                    index++;
-                }
-            }
+        //        while (reader.Read())
+        //        {
+        //            proID.Text = reader.GetInt32(0).ToString();
+        //            textKunde.Text = reader.GetString(4);
+        //            textPBeschreibung.Text = reader.GetString(3);
+        //            index++;
+        //        }
+        //    }
 
-            DataTable ma = SqlConnection.SelectStatement("SELECT tmitarbeiter.miID, tmitarbeiter.miUsername FROM tmita_proj LEFT JOIN tmitarbeiter USING ( miID ) WHERE prID =" + proID.Text + "");
+        //    DataTable ma = SqlConnection.SelectStatement("SELECT tmitarbeiter.miID, tmitarbeiter.miUsername FROM tmita_proj LEFT JOIN tmitarbeiter USING ( miID ) WHERE prID =" + proID.Text + "");
 
-            reader = ma.CreateDataReader();
+        //    reader = ma.CreateDataReader();
 
-            if (reader.HasRows)
-            {
-                int index = 0;
+        //    if (reader.HasRows)
+        //    {
+        //        int index = 0;
 
-                while (reader.Read())
-                {
-                    listMitarbeiter.Items.Add(reader.GetString(1));
-                    index++;
-                }
-            }
+        //        while (reader.Read())
+        //        {
+        //            listMitarbeiter.Items.Add(reader.GetString(1));
+        //            index++;
+        //        }
+        //    }
 
 
-        }
+        //}
 
 
         #region 'Mitarbeiter'
@@ -503,6 +503,340 @@ namespace Zeiterfassung
         }
 
         #endregion
+
+
+        #region 'Projektadministration'
+
+        private void projekt_Tab_Enter(object sender, EventArgs e)
+        {
+            DataTable projekte = SqlConnection.SelectStatement("SELECT prName FROM tprojekt");
+
+            DataTableReader dreader = projekte.CreateDataReader();
+            selectBoxProjekt.Items.Clear();
+            if (dreader.HasRows)
+            {
+                while (dreader.Read())
+                {
+                    selectBoxProjekt.Items.Add(dreader.GetString(0));
+                }
+            }
+        }
+
+
+        private void selectBoxProjekt_SelectedIndexChanged_1(object sender, EventArgs e)
+        {
+
+        }
+
+        public void selectBoxProjekt_SelectedIndexChanged()
+        {
+            DataTable kunde = SqlConnection.SelectStatement("SELECT kuFirma FROM tkunde WHERE kuID = (SELECT kuID From tprojekt WHERE prName='" + selectBoxProjekt.Text + "') ");
+
+            DataTableReader kunde_reader = kunde.CreateDataReader();
+
+            if (kunde_reader.HasRows)
+            {
+                while (kunde_reader.Read())
+                {
+                    kund_Box.Text = kunde_reader.GetString(0);
+                }
+            }
+
+            //projekte anzeigen
+            DataTable projekte = SqlConnection.SelectStatement("SELECT prName FROM tprojekt");
+
+            DataTableReader dreader = projekte.CreateDataReader();
+            selectBoxProjekt.Items.Clear();
+            if (dreader.HasRows)
+            {
+                while (dreader.Read())
+                {
+                    selectBoxProjekt.Items.Add(dreader.GetString(0));
+                }
+            }
+
+
+
+            //projektbeschreibung anzeigen
+
+            DataTable projektDesc = SqlConnection.SelectStatement("SELECT prBeschreibung FROM tprojekt WHERE prName = '" + selectBoxProjekt.Text + "'");
+
+            DataTableReader projektDesc_reader = projektDesc.CreateDataReader();
+
+            if (kunde_reader.HasRows)
+            {
+                while (projektDesc_reader.Read())
+                {
+                    beschr_Box.Text = projektDesc_reader.GetString(0);
+                }
+            }
+
+            //aktuell zuständige mitarbeiter anzeigen
+            DataTable arbeiter = SqlConnection.SelectStatement("SELECT miName,miVorname FROM tmitarbeiter m LEFT JOIN tmita_proj mp ON m.miID=mp.miID LEFT JOIN tprojekt p ON p.prID=mp.prID WHERE p.prID = (SELECT prID FROM tprojekt WHERE prName = '" + selectBoxProjekt.Text + "')");
+
+            DataTableReader arbeiter_reader = arbeiter.CreateDataReader();
+
+            mitarbeit_Box.Items.Clear();
+
+            if (arbeiter_reader.HasRows)
+            {
+
+
+                while (arbeiter_reader.Read())
+                {
+
+                    mitarbeit_Box.Items.Add(arbeiter_reader.GetString(0) + ", " + arbeiter_reader.GetString(1));
+
+                }
+            }
+
+            //tätigkeitsbeschr anzeigen
+
+            DataTable taetDesc = SqlConnection.SelectStatement("SELECT taBeschreibung FROM ttaetigkeitenvorlage tv LEFT JOIN tproj_taet tp ON tp.taID=tv.taID LEFT JOIN tprojekt p ON p.prID=tp.prID WHERE p.prID =(SELECT prID FROM tprojekt WHERE prName = '" + selectBoxProjekt.Text + "' )");
+
+            DataTableReader taetDesc_reader = taetDesc.CreateDataReader();
+
+            if (taetDesc_reader.HasRows)
+            {
+                thaet_Box.Items.Clear();
+                while (taetDesc_reader.Read())
+                {
+                    thaet_Box.Items.Add(taetDesc_reader.GetString(0));
+                }
+            }
+
+        }
+
+        private void selectBoxProjekt_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            //entsprechenden Kunden anzeigen
+
+            DataTable kunde = SqlConnection.SelectStatement("SELECT kuFirma FROM tkunde WHERE kuID = (SELECT kuID From tprojekt WHERE prName='" + selectBoxProjekt.Text + "') ");
+
+            DataTableReader kunde_reader = kunde.CreateDataReader();
+
+            if (kunde_reader.HasRows)
+            {
+                while (kunde_reader.Read())
+                {
+                    kund_Box.Text = kunde_reader.GetString(0);
+                }
+            }
+
+
+            //projektbeschreibung anzeigen
+
+            DataTable projektDesc = SqlConnection.SelectStatement("SELECT prBeschreibung FROM tprojekt WHERE prName = '" + selectBoxProjekt.Text + "'");
+
+            DataTableReader projektDesc_reader = projektDesc.CreateDataReader();
+
+            if (kunde_reader.HasRows)
+            {
+                while (projektDesc_reader.Read())
+                {
+                    beschr_Box.Text = projektDesc_reader.GetString(0);
+                }
+            }
+
+            //aktuell zuständige mitarbeiter anzeigen
+            DataTable arbeiter = SqlConnection.SelectStatement("SELECT miName,miVorname FROM tmitarbeiter m LEFT JOIN tmita_proj mp ON m.miID=mp.miID LEFT JOIN tprojekt p ON p.prID=mp.prID WHERE p.prID = (SELECT prID FROM tprojekt WHERE prName = '" + selectBoxProjekt.Text + "')");
+
+            DataTableReader arbeiter_reader = arbeiter.CreateDataReader();
+
+            mitarbeit_Box.Items.Clear();
+
+            if (arbeiter_reader.HasRows)
+            {
+
+
+                while (arbeiter_reader.Read())
+                {
+
+                    mitarbeit_Box.Items.Add(arbeiter_reader.GetString(0) + ", " + arbeiter_reader.GetString(1));
+
+                }
+            }
+
+            //tätigkeitsbeschr anzeigen
+
+            DataTable taetDesc = SqlConnection.SelectStatement("SELECT taBeschreibung FROM ttaetigkeitenvorlage tv LEFT JOIN tproj_taet tp ON tp.taID=tv.taID LEFT JOIN tprojekt p ON p.prID=tp.prID WHERE p.prID =(SELECT prID FROM tprojekt WHERE prName = '" + selectBoxProjekt.Text + "' )");
+
+            DataTableReader taetDesc_reader = taetDesc.CreateDataReader();
+            thaet_Box.Items.Clear();
+            if (taetDesc_reader.HasRows)
+            {
+
+                while (taetDesc_reader.Read())
+                {
+                    thaet_Box.Items.Add(taetDesc_reader.GetString(0));
+                }
+            }
+
+
+
+        }
+
+        //Arbeiter aus dem Projekt löschen
+        private void deleteArbeiter_Click(object sender, EventArgs e)
+        {
+
+            try
+            {
+                string ArbeiterToKill = mitarbeit_Box.SelectedItem.ToString();
+                string[] split = ArbeiterToKill.Split(",".ToCharArray());
+                string nachname = split[0];
+                String delim = " ";
+                string vorname = split[1].Trim(delim.ToCharArray());
+
+                DataTable taetDesc = SqlConnection.SelectStatement("DELETE FROM `tmita_proj` WHERE `miID` = (SELECT miID FROM `tmitarbeiter` WHERE `miName`='" + nachname + "' AND miVorname='" + vorname + "')");
+
+                DataTable arbeiter = SqlConnection.SelectStatement("SELECT miName,miVorname FROM tmitarbeiter m LEFT JOIN tmita_proj mp ON m.miID=mp.miID LEFT JOIN tprojekt p ON p.prID=mp.prID WHERE p.prID = (SELECT prID FROM tprojekt WHERE prName = '" + selectBoxProjekt.Text + "')");
+
+                DataTableReader arbeiter_reader = arbeiter.CreateDataReader();
+
+                mitarbeit_Box.Items.Clear();
+
+                if (arbeiter_reader.HasRows)
+                {
+
+
+                    while (arbeiter_reader.Read())
+                    {
+
+                        mitarbeit_Box.Items.Add(arbeiter_reader.GetString(0) + ", " + arbeiter_reader.GetString(1));
+
+                    }
+                }
+            }
+            catch
+            {
+                MessageBox.Show("Sie müssen einen Mitarbeiter auswählen");
+            }
+        }
+
+        private void addWorkerToProject_butt_Click(object sender, EventArgs e)
+        {
+
+            DataTable prID = SqlConnection.SelectStatement("SELECT prID FROM tprojekt WHERE prName = '" + selectBoxProjekt.Text + "'");
+
+            DataTableReader prID_reader = prID.CreateDataReader();
+
+            if (prID_reader.HasRows)
+            {
+                while (prID_reader.Read())
+                {
+                    int proj_id = prID_reader.GetInt32(0);
+                    AddWorkerToProject AddWorkerForm = new AddWorkerToProject(proj_id, this);
+                    AddWorkerForm.Show();
+                }
+            }
+
+
+
+        }
+        //neues projekt anlegen
+        private void newPro_Butt_Click(object sender, EventArgs e)
+        {
+            CreateProject newPro = new CreateProject(this);
+            newPro.Show();
+        }
+        //projekt bearbeiten
+        private void pro_Bearb_Butt_Click(object sender, EventArgs e)
+        {
+
+            DataTable prID = SqlConnection.SelectStatement("SELECT prID FROM tprojekt WHERE prName = '" + selectBoxProjekt.Text + "'");
+
+            DataTableReader prID_reader = prID.CreateDataReader();
+
+            if (prID_reader.HasRows)
+            {
+                while (prID_reader.Read())
+                {
+                    try
+                    {
+                        int proj_id = prID_reader.GetInt32(0);
+                        EditProject editPr = new EditProject(proj_id, this);
+                        editPr.Show();
+                    }
+                    catch
+                    {
+                        MessageBox.Show("Sie müssen ein Projekt wählen.");
+                    }
+                }
+            }
+
+
+
+        }
+        //tätigkeit hinzufügen
+        private void button3_Click(object sender, EventArgs e)
+        {
+
+            DataTable prID = SqlConnection.SelectStatement("SELECT prID FROM tprojekt WHERE prName = '" + selectBoxProjekt.Text + "'");
+
+            DataTableReader prID_reader = prID.CreateDataReader();
+
+            if (prID_reader.HasRows)
+            {
+                while (prID_reader.Read())
+                {
+                    try
+                    {
+                        int proj_id = prID_reader.GetInt32(0);
+                        AddTaetigkeit taetForm = new AddTaetigkeit(this, proj_id);
+                        taetForm.Show();
+                    }
+                    catch
+                    {
+                        MessageBox.Show("Es ist ein Fehler aufgetreten");
+                    }
+                }
+            }
+
+        }
+
+        //tätigkeit entfernen
+        private void button5_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                DataTable prID = SqlConnection.SelectStatement("DELETE FROM `tproj_taet` WHERE prID=(SELECT prID FROM tprojekt WHERE prName='" + selectBoxProjekt.Text + "' AND taID=(SELECT taID FROM ttaetigkeitenvorlage WHERE taBeschreibung='" + thaet_Box.Text + "'))");
+                this.selectBoxProjekt_SelectedIndexChanged();
+                MessageBox.Show("Tätigkeiten wurden entfernt");
+            }
+            catch
+            {
+                MessageBox.Show("Es ist ein Fehler aufgetreten");
+            }
+        }
+
+        //tätigkeit bearbeiten
+        private void button6_Click(object sender, EventArgs e)
+        {
+            DataTable taID = SqlConnection.SelectStatement("SELECT taID FROM ttaetigkeitenvorlage WHERE taBeschreibung = '" + thaet_Box.Text + "'");
+
+            DataTableReader taID_reader = taID.CreateDataReader();
+
+            if (taID_reader.HasRows)
+            {
+                while (taID_reader.Read())
+                {
+
+                    int taetID = taID_reader.GetInt32(0);
+                    EditTaet EditTaetForm = new EditTaet(this, taetID, selectBoxProjekt.Text);
+                    EditTaetForm.Show();
+
+
+                }
+            }
+
+        }
+
+
+        #endregion
+
+
+
 
 
 

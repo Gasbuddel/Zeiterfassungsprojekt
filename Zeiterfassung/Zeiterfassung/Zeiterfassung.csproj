@@ -62,6 +62,18 @@
     <Compile Include="Classes\Md5.cs" />
     <Compile Include="Classes\Session.cs" />
     <Compile Include="Classes\SqlConnection.cs" />
+    <Compile Include="Forms\AddTaetigkeit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\AddTaetigkeit.designer.cs">
+      <DependentUpon>AddTaetigkeit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\AddWorkerToProject.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\AddWorkerToProject.designer.cs">
+      <DependentUpon>AddWorkerToProject.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Administration.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -79,6 +91,24 @@
     </Compile>
     <Compile Include="Forms\ChangePW.Designer.cs">
       <DependentUpon>ChangePW.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\CreateProject.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\CreateProject.designer.cs">
+      <DependentUpon>CreateProject.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\EditProject.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\EditProject.designer.cs">
+      <DependentUpon>EditProject.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\EditTaet.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\EditTaet.designer.cs">
+      <DependentUpon>EditTaet.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\Login.cs">
       <SubType>Form</SubType>
@@ -100,6 +130,12 @@
     <Compile Include="Steuerelemente\RegExTextbox.Designer.cs">
       <DependentUpon>RegExTextbox.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Forms\AddTaetigkeit.resx">
+      <DependentUpon>AddTaetigkeit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\AddWorkerToProject.resx">
+      <DependentUpon>AddWorkerToProject.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\Administration.resx">
       <DependentUpon>Administration.cs</DependentUpon>
     </EmbeddedResource>
@@ -108,6 +144,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\ChangePW.resx">
       <DependentUpon>ChangePW.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\CreateProject.resx">
+      <DependentUpon>CreateProject.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\EditProject.resx">
+      <DependentUpon>EditProject.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\EditTaet.resx">
+      <DependentUpon>EditTaet.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Login.resx">
       <DependentUpon>Login.cs</DependentUpon>
