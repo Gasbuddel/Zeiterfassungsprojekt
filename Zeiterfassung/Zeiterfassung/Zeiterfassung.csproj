@@ -98,18 +98,6 @@
     <Compile Include="Forms\CreateProject.designer.cs">
       <DependentUpon>CreateProject.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\EditProject.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\EditProject.designer.cs">
-      <DependentUpon>EditProject.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\EditTaet.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\EditTaet.designer.cs">
-      <DependentUpon>EditTaet.cs</DependentUpon>
-    </Compile>
     <Compile Include="Forms\Login.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -121,6 +109,12 @@
     </Compile>
     <Compile Include="Forms\Hauptmaske.Designer.cs">
       <DependentUpon>Hauptmaske.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\NewTaet.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\NewTaet.Designer.cs">
+      <DependentUpon>NewTaet.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -148,17 +142,14 @@
     <EmbeddedResource Include="Forms\CreateProject.resx">
       <DependentUpon>CreateProject.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\EditProject.resx">
-      <DependentUpon>EditProject.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\EditTaet.resx">
-      <DependentUpon>EditTaet.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Forms\Login.resx">
       <DependentUpon>Login.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Hauptmaske.resx">
       <DependentUpon>Hauptmaske.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\NewTaet.resx">
+      <DependentUpon>NewTaet.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

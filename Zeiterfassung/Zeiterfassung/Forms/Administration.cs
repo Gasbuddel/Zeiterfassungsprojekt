@@ -507,7 +507,7 @@ namespace Zeiterfassung
 
             reader = arbeiter.CreateDataReader();
 
-            mitarbeit_Box.Items.Clear();
+            mitarbeit_List.Items.Clear();
             mitarbeiterIds.Clear();
 
             int index = 0;
@@ -516,7 +516,7 @@ namespace Zeiterfassung
             {
                 while (reader.Read())
                 {
-                    mitarbeit_Box.Items.Add(reader.GetString(1) + ", " + reader.GetString(2));
+                    mitarbeit_List.Items.Add(reader.GetString(1) + ", " + reader.GetString(2));
                     mitarbeiterIds.Add(index,reader.GetInt32(0));
                     index++;
                 }
@@ -537,10 +537,10 @@ namespace Zeiterfassung
 
             if (reader.HasRows)
             {
-                thaet_Box.Items.Clear();
+                taet_List.Items.Clear();
                 while (reader.Read())
                 {
-                    thaet_Box.Items.Add(reader.GetString(1));
+                    taet_List.Items.Add(reader.GetString(1));
                     tätigkeitenIds.Add(index, reader.GetInt32(0));
                     index++;
                 }
@@ -562,9 +562,9 @@ namespace Zeiterfassung
         //Arbeiter aus dem Projekt löschen
         private void deleteArbeiter_Click(object sender, EventArgs e)
         {
-            if (mitarbeit_Box.Items.Count > 0)
+            if (mitarbeit_List.SelectedIndex != -1)
             {
-                SqlConnection.ExecuteStatement("DELETE FROM tmita_proj WHERE miID = " + mitarbeiterIds[mitarbeit_Box.SelectedIndex]);
+                SqlConnection.ExecuteStatement("DELETE FROM tmita_proj WHERE miID = " + mitarbeiterIds[mitarbeit_List.SelectedIndex]);
                 projekteAktualisieren();
             }
         }
@@ -574,6 +574,8 @@ namespace Zeiterfassung
         {
             AddWorkerToProject neueMitarbeiter = new AddWorkerToProject(projektIds[selectBoxProjekt.SelectedIndex]);
 
+            neueMitarbeiter.StartPosition = FormStartPosition.CenterParent;
+
             if (neueMitarbeiter.ShowDialog() == DialogResult.OK)
                 projekteAktualisieren();
         }
@@ -581,107 +583,105 @@ namespace Zeiterfassung
         //neues projekt anlegen
         private void newPro_Butt_Click(object sender, EventArgs e)
         {
-            CreateProject newPro = new CreateProject(this);
-            newPro.Show();
+            CreateProject newPro = new CreateProject();
+            newPro.StartPosition = FormStartPosition.CenterParent;
+
+            if (newPro.ShowDialog() == DialogResult.OK)
+                projekteInitialisieren();
         }
+
+        private bool isBearb = false;
+
         //projekt bearbeiten
         private void pro_Bearb_Butt_Click(object sender, EventArgs e)
         {
-
-            DataTable prID = SqlConnection.SelectStatement("SELECT prID FROM tprojekt WHERE prName = '" + selectBoxProjekt.Text + "'");
-
-            DataTableReader prID_reader = prID.CreateDataReader();
-
-            if (prID_reader.HasRows)
+            if (!isBearb)
             {
-                while (prID_reader.Read())
-                {
-                    try
-                    {
-                        int proj_id = prID_reader.GetInt32(0);
-                        EditProject editPr = new EditProject(proj_id, this);
-                        editPr.Show();
-                    }
-                    catch
-                    {
-                        MessageBox.Show("Sie müssen ein Projekt wählen.");
-                    }
-                }
+                beschr_Box.ReadOnly = false;
+                pro_Bearb_Butt.Text = "Annehmen";
+                pro_Bearb_Abbr_Butt.Visible = true;
+                isBearb = true;
             }
+            else
+            {
+                try
+                {
+                    SqlConnection.ExecuteStatement("UPDATE tProjekt " +
+                        "SET prBeschreibung = '" + beschr_Box.Text + "' " +
+                        "WHERE prID = " + projektIds[selectBoxProjekt.SelectedIndex]);
+                }
+                catch (MySqlException)
+                {
+                    MessageBox.Show("Es scheint ein Problem mit der Datenbank vorzuliegen");
+                }
 
-
-
+                beschr_Box.ReadOnly = true;
+                pro_Bearb_Butt.Text = "Bearbeiten";
+                pro_Bearb_Abbr_Butt.Visible = false;
+                isBearb = false;
+            }
         }
-        //tätigkeit hinzufügen
-        private void button3_Click(object sender, EventArgs e)
+
+        //Bearbeiten abbrechen
+        private void pro_Bearb_Abbr_Butt_Click(object sender, EventArgs e)
         {
+            beschr_Box.ReadOnly = true;
+            pro_Bearb_Butt.Text = "Bearbeiten";
+            pro_Bearb_Abbr_Butt.Visible = false;
+            isBearb = false;
 
-            DataTable prID = SqlConnection.SelectStatement("SELECT prID FROM tprojekt WHERE prName = '" + selectBoxProjekt.Text + "'");
+            projekteAktualisieren();
+        }
 
-            DataTableReader prID_reader = prID.CreateDataReader();
+        //tätigkeit hinzufügen
+        private void pro_Add_Tät_Butt_Click(object sender, EventArgs e)
+        {
+            AddTaetigkeit neueTätigkeiten = new AddTaetigkeit(projektIds[selectBoxProjekt.SelectedIndex]);
 
-            if (prID_reader.HasRows)
-            {
-                while (prID_reader.Read())
-                {
-                    try
-                    {
-                        int proj_id = prID_reader.GetInt32(0);
-                        AddTaetigkeit taetForm = new AddTaetigkeit(this, proj_id);
-                        taetForm.Show();
-                    }
-                    catch
-                    {
-                        MessageBox.Show("Es ist ein Fehler aufgetreten");
-                    }
-                }
-            }
+            neueTätigkeiten.StartPosition = FormStartPosition.CenterParent;
 
+            if (neueTätigkeiten.ShowDialog() == DialogResult.OK)
+                projekteAktualisieren();
         }
 
         //tätigkeit entfernen
-        private void button5_Click(object sender, EventArgs e)
+        private void pro_Tät_Entf_Butt_Click(object sender, EventArgs e)
         {
-            try
+            if (taet_List.SelectedIndex != -1)
             {
-                DataTable prID = SqlConnection.SelectStatement("DELETE FROM `tproj_taet` WHERE prID=(SELECT prID FROM tprojekt WHERE prName='" + selectBoxProjekt.Text + "' AND taID=(SELECT taID FROM ttaetigkeitenvorlage WHERE taBeschreibung='" + thaet_Box.Text + "'))");
+                DataTable prID = SqlConnection.SelectStatement("DELETE FROM tproj_taet " +
+                    "WHERE prID= " + projektIds[selectBoxProjekt.SelectedIndex] +
+                    " AND taID= " + tätigkeitenIds[taet_List.SelectedIndex]);
                 projekteAktualisieren();
-                MessageBox.Show("Tätigkeiten wurden entfernt");
-            }
-            catch
-            {
-                MessageBox.Show("Es ist ein Fehler aufgetreten");
             }
         }
 
-        //tätigkeit bearbeiten
-        private void button6_Click(object sender, EventArgs e)
+        //Neue Tätigkeit erstellen
+        private void pro_New_Tät_Butt_Click(object sender, EventArgs e)
         {
-            DataTable taID = SqlConnection.SelectStatement("SELECT taID FROM ttaetigkeitenvorlage WHERE taBeschreibung = '" + thaet_Box.Text + "'");
+            NewTaet neueTätigkeit = new NewTaet(projektIds[selectBoxProjekt.SelectedIndex]);
 
-            DataTableReader taID_reader = taID.CreateDataReader();
+            neueTätigkeit.StartPosition = FormStartPosition.CenterParent;
 
-            if (taID_reader.HasRows)
-            {
-                while (taID_reader.Read())
-                {
-
-                    int taetID = taID_reader.GetInt32(0);
-                    EditTaet EditTaetForm = new EditTaet(this, taetID, selectBoxProjekt.Text);
-                    EditTaetForm.Show();
-
-
-                }
-            }
-
+            if (neueTätigkeit.ShowDialog() == DialogResult.OK)
+                projekteAktualisieren();
         }
-
-        public void selectBoxProjekt_SelectedIndexChanged()
-        {
-        }
-
 
         #endregion
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
 
 
 

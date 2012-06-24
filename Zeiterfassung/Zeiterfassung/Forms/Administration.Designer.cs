@@ -33,14 +33,6 @@
             this.kunden_Tab = new System.Windows.Forms.TabPage();
             this.ku_Ok_Butt = new System.Windows.Forms.Button();
             this.ku_Cancel_Butt = new System.Windows.Forms.Button();
-            this.ku_fax_box = new Zeiterfassung.RegExTextbox();
-            this.ku_tel_box = new Zeiterfassung.RegExTextbox();
-            this.ku_ort_box = new Zeiterfassung.RegExTextbox();
-            this.ku_plz_box = new Zeiterfassung.RegExTextbox();
-            this.ku_str_box = new Zeiterfassung.RegExTextbox();
-            this.ku_mail_box = new Zeiterfassung.RegExTextbox();
-            this.ku_anspr_box = new Zeiterfassung.RegExTextbox();
-            this.ku_firma_box = new Zeiterfassung.RegExTextbox();
             this.label20 = new System.Windows.Forms.Label();
             this.label_anspr = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
@@ -66,34 +58,43 @@
             this.label9 = new System.Windows.Forms.Label();
             this.userNameBox = new System.Windows.Forms.ComboBox();
             this.label8 = new System.Windows.Forms.Label();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.mailTB = new Zeiterfassung.RegExTextbox();
-            this.vornameTB = new Zeiterfassung.RegExTextbox();
-            this.nameTB = new Zeiterfassung.RegExTextbox();
             this.projekt_Tab = new System.Windows.Forms.TabPage();
-            this.pro_Tät_Bearb_Butt = new System.Windows.Forms.Button();
+            this.pro_Bearb_Abbr_Butt = new System.Windows.Forms.Button();
+            this.pro_New_Tät_Butt = new System.Windows.Forms.Button();
             this.pro_Tät_Entf_Butt = new System.Windows.Forms.Button();
             this.deleteArbeiter = new System.Windows.Forms.Button();
-            this.pro_New_Tät_Butt = new System.Windows.Forms.Button();
+            this.pro_Add_Tät_Butt = new System.Windows.Forms.Button();
             this.addWorkerToProject_butt = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
-            this.thaet_Box = new System.Windows.Forms.ListBox();
+            this.taet_List = new System.Windows.Forms.ListBox();
             this.label6 = new System.Windows.Forms.Label();
-            this.mitarbeit_Box = new System.Windows.Forms.ListBox();
-            this.beschr_Box = new System.Windows.Forms.TextBox();
+            this.mitarbeit_List = new System.Windows.Forms.ListBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.kund_Box = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.pro_Bearb_Butt = new System.Windows.Forms.Button();
             this.newPro_Butt = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.selectBoxProjekt = new System.Windows.Forms.ComboBox();
             this.close_Butt = new System.Windows.Forms.Button();
+            this.ku_fax_box = new Zeiterfassung.RegExTextbox();
+            this.ku_tel_box = new Zeiterfassung.RegExTextbox();
+            this.ku_ort_box = new Zeiterfassung.RegExTextbox();
+            this.ku_plz_box = new Zeiterfassung.RegExTextbox();
+            this.ku_str_box = new Zeiterfassung.RegExTextbox();
+            this.ku_mail_box = new Zeiterfassung.RegExTextbox();
+            this.ku_anspr_box = new Zeiterfassung.RegExTextbox();
+            this.ku_firma_box = new Zeiterfassung.RegExTextbox();
+            this.mailTB = new Zeiterfassung.RegExTextbox();
+            this.vornameTB = new Zeiterfassung.RegExTextbox();
+            this.nameTB = new Zeiterfassung.RegExTextbox();
+            this.beschr_Box = new Zeiterfassung.RegExTextbox();
+            this.kund_Box = new Zeiterfassung.RegExTextbox();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.project_Tab.SuspendLayout();
             this.kunden_Tab.SuspendLayout();
             this.mitarbeiter_Tab.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.projekt_Tab.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // project_Tab
@@ -160,70 +161,6 @@
             this.ku_Cancel_Butt.Text = "Abbrechen";
             this.ku_Cancel_Butt.UseVisualStyleBackColor = true;
             this.ku_Cancel_Butt.Click += new System.EventHandler(this.ku_Cancel_Butt_Click);
-            // 
-            // ku_fax_box
-            // 
-            this.ku_fax_box.Location = new System.Drawing.Point(101, 289);
-            this.ku_fax_box.Name = "ku_fax_box";
-            this.ku_fax_box.Regular_Expression = null;
-            this.ku_fax_box.Size = new System.Drawing.Size(208, 20);
-            this.ku_fax_box.TabIndex = 21;
-            // 
-            // ku_tel_box
-            // 
-            this.ku_tel_box.Location = new System.Drawing.Point(101, 243);
-            this.ku_tel_box.Name = "ku_tel_box";
-            this.ku_tel_box.Regular_Expression = null;
-            this.ku_tel_box.Size = new System.Drawing.Size(208, 20);
-            this.ku_tel_box.TabIndex = 20;
-            // 
-            // ku_ort_box
-            // 
-            this.ku_ort_box.Location = new System.Drawing.Point(100, 200);
-            this.ku_ort_box.Name = "ku_ort_box";
-            this.ku_ort_box.Regular_Expression = null;
-            this.ku_ort_box.Size = new System.Drawing.Size(209, 20);
-            this.ku_ort_box.TabIndex = 19;
-            // 
-            // ku_plz_box
-            // 
-            this.ku_plz_box.Location = new System.Drawing.Point(100, 174);
-            this.ku_plz_box.Name = "ku_plz_box";
-            this.ku_plz_box.Regular_Expression = null;
-            this.ku_plz_box.Size = new System.Drawing.Size(82, 20);
-            this.ku_plz_box.TabIndex = 18;
-            // 
-            // ku_str_box
-            // 
-            this.ku_str_box.Location = new System.Drawing.Point(100, 142);
-            this.ku_str_box.Name = "ku_str_box";
-            this.ku_str_box.Regular_Expression = null;
-            this.ku_str_box.Size = new System.Drawing.Size(209, 20);
-            this.ku_str_box.TabIndex = 17;
-            // 
-            // ku_mail_box
-            // 
-            this.ku_mail_box.Location = new System.Drawing.Point(101, 110);
-            this.ku_mail_box.Name = "ku_mail_box";
-            this.ku_mail_box.Regular_Expression = null;
-            this.ku_mail_box.Size = new System.Drawing.Size(208, 20);
-            this.ku_mail_box.TabIndex = 16;
-            // 
-            // ku_anspr_box
-            // 
-            this.ku_anspr_box.Location = new System.Drawing.Point(100, 80);
-            this.ku_anspr_box.Name = "ku_anspr_box";
-            this.ku_anspr_box.Regular_Expression = null;
-            this.ku_anspr_box.Size = new System.Drawing.Size(209, 20);
-            this.ku_anspr_box.TabIndex = 15;
-            // 
-            // ku_firma_box
-            // 
-            this.ku_firma_box.Location = new System.Drawing.Point(101, 47);
-            this.ku_firma_box.Name = "ku_firma_box";
-            this.ku_firma_box.Regular_Expression = null;
-            this.ku_firma_box.Size = new System.Drawing.Size(208, 20);
-            this.ku_firma_box.TabIndex = 14;
             // 
             // label20
             // 
@@ -350,10 +287,10 @@
             this.mitarbeiter_Tab.Controls.Add(this.label9);
             this.mitarbeiter_Tab.Controls.Add(this.userNameBox);
             this.mitarbeiter_Tab.Controls.Add(this.label8);
-            this.mitarbeiter_Tab.Controls.Add(this.pictureBox1);
             this.mitarbeiter_Tab.Controls.Add(this.mailTB);
             this.mitarbeiter_Tab.Controls.Add(this.vornameTB);
             this.mitarbeiter_Tab.Controls.Add(this.nameTB);
+            this.mitarbeiter_Tab.Controls.Add(this.pictureBox1);
             this.mitarbeiter_Tab.Location = new System.Drawing.Point(4, 22);
             this.mitarbeiter_Tab.Name = "mitarbeiter_Tab";
             this.mitarbeiter_Tab.Size = new System.Drawing.Size(525, 512);
@@ -473,54 +410,21 @@
             this.label8.TabIndex = 0;
             this.label8.Text = "Benutzername:";
             // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Image = global::Zeiterfassung.Properties.Resources.work_in_progress;
-            this.pictureBox1.Location = new System.Drawing.Point(10, 194);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(508, 315);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox1.TabIndex = 16;
-            this.pictureBox1.TabStop = false;
-            // 
-            // mailTB
-            // 
-            this.mailTB.Location = new System.Drawing.Point(85, 71);
-            this.mailTB.Name = "mailTB";
-            this.mailTB.Regular_Expression = null;
-            this.mailTB.Size = new System.Drawing.Size(254, 20);
-            this.mailTB.TabIndex = 19;
-            // 
-            // vornameTB
-            // 
-            this.vornameTB.Location = new System.Drawing.Point(360, 38);
-            this.vornameTB.Name = "vornameTB";
-            this.vornameTB.Regular_Expression = null;
-            this.vornameTB.Size = new System.Drawing.Size(126, 20);
-            this.vornameTB.TabIndex = 18;
-            // 
-            // nameTB
-            // 
-            this.nameTB.Location = new System.Drawing.Point(88, 38);
-            this.nameTB.Name = "nameTB";
-            this.nameTB.Regular_Expression = null;
-            this.nameTB.Size = new System.Drawing.Size(127, 20);
-            this.nameTB.TabIndex = 17;
-            // 
             // projekt_Tab
             // 
-            this.projekt_Tab.Controls.Add(this.pro_Tät_Bearb_Butt);
+            this.projekt_Tab.Controls.Add(this.beschr_Box);
+            this.projekt_Tab.Controls.Add(this.pro_Bearb_Abbr_Butt);
+            this.projekt_Tab.Controls.Add(this.kund_Box);
+            this.projekt_Tab.Controls.Add(this.pro_New_Tät_Butt);
             this.projekt_Tab.Controls.Add(this.pro_Tät_Entf_Butt);
             this.projekt_Tab.Controls.Add(this.deleteArbeiter);
-            this.projekt_Tab.Controls.Add(this.pro_New_Tät_Butt);
+            this.projekt_Tab.Controls.Add(this.pro_Add_Tät_Butt);
             this.projekt_Tab.Controls.Add(this.addWorkerToProject_butt);
             this.projekt_Tab.Controls.Add(this.label7);
-            this.projekt_Tab.Controls.Add(this.thaet_Box);
+            this.projekt_Tab.Controls.Add(this.taet_List);
             this.projekt_Tab.Controls.Add(this.label6);
-            this.projekt_Tab.Controls.Add(this.mitarbeit_Box);
-            this.projekt_Tab.Controls.Add(this.beschr_Box);
+            this.projekt_Tab.Controls.Add(this.mitarbeit_List);
             this.projekt_Tab.Controls.Add(this.label5);
-            this.projekt_Tab.Controls.Add(this.kund_Box);
             this.projekt_Tab.Controls.Add(this.label4);
             this.projekt_Tab.Controls.Add(this.pro_Bearb_Butt);
             this.projekt_Tab.Controls.Add(this.newPro_Butt);
@@ -535,14 +439,26 @@
             this.projekt_Tab.UseVisualStyleBackColor = true;
             this.projekt_Tab.Enter += new System.EventHandler(this.projekt_Tab_Enter);
             // 
-            // pro_Tät_Bearb_Butt
+            // pro_Bearb_Abbr_Butt
             // 
-            this.pro_Tät_Bearb_Butt.Location = new System.Drawing.Point(253, 457);
-            this.pro_Tät_Bearb_Butt.Name = "pro_Tät_Bearb_Butt";
-            this.pro_Tät_Bearb_Butt.Size = new System.Drawing.Size(112, 25);
-            this.pro_Tät_Bearb_Butt.TabIndex = 33;
-            this.pro_Tät_Bearb_Butt.Text = "Tätigkeit bearbeiten";
-            this.pro_Tät_Bearb_Butt.UseVisualStyleBackColor = true;
+            this.pro_Bearb_Abbr_Butt.Location = new System.Drawing.Point(409, 40);
+            this.pro_Bearb_Abbr_Butt.Name = "pro_Bearb_Abbr_Butt";
+            this.pro_Bearb_Abbr_Butt.Size = new System.Drawing.Size(75, 23);
+            this.pro_Bearb_Abbr_Butt.TabIndex = 35;
+            this.pro_Bearb_Abbr_Butt.Text = "Abbrechen";
+            this.pro_Bearb_Abbr_Butt.UseVisualStyleBackColor = true;
+            this.pro_Bearb_Abbr_Butt.Visible = false;
+            this.pro_Bearb_Abbr_Butt.Click += new System.EventHandler(this.pro_Bearb_Abbr_Butt_Click);
+            // 
+            // pro_New_Tät_Butt
+            // 
+            this.pro_New_Tät_Butt.Location = new System.Drawing.Point(253, 456);
+            this.pro_New_Tät_Butt.Name = "pro_New_Tät_Butt";
+            this.pro_New_Tät_Butt.Size = new System.Drawing.Size(112, 26);
+            this.pro_New_Tät_Butt.TabIndex = 33;
+            this.pro_New_Tät_Butt.Text = "Neue Tätigkeit";
+            this.pro_New_Tät_Butt.UseVisualStyleBackColor = true;
+            this.pro_New_Tät_Butt.Click += new System.EventHandler(this.pro_New_Tät_Butt_Click);
             // 
             // pro_Tät_Entf_Butt
             // 
@@ -552,6 +468,7 @@
             this.pro_Tät_Entf_Butt.TabIndex = 32;
             this.pro_Tät_Entf_Butt.Text = "Tätigkeit entfernen";
             this.pro_Tät_Entf_Butt.UseVisualStyleBackColor = true;
+            this.pro_Tät_Entf_Butt.Click += new System.EventHandler(this.pro_Tät_Entf_Butt_Click);
             // 
             // deleteArbeiter
             // 
@@ -563,14 +480,15 @@
             this.deleteArbeiter.UseVisualStyleBackColor = true;
             this.deleteArbeiter.Click += new System.EventHandler(this.deleteArbeiter_Click);
             // 
-            // pro_New_Tät_Butt
+            // pro_Add_Tät_Butt
             // 
-            this.pro_New_Tät_Butt.Location = new System.Drawing.Point(119, 457);
-            this.pro_New_Tät_Butt.Name = "pro_New_Tät_Butt";
-            this.pro_New_Tät_Butt.Size = new System.Drawing.Size(118, 26);
-            this.pro_New_Tät_Butt.TabIndex = 30;
-            this.pro_New_Tät_Butt.Text = "Tätigkeit hinzufügen";
-            this.pro_New_Tät_Butt.UseVisualStyleBackColor = true;
+            this.pro_Add_Tät_Butt.Location = new System.Drawing.Point(119, 456);
+            this.pro_Add_Tät_Butt.Name = "pro_Add_Tät_Butt";
+            this.pro_Add_Tät_Butt.Size = new System.Drawing.Size(118, 26);
+            this.pro_Add_Tät_Butt.TabIndex = 30;
+            this.pro_Add_Tät_Butt.Text = "Tätigkeit hinzufügen";
+            this.pro_Add_Tät_Butt.UseVisualStyleBackColor = true;
+            this.pro_Add_Tät_Butt.Click += new System.EventHandler(this.pro_Add_Tät_Butt_Click);
             // 
             // addWorkerToProject_butt
             // 
@@ -591,13 +509,13 @@
             this.label7.TabIndex = 28;
             this.label7.Text = "Tätigkeiten:";
             // 
-            // thaet_Box
+            // taet_List
             // 
-            this.thaet_Box.FormattingEnabled = true;
-            this.thaet_Box.Location = new System.Drawing.Point(119, 360);
-            this.thaet_Box.Name = "thaet_Box";
-            this.thaet_Box.Size = new System.Drawing.Size(367, 82);
-            this.thaet_Box.TabIndex = 27;
+            this.taet_List.FormattingEnabled = true;
+            this.taet_List.Location = new System.Drawing.Point(119, 360);
+            this.taet_List.Name = "taet_List";
+            this.taet_List.Size = new System.Drawing.Size(367, 82);
+            this.taet_List.TabIndex = 27;
             // 
             // label6
             // 
@@ -608,22 +526,13 @@
             this.label6.TabIndex = 26;
             this.label6.Text = "Mitarbeiter:";
             // 
-            // mitarbeit_Box
+            // mitarbeit_List
             // 
-            this.mitarbeit_Box.FormattingEnabled = true;
-            this.mitarbeit_Box.Location = new System.Drawing.Point(119, 180);
-            this.mitarbeit_Box.Name = "mitarbeit_Box";
-            this.mitarbeit_Box.Size = new System.Drawing.Size(367, 121);
-            this.mitarbeit_Box.TabIndex = 25;
-            // 
-            // beschr_Box
-            // 
-            this.beschr_Box.Location = new System.Drawing.Point(119, 96);
-            this.beschr_Box.Multiline = true;
-            this.beschr_Box.Name = "beschr_Box";
-            this.beschr_Box.ReadOnly = true;
-            this.beschr_Box.Size = new System.Drawing.Size(367, 66);
-            this.beschr_Box.TabIndex = 24;
+            this.mitarbeit_List.FormattingEnabled = true;
+            this.mitarbeit_List.Location = new System.Drawing.Point(119, 180);
+            this.mitarbeit_List.Name = "mitarbeit_List";
+            this.mitarbeit_List.Size = new System.Drawing.Size(367, 121);
+            this.mitarbeit_List.TabIndex = 25;
             // 
             // label5
             // 
@@ -633,14 +542,6 @@
             this.label5.Size = new System.Drawing.Size(107, 13);
             this.label5.TabIndex = 23;
             this.label5.Text = "Projektbeschreibung:";
-            // 
-            // kund_Box
-            // 
-            this.kund_Box.Location = new System.Drawing.Point(119, 67);
-            this.kund_Box.Name = "kund_Box";
-            this.kund_Box.ReadOnly = true;
-            this.kund_Box.Size = new System.Drawing.Size(367, 20);
-            this.kund_Box.TabIndex = 22;
             // 
             // label4
             // 
@@ -659,6 +560,7 @@
             this.pro_Bearb_Butt.TabIndex = 20;
             this.pro_Bearb_Butt.Text = "Bearbeiten";
             this.pro_Bearb_Butt.UseVisualStyleBackColor = true;
+            this.pro_Bearb_Butt.Click += new System.EventHandler(this.pro_Bearb_Butt_Click);
             // 
             // newPro_Butt
             // 
@@ -668,6 +570,7 @@
             this.newPro_Butt.TabIndex = 19;
             this.newPro_Butt.Text = "Projekt anlegen";
             this.newPro_Butt.UseVisualStyleBackColor = true;
+            this.newPro_Butt.Click += new System.EventHandler(this.newPro_Butt_Click);
             // 
             // label2
             // 
@@ -698,6 +601,123 @@
             this.close_Butt.UseVisualStyleBackColor = true;
             this.close_Butt.Click += new System.EventHandler(this.close_Butt_Click);
             // 
+            // ku_fax_box
+            // 
+            this.ku_fax_box.Location = new System.Drawing.Point(101, 289);
+            this.ku_fax_box.Name = "ku_fax_box";
+            this.ku_fax_box.Regular_Expression = null;
+            this.ku_fax_box.Size = new System.Drawing.Size(208, 20);
+            this.ku_fax_box.TabIndex = 21;
+            // 
+            // ku_tel_box
+            // 
+            this.ku_tel_box.Location = new System.Drawing.Point(101, 243);
+            this.ku_tel_box.Name = "ku_tel_box";
+            this.ku_tel_box.Regular_Expression = null;
+            this.ku_tel_box.Size = new System.Drawing.Size(208, 20);
+            this.ku_tel_box.TabIndex = 20;
+            // 
+            // ku_ort_box
+            // 
+            this.ku_ort_box.Location = new System.Drawing.Point(100, 200);
+            this.ku_ort_box.Name = "ku_ort_box";
+            this.ku_ort_box.Regular_Expression = null;
+            this.ku_ort_box.Size = new System.Drawing.Size(209, 20);
+            this.ku_ort_box.TabIndex = 19;
+            // 
+            // ku_plz_box
+            // 
+            this.ku_plz_box.Location = new System.Drawing.Point(100, 174);
+            this.ku_plz_box.Name = "ku_plz_box";
+            this.ku_plz_box.Regular_Expression = null;
+            this.ku_plz_box.Size = new System.Drawing.Size(82, 20);
+            this.ku_plz_box.TabIndex = 18;
+            // 
+            // ku_str_box
+            // 
+            this.ku_str_box.Location = new System.Drawing.Point(100, 142);
+            this.ku_str_box.Name = "ku_str_box";
+            this.ku_str_box.Regular_Expression = null;
+            this.ku_str_box.Size = new System.Drawing.Size(209, 20);
+            this.ku_str_box.TabIndex = 17;
+            // 
+            // ku_mail_box
+            // 
+            this.ku_mail_box.Location = new System.Drawing.Point(101, 110);
+            this.ku_mail_box.Name = "ku_mail_box";
+            this.ku_mail_box.Regular_Expression = null;
+            this.ku_mail_box.Size = new System.Drawing.Size(208, 20);
+            this.ku_mail_box.TabIndex = 16;
+            // 
+            // ku_anspr_box
+            // 
+            this.ku_anspr_box.Location = new System.Drawing.Point(100, 80);
+            this.ku_anspr_box.Name = "ku_anspr_box";
+            this.ku_anspr_box.Regular_Expression = null;
+            this.ku_anspr_box.Size = new System.Drawing.Size(209, 20);
+            this.ku_anspr_box.TabIndex = 15;
+            // 
+            // ku_firma_box
+            // 
+            this.ku_firma_box.Location = new System.Drawing.Point(101, 47);
+            this.ku_firma_box.Name = "ku_firma_box";
+            this.ku_firma_box.Regular_Expression = null;
+            this.ku_firma_box.Size = new System.Drawing.Size(208, 20);
+            this.ku_firma_box.TabIndex = 14;
+            // 
+            // mailTB
+            // 
+            this.mailTB.Location = new System.Drawing.Point(85, 71);
+            this.mailTB.Name = "mailTB";
+            this.mailTB.Regular_Expression = null;
+            this.mailTB.Size = new System.Drawing.Size(254, 20);
+            this.mailTB.TabIndex = 19;
+            // 
+            // vornameTB
+            // 
+            this.vornameTB.Location = new System.Drawing.Point(360, 38);
+            this.vornameTB.Name = "vornameTB";
+            this.vornameTB.Regular_Expression = null;
+            this.vornameTB.Size = new System.Drawing.Size(126, 20);
+            this.vornameTB.TabIndex = 18;
+            // 
+            // nameTB
+            // 
+            this.nameTB.Location = new System.Drawing.Point(88, 38);
+            this.nameTB.Name = "nameTB";
+            this.nameTB.Regular_Expression = null;
+            this.nameTB.Size = new System.Drawing.Size(127, 20);
+            this.nameTB.TabIndex = 17;
+            // 
+            // beschr_Box
+            // 
+            this.beschr_Box.Location = new System.Drawing.Point(120, 99);
+            this.beschr_Box.Multiline = true;
+            this.beschr_Box.Name = "beschr_Box";
+            this.beschr_Box.ReadOnly = true;
+            this.beschr_Box.Regular_Expression = null;
+            this.beschr_Box.Size = new System.Drawing.Size(366, 75);
+            this.beschr_Box.TabIndex = 36;
+            // 
+            // kund_Box
+            // 
+            this.kund_Box.Location = new System.Drawing.Point(119, 70);
+            this.kund_Box.Name = "kund_Box";
+            this.kund_Box.ReadOnly = true;
+            this.kund_Box.Regular_Expression = null;
+            this.kund_Box.Size = new System.Drawing.Size(367, 20);
+            this.kund_Box.TabIndex = 34;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = global::Zeiterfassung.Properties.Resources.work_in_progress;
+            this.pictureBox1.Location = new System.Drawing.Point(10, 194);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(508, 315);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox1.TabIndex = 16;
+            this.pictureBox1.TabStop = false;
+            // 
             // Administration
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -716,9 +736,9 @@
             this.kunden_Tab.PerformLayout();
             this.mitarbeiter_Tab.ResumeLayout(false);
             this.mitarbeiter_Tab.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.projekt_Tab.ResumeLayout(false);
             this.projekt_Tab.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -768,22 +788,23 @@
         private RegExTextbox vornameTB;
         private RegExTextbox nameTB;
         private System.Windows.Forms.Button mi_Cancel_Butt;
-        private System.Windows.Forms.Button pro_Tät_Bearb_Butt;
+        private System.Windows.Forms.Button pro_New_Tät_Butt;
         private System.Windows.Forms.Button pro_Tät_Entf_Butt;
         private System.Windows.Forms.Button deleteArbeiter;
-        private System.Windows.Forms.Button pro_New_Tät_Butt;
+        private System.Windows.Forms.Button pro_Add_Tät_Butt;
         private System.Windows.Forms.Button addWorkerToProject_butt;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.ListBox thaet_Box;
+        private System.Windows.Forms.ListBox taet_List;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.ListBox mitarbeit_Box;
-        private System.Windows.Forms.TextBox beschr_Box;
+        private System.Windows.Forms.ListBox mitarbeit_List;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox kund_Box;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button pro_Bearb_Butt;
         private System.Windows.Forms.Button newPro_Butt;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ComboBox selectBoxProjekt;
+        private System.Windows.Forms.Button pro_Bearb_Abbr_Butt;
+        private RegExTextbox kund_Box;
+        private RegExTextbox beschr_Box;
     }
 }

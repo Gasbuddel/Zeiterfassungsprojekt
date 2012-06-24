@@ -11,33 +11,42 @@ namespace Zeiterfassung
 {
     public partial class CreateProject : Form
     {
-        private Administration admin { get; set; }
-        public CreateProject(Administration admin_temp)
+        private Dictionary<int, int> kundenIds;
+
+        public CreateProject()
         {
             InitializeComponent();
 
-            this.admin = admin_temp;
-            DataTable kunde = SqlConnection.SelectStatement("SELECT kuFirma FROM tkunde");
+            kundenIds = new Dictionary<int, int>();
 
-            DataTableReader kunde_reader = kunde.CreateDataReader();
+            DataTable kunde = SqlConnection.SelectStatement("SELECT kuId ,kuFirma FROM tkunde");
 
+            DataTableReader reader = kunde.CreateDataReader();
+
+            int index = 0;
             
-            if (kunde_reader.HasRows)
+            if (reader.HasRows)
             {
-                while (kunde_reader.Read())
+                while (reader.Read())
                 {
-                    kunde_box.Items.Add(kunde_reader.GetString(0));
+                    kunde_box.Items.Add(reader.GetString(1));
+                    kundenIds.Add(index, reader.GetInt32(0));
+
+                    index++;
                 }
             }
+
+            kunde_box.SelectedIndex = 0;
         }
 
         private void ok_Click(object sender, EventArgs e)
         {
             try
             {
-                DataTable arbeiter = SqlConnection.SelectStatement("INSERT INTO `tprojekt`( `kuID`, `prName`, `prBeschreibung`) VALUES ((Select kuID FROM tkunde WHERE kuFirma='" + kunde_box.Text + "'),'" + textBox1.Text + "','" + textBox2.Text + "')");
-                MessageBox.Show("Das Projekt" + " '" + textBox1.Text + "' wurde angelegt");
-                admin.selectBoxProjekt_SelectedIndexChanged();
+                DataTable arbeiter = SqlConnection.SelectStatement("INSERT INTO tprojekt( kuID, prName, prBeschreibung) " +
+                "VALUES ( " + kundenIds[kunde_box.SelectedIndex] + ", '" + nameBox.Text + "','" + descBox.Text + "')");
+
+                MessageBox.Show("Das Projekt" + " '" + nameBox.Text + "' wurde angelegt");
                 this.Close();
             }
             catch

@@ -11,54 +11,62 @@ namespace Zeiterfassung
 {
     public partial class AddTaetigkeit : Form
     {
+        private Dictionary<int, int> tätikeitIds;
+
+        int prID;
         
-        Administration admin {get; set;}
-        int prID {get; set;}
-        
-        public AddTaetigkeit(Administration admin_test, int prID_temp)
+        public AddTaetigkeit(int prID_temp)
         {
             InitializeComponent();
 
-            this.admin= admin_test;
             this.prID= prID_temp;
 
-            DataTable AllTaetig = SqlConnection.SelectStatement("SELECT taBeschreibung FROM `ttaetigkeitenvorlage`");
+            tätikeitIds = new Dictionary<int, int>();
 
-            DataTableReader AllTaetig_reader = AllTaetig.CreateDataReader();
+            DataTable AllTaetig = SqlConnection.SelectStatement("SELECT taID, taBeschreibung " +
+            "FROM ttaetigkeitenvorlage " +
+            "WHERE taID NOT IN (" +
+            "SELECT taID " +
+            "FROM tproj_taet " +
+            "WHERE prID = " + prID + ")");
 
-            if (AllTaetig_reader.HasRows)
+            DataTableReader reader = AllTaetig.CreateDataReader();
+
+            int index = 0;
+
+            if (reader.HasRows)
             {
-                while (AllTaetig_reader.Read())
+                while (reader.Read())
                 {
-                    checkedListBox1.Items.Add(AllTaetig_reader.GetString(0));
+                    tätigkeitListe.Items.Add(reader.GetString(1));
+                    tätikeitIds.Add(index,reader.GetInt32(0));
+                    index ++;
                 }
             }
-        }
-
-        private void checkedListBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
         }
 
         private void ok_Click(object sender, EventArgs e)
         {
      
-                foreach (object itemChecked in checkedListBox1.CheckedItems)
-                {
-                    try
-                    {
-                        DataTable AddTaetig = SqlConnection.SelectStatement("INSERT INTO `tproj_taet`(`prID`, `taID`) VALUES (" + prID + ",(SELECT taID FROM ttaetigkeitenvorlage WHERE taBeschreibung='" + itemChecked.ToString() + "'))");
-                        //MessageBox.Show("INSERT INTO `tproj_taet`(`prID`, `taID`) VALUES (" + prID + ",'" + itemChecked.ToString() + "'");
-                        admin.selectBoxProjekt_SelectedIndexChanged();
-                    }
-                    catch
-                    {
-                        MessageBox.Show("'" + itemChecked.ToString() + "' existiert bereits");
-                    }
-                }
-                MessageBox.Show("Tätigkeiten hinzugefügt");
+            foreach (object itemChecked in tätigkeitListe.CheckedItems)
+            {
+                string test = "INSERT INTO `tproj_taet`(`prID`, `taID`) " +
+                        "VALUES (" + prID + ", " + tätikeitIds[tätigkeitListe.Items.IndexOf(itemChecked)] + ")";
+                SqlConnection.ExecuteStatement("INSERT INTO `tproj_taet`(`prID`, `taID`) " +
+                    "VALUES (" + prID + ", " + tätikeitIds[tätigkeitListe.Items.IndexOf(itemChecked)] + ")");
+            }
 
-           
+            this.DialogResult = DialogResult.OK;
+            this.Close();                    
         }
+
+        private void abort_Click(object sender, EventArgs e)
+        {
+            this.DialogResult = DialogResult.Cancel;
+            this.Close();
+
+        }
+
+
     }
 }

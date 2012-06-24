@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.nameBox = new System.Windows.Forms.TextBox();
+            this.descBox = new System.Windows.Forms.TextBox();
             this.ok = new System.Windows.Forms.Button();
             this.abort = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
@@ -38,24 +38,24 @@
             this.label3 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
-            // textBox1
+            // nameBox
             // 
-            this.textBox1.Location = new System.Drawing.Point(12, 69);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(288, 20);
-            this.textBox1.TabIndex = 0;
+            this.nameBox.Location = new System.Drawing.Point(12, 69);
+            this.nameBox.Name = "nameBox";
+            this.nameBox.Size = new System.Drawing.Size(288, 20);
+            this.nameBox.TabIndex = 0;
             // 
-            // textBox2
+            // descBox
             // 
-            this.textBox2.Location = new System.Drawing.Point(12, 108);
-            this.textBox2.Multiline = true;
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(288, 125);
-            this.textBox2.TabIndex = 1;
+            this.descBox.Location = new System.Drawing.Point(12, 108);
+            this.descBox.Multiline = true;
+            this.descBox.Name = "descBox";
+            this.descBox.Size = new System.Drawing.Size(288, 125);
+            this.descBox.TabIndex = 1;
             // 
             // ok
             // 
-            this.ok.Location = new System.Drawing.Point(158, 239);
+            this.ok.Location = new System.Drawing.Point(12, 240);
             this.ok.Name = "ok";
             this.ok.Size = new System.Drawing.Size(142, 24);
             this.ok.TabIndex = 2;
@@ -65,9 +65,10 @@
             // 
             // abort
             // 
-            this.abort.Location = new System.Drawing.Point(12, 239);
+            this.abort.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.abort.Location = new System.Drawing.Point(160, 240);
             this.abort.Name = "abort";
-            this.abort.Size = new System.Drawing.Size(140, 23);
+            this.abort.Size = new System.Drawing.Size(140, 24);
             this.abort.TabIndex = 3;
             this.abort.Text = "Abbrechen";
             this.abort.UseVisualStyleBackColor = true;
@@ -92,12 +93,12 @@
             // 
             // kunde_box
             // 
+            this.kunde_box.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.kunde_box.FormattingEnabled = true;
             this.kunde_box.Location = new System.Drawing.Point(12, 29);
             this.kunde_box.Name = "kunde_box";
             this.kunde_box.Size = new System.Drawing.Size(288, 21);
             this.kunde_box.TabIndex = 6;
-           
             // 
             // label3
             // 
@@ -110,8 +111,10 @@
             // 
             // CreateProject
             // 
+            this.AcceptButton = this.ok;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.CancelButton = this.abort;
             this.ClientSize = new System.Drawing.Size(314, 274);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.kunde_box);
@@ -119,8 +122,8 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.abort);
             this.Controls.Add(this.ok);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.descBox);
+            this.Controls.Add(this.nameBox);
             this.Name = "CreateProject";
             this.Text = "CreateProject";
             this.ResumeLayout(false);
@@ -130,8 +133,8 @@
 
         #endregion
 
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox nameBox;
+        private System.Windows.Forms.TextBox descBox;
         private System.Windows.Forms.Button ok;
         private System.Windows.Forms.Button abort;
         private System.Windows.Forms.Label label1;
