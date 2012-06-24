@@ -94,11 +94,13 @@ namespace Zeiterfassung
         //Kunde wurde in der Combobox ausgewählt
         private void kunden_box_SelectedIndexChanged(object sender, EventArgs e)
         {
-            kundenAktualisieren(kundenIds[kunden_box.SelectedIndex]);
+            kundenAktualisieren();
         }
 
-        private void kundenAktualisieren(int kuId)
+        private void kundenAktualisieren()
         {
+            int kuId = kundenIds[kunden_box.SelectedIndex];
+
             DataTable kunden = SqlConnection.SelectStatement("SELECT  * FROM tKunde WHERE kuID =" + kuId);
 
             DataTableReader reader = kunden.CreateDataReader();
@@ -193,6 +195,8 @@ namespace Zeiterfassung
 				kundenInitialisieren();
 				kunden_box.SelectedIndex = 0;
 			}
+
+
 		}
 
 		//Änderungen annehmen
@@ -204,37 +208,41 @@ namespace Zeiterfassung
             setKundenTextboxReadonly(true);
 
             //Bearbeiten
-			if (bearbeitungsStatus == 1)
-			{
-				SqlConnection.ExecuteStatement("UPDATE tkunde SET kuFirma = '" + ku_firma_box.Text +
-					"',kuStrasse = '" + ku_str_box.Text +
-					"',kuOrt = '" + ku_ort_box.Text +
-					"',kuTel = '" + ku_tel_box.Text +
-					"',kuFax = '" + ku_fax_box.Text +
-					"',kuAnsprechpartner = '" + ku_anspr_box.Text +
-					"',`kuEMail` = '" + ku_mail_box.Text +
-					"' WHERE kuID = " + kundenIds[kunden_box.SelectedIndex]);
+            if (bearbeitungsStatus == 1)
+            {
+                SqlConnection.ExecuteStatement("UPDATE tkunde SET kuFirma = '" + ku_firma_box.Text +
+                    "',kuStrasse = '" + ku_str_box.Text +
+                    "',kuOrt = '" + ku_ort_box.Text +
+                    "',kuTel = '" + ku_tel_box.Text +
+                    "',kuFax = '" + ku_fax_box.Text +
+                    "',kuAnsprechpartner = '" + ku_anspr_box.Text +
+                    "',`kuEMail` = '" + ku_mail_box.Text +
+                    "' WHERE kuID = " + kundenIds[kunden_box.SelectedIndex]);
+
+                kundenAktualisieren();
 
                 ku_New_Button.Enabled = true;
-			}
+            }
             //Neuer Kunde
-			else if(bearbeitungsStatus == 2)
-			{
-				SqlConnection.ExecuteStatement("INSERT INTO tkunde ( kuFirma, kuStrasse, kuPLz, kuOrt, kuTel, kuFax, kuAnsprechpartner, kuEMail)" +
-					"VALUES ( '" + ku_firma_box.Text + "', '" +
-					ku_str_box.Text + "', '" +
-					ku_plz_box.Text + "', '" +
-					ku_ort_box.Text + "', '" + 
-					ku_tel_box.Text + "', '" +
-					ku_fax_box.Text + "', '" +
-					ku_anspr_box.Text + "', '" +
-					ku_mail_box.Text + "')");
-				kundenInitialisieren();
-				kunden_box.SelectedIndex = kunden_box.Items.Count - 1;
+            else if (bearbeitungsStatus == 2)
+            {
+                SqlConnection.ExecuteStatement("INSERT INTO tkunde ( kuFirma, kuStrasse, kuPLz, kuOrt, kuTel, kuFax, kuAnsprechpartner, kuEMail)" +
+                    "VALUES ( '" + ku_firma_box.Text + "', '" +
+                    ku_str_box.Text + "', '" +
+                    ku_plz_box.Text + "', '" +
+                    ku_ort_box.Text + "', '" +
+                    ku_tel_box.Text + "', '" +
+                    ku_fax_box.Text + "', '" +
+                    ku_anspr_box.Text + "', '" +
+                    ku_mail_box.Text + "')");
+                kundenInitialisieren();
+                kunden_box.SelectedIndex = kunden_box.Items.Count - 1;
 
                 ku_Bearb_Butt.Enabled = true;
-			}
-			bearbeitungsStatus = 0;
+            }
+            bearbeitungsStatus = 0;
+
+
         }
 
         private void ku_Cancel_Butt_Click(object sender, EventArgs e)
@@ -243,12 +251,31 @@ namespace Zeiterfassung
             ku_Ok_Butt.Enabled = false;
             ku_Cancel_Butt.Enabled = false;
             setKundenTextboxReadonly(true);
-            kundenAktualisieren(kundenIds[kunden_box.SelectedIndex]);
+            kundenAktualisieren();
 
             ku_Bearb_Butt.Enabled = true;
             ku_New_Button.Enabled = true;
 
 			bearbeitungsStatus = 0;
+        }
+
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            if (ku_plz_box.ValidateControl() == false)
+                ku_plz_box.BackColor = Color.Red;
+            else
+                ku_plz_box.BackColor = Color.White;
+
+            if (ku_firma_box.ValidateControl() == false)
+                ku_firma_box.BackColor = Color.Red;
+            else
+                ku_firma_box.BackColor = Color.White;
+
+            if (ku_anspr_box.ValidateControl() == false)
+                ku_anspr_box.BackColor = Color.Red;
+            else
+                ku_anspr_box.BackColor = Color.White;
         }
 
         #endregion
@@ -695,6 +722,7 @@ namespace Zeiterfassung
         }
 
         #endregion
+
 
 
 
