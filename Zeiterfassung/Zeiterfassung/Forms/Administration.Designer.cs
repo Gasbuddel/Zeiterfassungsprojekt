@@ -31,6 +31,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Administration));
             this.project_Tab = new System.Windows.Forms.TabControl();
             this.kunden_Tab = new System.Windows.Forms.TabPage();
+            this.button1 = new System.Windows.Forms.Button();
             this.ku_Ok_Butt = new System.Windows.Forms.Button();
             this.ku_Cancel_Butt = new System.Windows.Forms.Button();
             this.ku_fax_box = new Zeiterfassung.RegExTextbox();
@@ -90,7 +91,6 @@
             this.label2 = new System.Windows.Forms.Label();
             this.selectBoxProjekt = new System.Windows.Forms.ComboBox();
             this.close_Butt = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
             this.project_Tab.SuspendLayout();
             this.kunden_Tab.SuspendLayout();
             this.mitarbeiter_Tab.SuspendLayout();
@@ -144,6 +144,16 @@
             this.kunden_Tab.UseVisualStyleBackColor = true;
             this.kunden_Tab.Enter += new System.EventHandler(this.kunden_Tab_Enter);
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(206, 385);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(125, 23);
+            this.button1.TabIndex = 24;
+            this.button1.Text = "Regex Testen";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // ku_Ok_Butt
             // 
             this.ku_Ok_Butt.Location = new System.Drawing.Point(342, 385);
@@ -187,7 +197,7 @@
             this.ku_ort_box.Location = new System.Drawing.Point(100, 200);
             this.ku_ort_box.MaxLength = 64;
             this.ku_ort_box.Name = "ku_ort_box";
-            this.ku_ort_box.Regular_Expression = " ^(\\d|\\w)+$";
+            this.ku_ort_box.Regular_Expression = " ^(\\d|\\w|\\s)+$";
             this.ku_ort_box.Size = new System.Drawing.Size(209, 20);
             this.ku_ort_box.TabIndex = 19;
             // 
@@ -205,7 +215,7 @@
             this.ku_str_box.Location = new System.Drawing.Point(100, 142);
             this.ku_str_box.MaxLength = 65;
             this.ku_str_box.Name = "ku_str_box";
-            this.ku_str_box.Regular_Expression = "^(\\d|\\w)+$";
+            this.ku_str_box.Regular_Expression = "^(\\d|\\w|\\s)+$";
             this.ku_str_box.Size = new System.Drawing.Size(209, 20);
             this.ku_str_box.TabIndex = 17;
             // 
@@ -223,7 +233,7 @@
             this.ku_anspr_box.Location = new System.Drawing.Point(100, 80);
             this.ku_anspr_box.MaxLength = 64;
             this.ku_anspr_box.Name = "ku_anspr_box";
-            this.ku_anspr_box.Regular_Expression = "^(\\d|\\w)+$";
+            this.ku_anspr_box.Regular_Expression = "^(\\d|\\w|\\s)+$";
             this.ku_anspr_box.Size = new System.Drawing.Size(209, 20);
             this.ku_anspr_box.TabIndex = 15;
             // 
@@ -232,7 +242,7 @@
             this.ku_firma_box.Location = new System.Drawing.Point(101, 47);
             this.ku_firma_box.MaxLength = 64;
             this.ku_firma_box.Name = "ku_firma_box";
-            this.ku_firma_box.Regular_Expression = "^(\\d|\\w)*$";
+            this.ku_firma_box.Regular_Expression = "^(\\d|\\w|\\s)*$";
             this.ku_firma_box.Size = new System.Drawing.Size(208, 20);
             this.ku_firma_box.TabIndex = 14;
             // 
@@ -729,16 +739,6 @@
             this.close_Butt.Text = "Schließen";
             this.close_Butt.UseVisualStyleBackColor = true;
             this.close_Butt.Click += new System.EventHandler(this.close_Butt_Click);
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(206, 385);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(125, 23);
-            this.button1.TabIndex = 24;
-            this.button1.Text = "Regex Testen";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // Administration
             // 
