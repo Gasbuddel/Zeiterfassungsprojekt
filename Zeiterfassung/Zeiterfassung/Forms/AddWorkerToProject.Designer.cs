@@ -35,6 +35,7 @@
             // 
             // arbeiterListe
             // 
+            this.arbeiterListe.CheckOnClick = true;
             this.arbeiterListe.FormattingEnabled = true;
             this.arbeiterListe.Location = new System.Drawing.Point(15, 32);
             this.arbeiterListe.Name = "arbeiterListe";
@@ -72,6 +73,7 @@
             this.Controls.Add(this.Abort);
             this.Controls.Add(this.AddWorkers);
             this.Controls.Add(this.arbeiterListe);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "AddWorkerToProject";

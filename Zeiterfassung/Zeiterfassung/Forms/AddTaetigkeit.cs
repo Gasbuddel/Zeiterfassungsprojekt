@@ -50,8 +50,6 @@ namespace Zeiterfassung
      
             foreach (object itemChecked in tätigkeitListe.CheckedItems)
             {
-                string test = "INSERT INTO `tproj_taet`(`prID`, `taID`) " +
-                        "VALUES (" + prID + ", " + tätikeitIds[tätigkeitListe.Items.IndexOf(itemChecked)] + ")";
                 SqlConnection.ExecuteStatement("INSERT INTO `tproj_taet`(`prID`, `taID`) " +
                     "VALUES (" + prID + ", " + tätikeitIds[tätigkeitListe.Items.IndexOf(itemChecked)] + ")");
             }

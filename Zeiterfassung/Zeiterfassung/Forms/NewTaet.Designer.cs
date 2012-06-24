@@ -83,6 +83,9 @@
             this.Controls.Add(this.cancel_Butt);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.tätDesc_Box);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "NewTaet";
             this.Text = "Neue Tätigkeit erstellen";
             this.ResumeLayout(false);

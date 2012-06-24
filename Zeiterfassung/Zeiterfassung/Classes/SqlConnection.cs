@@ -52,19 +52,19 @@ namespace Zeiterfassung
 		/// Führt alle SQL-Aufträge ohne Rückgabe aus
 		/// </summary>
 		/// <param name="sql">SQL-Auftrag</param>
-        public static void ExecuteStatement(string sql)
+        public static int ExecuteStatement(string sql)
         {
             MySqlConnection con = SqlConnection.GetConnection();
             MySqlCommand cmd = con.CreateCommand();
             cmd.CommandText = sql;
 
-
             con.Open();
 
-            cmd.ExecuteNonQuery();
+            int result = cmd.ExecuteNonQuery();
 
             con.Close();
 
+            return result;
         }
     }
 }

@@ -14,7 +14,7 @@ namespace Zeiterfassung
     {
         public Login()
         {
-            this.StartPosition = FormStartPosition.CenterScreen;
+            this.StartPosition = FormStartPosition.CenterParent;
             InitializeComponent();
         }
 
@@ -73,7 +73,7 @@ namespace Zeiterfassung
                     }
                     else
                     {
-                        MessageBox.Show("Sie konnten nicht angemeldet werden.");
+                        MessageBox.Show("Sie haben einen falschen Benutzername/Passwort eingegeben.");
                     }
                 }
                 catch (MySqlException)

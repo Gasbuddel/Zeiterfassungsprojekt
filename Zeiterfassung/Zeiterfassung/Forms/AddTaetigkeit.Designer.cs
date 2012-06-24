@@ -35,6 +35,7 @@
             // 
             // tätigkeitListe
             // 
+            this.tätigkeitListe.CheckOnClick = true;
             this.tätigkeitListe.FormattingEnabled = true;
             this.tätigkeitListe.Location = new System.Drawing.Point(12, 37);
             this.tätigkeitListe.Name = "tätigkeitListe";
@@ -43,6 +44,7 @@
             // 
             // abort
             // 
+            this.abort.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.abort.Location = new System.Drawing.Point(228, 227);
             this.abort.Name = "abort";
             this.abort.Size = new System.Drawing.Size(144, 24);
@@ -71,6 +73,9 @@
             this.Controls.Add(this.ok);
             this.Controls.Add(this.abort);
             this.Controls.Add(this.tätigkeitListe);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "AddTaetigkeit";
             this.Text = "AddTaetigkeit";
             this.ResumeLayout(false);

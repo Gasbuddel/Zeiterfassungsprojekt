@@ -99,7 +99,7 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // changepw
+            // ChangePW
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -111,9 +111,10 @@
             this.Controls.Add(this.newPW2);
             this.Controls.Add(this.newPW);
             this.Controls.Add(this.altesPW);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "changepw";
+            this.Name = "ChangePW";
             this.ShowInTaskbar = false;
             this.Text = "Passwört ändern";
             this.ResumeLayout(false);

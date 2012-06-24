@@ -58,6 +58,7 @@
             this.label9 = new System.Windows.Forms.Label();
             this.userNameBox = new System.Windows.Forms.ComboBox();
             this.label8 = new System.Windows.Forms.Label();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.projekt_Tab = new System.Windows.Forms.TabPage();
             this.pro_Bearb_Abbr_Butt = new System.Windows.Forms.Button();
             this.pro_New_Tät_Butt = new System.Windows.Forms.Button();
@@ -89,12 +90,11 @@
             this.nameTB = new Zeiterfassung.RegExTextbox();
             this.beschr_Box = new Zeiterfassung.RegExTextbox();
             this.kund_Box = new Zeiterfassung.RegExTextbox();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.project_Tab.SuspendLayout();
             this.kunden_Tab.SuspendLayout();
             this.mitarbeiter_Tab.SuspendLayout();
-            this.projekt_Tab.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.projekt_Tab.SuspendLayout();
             this.SuspendLayout();
             // 
             // project_Tab
@@ -287,10 +287,10 @@
             this.mitarbeiter_Tab.Controls.Add(this.label9);
             this.mitarbeiter_Tab.Controls.Add(this.userNameBox);
             this.mitarbeiter_Tab.Controls.Add(this.label8);
+            this.mitarbeiter_Tab.Controls.Add(this.pictureBox1);
             this.mitarbeiter_Tab.Controls.Add(this.mailTB);
             this.mitarbeiter_Tab.Controls.Add(this.vornameTB);
             this.mitarbeiter_Tab.Controls.Add(this.nameTB);
-            this.mitarbeiter_Tab.Controls.Add(this.pictureBox1);
             this.mitarbeiter_Tab.Location = new System.Drawing.Point(4, 22);
             this.mitarbeiter_Tab.Name = "mitarbeiter_Tab";
             this.mitarbeiter_Tab.Size = new System.Drawing.Size(525, 512);
@@ -394,6 +394,7 @@
             // 
             // userNameBox
             // 
+            this.userNameBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.userNameBox.FormattingEnabled = true;
             this.userNameBox.Location = new System.Drawing.Point(88, 6);
             this.userNameBox.Name = "userNameBox";
@@ -410,17 +411,27 @@
             this.label8.TabIndex = 0;
             this.label8.Text = "Benutzername:";
             // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = global::Zeiterfassung.Properties.Resources.work_in_progress;
+            this.pictureBox1.Location = new System.Drawing.Point(10, 194);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(508, 315);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox1.TabIndex = 16;
+            this.pictureBox1.TabStop = false;
+            // 
             // projekt_Tab
             // 
             this.projekt_Tab.Controls.Add(this.beschr_Box);
             this.projekt_Tab.Controls.Add(this.pro_Bearb_Abbr_Butt);
-            this.projekt_Tab.Controls.Add(this.kund_Box);
             this.projekt_Tab.Controls.Add(this.pro_New_Tät_Butt);
             this.projekt_Tab.Controls.Add(this.pro_Tät_Entf_Butt);
             this.projekt_Tab.Controls.Add(this.deleteArbeiter);
             this.projekt_Tab.Controls.Add(this.pro_Add_Tät_Butt);
             this.projekt_Tab.Controls.Add(this.addWorkerToProject_butt);
             this.projekt_Tab.Controls.Add(this.label7);
+            this.projekt_Tab.Controls.Add(this.kund_Box);
             this.projekt_Tab.Controls.Add(this.taet_List);
             this.projekt_Tab.Controls.Add(this.label6);
             this.projekt_Tab.Controls.Add(this.mitarbeit_List);
@@ -593,6 +604,7 @@
             // 
             // close_Butt
             // 
+            this.close_Butt.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.close_Butt.Location = new System.Drawing.Point(458, 543);
             this.close_Butt.Name = "close_Butt";
             this.close_Butt.Size = new System.Drawing.Size(75, 23);
@@ -708,20 +720,11 @@
             this.kund_Box.Size = new System.Drawing.Size(367, 20);
             this.kund_Box.TabIndex = 34;
             // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Image = global::Zeiterfassung.Properties.Resources.work_in_progress;
-            this.pictureBox1.Location = new System.Drawing.Point(10, 194);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(508, 315);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox1.TabIndex = 16;
-            this.pictureBox1.TabStop = false;
-            // 
             // Administration
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.CancelButton = this.close_Butt;
             this.ClientSize = new System.Drawing.Size(538, 572);
             this.Controls.Add(this.close_Butt);
             this.Controls.Add(this.project_Tab);
@@ -736,9 +739,9 @@
             this.kunden_Tab.PerformLayout();
             this.mitarbeiter_Tab.ResumeLayout(false);
             this.mitarbeiter_Tab.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.projekt_Tab.ResumeLayout(false);
             this.projekt_Tab.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
         }

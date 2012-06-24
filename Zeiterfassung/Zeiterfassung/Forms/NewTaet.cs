@@ -24,6 +24,13 @@ namespace Zeiterfassung
         {
             SqlConnection.ExecuteStatement("INSERT INTO ttaetigkeitenvorlage (taBeschreibung) " +
                 "VALUES ( '" + tätDesc_Box.Text + "')");
+            //ID der eingefügten Tätigkeit festhalten
+            DataTable lastId = SqlConnection.SelectStatement("SELECT LAST_INSERT_ID( )FROM ttaetigkeitenvorlage");
+
+            //Projekt und Tätigkeit verknüpfen
+            SqlConnection.ExecuteStatement("INSERT INTO tproj_taet (prID, taID) " +
+                "VALUES (" + proID + ", " + lastId.Rows[0][0].ToString() + ")");
+              
             DialogResult = DialogResult.OK;
             this.Close();
         }

@@ -68,12 +68,7 @@ namespace Zeiterfassung
 			this.Close();
 		}
 
-		private void buch_Butt_Click(object sender, EventArgs e)
-		{
-			Buchung buch = new Buchung();
-			buch.StartPosition = FormStartPosition.CenterParent;
-			buch.ShowDialog(this);
-		}
+
 
 		private void beendenToolStripMenuItem_Click(object sender, EventArgs e)
 		{
@@ -82,12 +77,33 @@ namespace Zeiterfassung
 
 		private void kundenToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			Administration admin = new Administration();
-			admin.StartPosition = FormStartPosition.CenterParent;
-			admin.ShowDialog();
+            AdministrationControl adminControl = new AdministrationControl();
+            adminControl.ShowAdministration(0);
 		}
 
-		private void pro_Box_SelectedValueChanged(object sender, EventArgs e)
+        private void projekteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AdministrationControl adminControl = new AdministrationControl();
+            adminControl.ShowAdministration(1);
+        }
+
+        private void mitarbeiterToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AdministrationControl adminControl = new AdministrationControl();
+            adminControl.ShowAdministration(2);
+        }
+
+
+        #region 'Buchung'
+
+        private void buch_Butt_Click(object sender, EventArgs e)
+        {
+            Buchung buch = new Buchung();
+            buch.StartPosition = FormStartPosition.CenterParent;
+            buch.ShowDialog(this);
+        }
+
+        private void pro_Box_SelectedValueChanged(object sender, EventArgs e)
 		{
 			Session.GetSession().ProId = pojektIds[pro_Box.SelectedIndex];
 			getBuchungen();
@@ -189,6 +205,10 @@ namespace Zeiterfassung
 
 			string date = da.ToString("yyyy-MM-dd");
 			getBuchungen(date);
-		}
-	}
+        }
+
+        #endregion
+
+
+    }
 }

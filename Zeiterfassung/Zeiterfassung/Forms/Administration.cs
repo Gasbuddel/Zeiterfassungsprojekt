@@ -12,11 +12,18 @@ namespace Zeiterfassung
 {
     public partial class Administration : Form
     {
+        //Delegate, um das aktuell augewählte Projekt zu aktualisieren
+        public delegate void delAktualisiereProjekt(int projektId);
 
+        public delAktualisiereProjekt ProjektAusgewählt;
 
-        public Administration()
+        private AdministrationControl adminControl;
+
+        public Administration(AdministrationControl adminControl)
         {
             InitializeComponent();
+
+            this.adminControl = adminControl;
 
             kundenIds = new Dictionary<int, int>();
 
@@ -28,6 +35,12 @@ namespace Zeiterfassung
         private void close_Butt_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        public void TabSelect(int tab)
+        {
+            if (tab >= 0 && tab <= 2)
+                project_Tab.SelectedIndex = tab;
         }
 
         #region 'Kundenadministration'
@@ -76,7 +89,6 @@ namespace Zeiterfassung
                 }
                 kunden_box.SelectedIndex = 0;
             }
-
         }
 
         //Kunde wurde in der Combobox ausgewählt
@@ -87,7 +99,6 @@ namespace Zeiterfassung
 
         private void kundenAktualisieren(int kuId)
         {
-
             DataTable kunden = SqlConnection.SelectStatement("SELECT  * FROM tKunde WHERE kuID =" + kuId);
 
             DataTableReader reader = kunden.CreateDataReader();
@@ -124,43 +135,53 @@ namespace Zeiterfassung
 
         private void ku_New_Button_Click(object sender, EventArgs e)
         {
-            kunden_box.Enabled = false;
+            if (bearbeitungsStatus == 0)
+            {
+                kunden_box.Enabled = false;
 
-            ku_Ok_Butt.Enabled = true;
-            ku_Cancel_Butt.Enabled = true;
+                ku_Ok_Butt.Enabled = true;
+                ku_Cancel_Butt.Enabled = true;
 
-            ku_firma_box.Text = "";
-            ku_anspr_box.Text = "";
-            ku_mail_box.Text = "";
-            ku_str_box.Text = "";
-            ku_plz_box.Text = "";
-            ku_ort_box.Text = "";
-            ku_tel_box.Text = "";
-            ku_fax_box.Text = "";
+                ku_firma_box.Text = "";
+                ku_anspr_box.Text = "";
+                ku_mail_box.Text = "";
+                ku_str_box.Text = "";
+                ku_plz_box.Text = "";
+                ku_ort_box.Text = "";
+                ku_tel_box.Text = "";
+                ku_fax_box.Text = "";
 
-            setKundenTextboxReadonly(false);
+                setKundenTextboxReadonly(false);
 
-            ku_Bearb_Butt.Enabled = false;
+                ku_Bearb_Butt.Enabled = false;
 
-            //Bearbeitungsstatus auf "Neuer Kunde" setzen
-            bearbeitungsStatus = 2;
+                //Bearbeitungsstatus auf "Neuer Kunde" setzen
+                bearbeitungsStatus = 2;
+            }
+            else
+                ku_Cancel_Butt_Click(this, new EventArgs());
         }
 
 
         private void ku_Bearb_Butt_Click(object sender, EventArgs e)
         {
-            setKundenTextboxReadonly(false);
+            if (bearbeitungsStatus == 0)
+            {
+                setKundenTextboxReadonly(false);
 
-            kunden_box.Enabled = false;
+                kunden_box.Enabled = false;
 
-            ku_Ok_Butt.Enabled = true;
+                ku_Ok_Butt.Enabled = true;
 
-            ku_Cancel_Butt.Enabled = true;
+                ku_Cancel_Butt.Enabled = true;
 
-			//Bearbeitungsstatus auf "Bearbeiten" setzen
-			bearbeitungsStatus = 1;
+                //Bearbeitungsstatus auf "Bearbeiten" setzen
+                bearbeitungsStatus = 1;
 
-            ku_New_Button.Enabled = false;
+                ku_New_Button.Enabled = false;
+            }
+            else
+                ku_Cancel_Butt_Click(this, new EventArgs());
 
         }
 
@@ -446,6 +467,7 @@ namespace Zeiterfassung
 
         #region 'Projektadministration'
 
+
         private Dictionary<int, int> projektIds;
 
         private Dictionary<int, int> mitarbeiterIds;
@@ -461,16 +483,16 @@ namespace Zeiterfassung
 
             int index = 0;
 
-            DataTableReader dreader = projekte.CreateDataReader();
+            DataTableReader reader = projekte.CreateDataReader();
 
             selectBoxProjekt.Items.Clear();
-            if (dreader.HasRows)
+            if (reader.HasRows)
             {
-                while (dreader.Read())
+                while (reader.Read())
                 {
-                    selectBoxProjekt.Items.Add(dreader.GetString(1));
+                    selectBoxProjekt.Items.Add(reader.GetString(1));
 
-                    projektIds.Add(index,dreader.GetInt32(0));
+                    projektIds.Add(index,reader.GetInt32(0));
 
                     index++;
                 }
@@ -482,6 +504,9 @@ namespace Zeiterfassung
         //Aktualisiert die Informationen über das ausgewählte Projekt
         private void projekteAktualisieren()
         {
+            //Projekt in der View aktualisieren
+            ProjektAusgewählt(projektIds[selectBoxProjekt.SelectedIndex]);
+
             //Nur einen allgemeinen Reader erstellen
             DataTableReader reader;
 
@@ -545,6 +570,8 @@ namespace Zeiterfassung
                     index++;
                 }
             }
+
+
         }
 
 

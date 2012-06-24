@@ -28,30 +28,15 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.nameBox = new System.Windows.Forms.TextBox();
-            this.descBox = new System.Windows.Forms.TextBox();
             this.ok = new System.Windows.Forms.Button();
             this.abort = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.kunde_box = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
+            this.descBox = new Zeiterfassung.RegExTextbox();
+            this.nameBox = new Zeiterfassung.RegExTextbox();
             this.SuspendLayout();
-            // 
-            // nameBox
-            // 
-            this.nameBox.Location = new System.Drawing.Point(12, 69);
-            this.nameBox.Name = "nameBox";
-            this.nameBox.Size = new System.Drawing.Size(288, 20);
-            this.nameBox.TabIndex = 0;
-            // 
-            // descBox
-            // 
-            this.descBox.Location = new System.Drawing.Point(12, 108);
-            this.descBox.Multiline = true;
-            this.descBox.Name = "descBox";
-            this.descBox.Size = new System.Drawing.Size(288, 125);
-            this.descBox.TabIndex = 1;
             // 
             // ok
             // 
@@ -109,6 +94,23 @@
             this.label3.TabIndex = 7;
             this.label3.Text = "Kunde";
             // 
+            // descBox
+            // 
+            this.descBox.Location = new System.Drawing.Point(13, 109);
+            this.descBox.Multiline = true;
+            this.descBox.Name = "descBox";
+            this.descBox.Regular_Expression = null;
+            this.descBox.Size = new System.Drawing.Size(287, 125);
+            this.descBox.TabIndex = 9;
+            // 
+            // nameBox
+            // 
+            this.nameBox.Location = new System.Drawing.Point(12, 69);
+            this.nameBox.Name = "nameBox";
+            this.nameBox.Regular_Expression = null;
+            this.nameBox.Size = new System.Drawing.Size(288, 20);
+            this.nameBox.TabIndex = 8;
+            // 
             // CreateProject
             // 
             this.AcceptButton = this.ok;
@@ -116,16 +118,19 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.abort;
             this.ClientSize = new System.Drawing.Size(314, 274);
+            this.Controls.Add(this.descBox);
+            this.Controls.Add(this.nameBox);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.kunde_box);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.abort);
             this.Controls.Add(this.ok);
-            this.Controls.Add(this.descBox);
-            this.Controls.Add(this.nameBox);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "CreateProject";
-            this.Text = "CreateProject";
+            this.Text = "Projekt anlegen";
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -133,13 +138,13 @@
 
         #endregion
 
-        private System.Windows.Forms.TextBox nameBox;
-        private System.Windows.Forms.TextBox descBox;
         private System.Windows.Forms.Button ok;
         private System.Windows.Forms.Button abort;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ComboBox kunde_box;
         private System.Windows.Forms.Label label3;
+        private RegExTextbox nameBox;
+        private RegExTextbox descBox;
     }
 }
