@@ -59,12 +59,5 @@ namespace Zeiterfassung.Properties {
                 resourceCulture = value;
             }
         }
-        
-        internal static System.Drawing.Bitmap work_in_progress {
-            get {
-                object obj = ResourceManager.GetObject("work_in_progress", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
     }
 }

@@ -71,10 +71,10 @@ namespace Zeiterfassung
         }
 
         //Kunde wurde in der Combobox ausgewählt
-        private void kunden_box_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            kundenAktualisieren();
-        }
+		private void kunden_box_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			kundenAktualisieren();
+		}
 
         private void kundenAktualisieren()
         {
@@ -141,7 +141,7 @@ namespace Zeiterfassung
                 ku_Cancel_Butt_Click(this, new EventArgs());
         }
 
-
+		//Kunden bearbeiten
         private void ku_Bearb_Butt_Click(object sender, EventArgs e)
         {
             if (bearbeitungsStatus == 0)
@@ -150,7 +150,8 @@ namespace Zeiterfassung
 
                 kunden_box.Enabled = false;
 
-                ku_Ok_Butt.Enabled = true;
+				if(validateKunden())
+					ku_Ok_Butt.Enabled = true;
 
                 ku_Cancel_Butt.Enabled = true;
 
@@ -161,7 +162,6 @@ namespace Zeiterfassung
             }
             else
                 ku_Cancel_Butt_Click(this, new EventArgs());
-
         }
 
 		private void ku_Delete_Butt_Click(object sender, EventArgs e)
@@ -172,8 +172,6 @@ namespace Zeiterfassung
 				kundenInitialisieren();
 				kunden_box.SelectedIndex = 0;
 			}
-
-
 		}
 
 		//Änderungen annehmen
@@ -192,6 +190,7 @@ namespace Zeiterfassung
                     "',kuOrt = '" + ku_ort_box.Text +
                     "',kuTel = '" + ku_tel_box.Text +
                     "',kuFax = '" + ku_fax_box.Text +
+					"',kuPLZ = '" + ku_plz_box.Text +
                     "',kuAnsprechpartner = '" + ku_anspr_box.Text +
                     "',`kuEMail` = '" + ku_mail_box.Text +
                     "' WHERE kuID = " + ((ListItem)kunden_box.SelectedItem).DatabankID);
@@ -236,235 +235,349 @@ namespace Zeiterfassung
 			bearbeitungsStatus = 0;
         }
 
+		#region 'KundenTextvalidierung'
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            if (ku_plz_box.ValidateControl() == false)
-                ku_plz_box.BackColor = Color.Red;
-            else
-                ku_plz_box.BackColor = Color.White;
+		private void ku_firma_box_TextChanged(object sender, EventArgs e)
+		{
+			if (!ku_firma_box.IsValid)
+				ku_Ok_Butt.Enabled = false;
+			else if(bearbeitungsStatus != 0)
+				ku_Ok_Butt.Enabled = true;
+		}
 
-            if (ku_firma_box.ValidateControl() == false)
-                ku_firma_box.BackColor = Color.Red;
-            else
-                ku_firma_box.BackColor = Color.White;
+		private void ku_anspr_box_TextChanged(object sender, EventArgs e)
+		{
+			if (!ku_anspr_box.IsValid)
+				ku_Ok_Butt.Enabled = false;
+			else if (bearbeitungsStatus != 0)
+				ku_Ok_Butt.Enabled = true;
+		}
 
-            if (ku_anspr_box.ValidateControl() == false)
-                ku_anspr_box.BackColor = Color.Red;
-            else
-                ku_anspr_box.BackColor = Color.White;
-        }
+		private void ku_mail_box_TextChanged(object sender, EventArgs e)
+		{
+			if (!ku_mail_box.IsValid)
+				ku_Ok_Butt.Enabled = false;
+			else if (bearbeitungsStatus != 0)
+				ku_Ok_Butt.Enabled = true;
+		}
 
-        #endregion
+		private void ku_str_box_TextChanged(object sender, EventArgs e)
+		{
+			if (!ku_str_box.IsValid)
+				ku_Ok_Butt.Enabled = false;
+			else if (bearbeitungsStatus != 0)
+				ku_Ok_Butt.Enabled = true;
+		}
 
-        //Kann ersetzt werden mit dem Enter-Event des jeweiligen Tabs, ist sogar notwendig, wenn das jeweilige Tab direkt ausgewählt wird.
-        private void tabbi_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            //Mitarbeiter
-            if (project_Tab.SelectedIndex == 1)
-            {
-                mi_Cancel_Butt.Visible = false;
-                //Mitarbeiter einfügen
-                userNameBox.Items.Clear();
-                DataTable allema = SqlConnection.SelectStatement("SELECT  * FROM tMitarbeiter");
+		private void ku_plz_box_TextChanged(object sender, EventArgs e)
+		{
+			if (!ku_plz_box.IsValid)
+				ku_Ok_Butt.Enabled = false;
+			else if (bearbeitungsStatus != 0)
+				ku_Ok_Butt.Enabled = true;
+		}
 
-                DataTableReader reader = allema.CreateDataReader();
+		private void ku_ort_box_TextChanged(object sender, EventArgs e)
+		{
+			if (!ku_ort_box.IsValid)
+				ku_Ok_Butt.Enabled = false;
+			else if (bearbeitungsStatus != 0)
+				ku_Ok_Butt.Enabled = true;
+		}
 
-                if (reader.HasRows)
-                {
-                    int index = 0;
+		private void ku_tel_box_TextChanged(object sender, EventArgs e)
+		{
+			if (!ku_tel_box.IsValid)
+				ku_Ok_Butt.Enabled = false;
+			else if (bearbeitungsStatus != 0)
+				ku_Ok_Butt.Enabled = true;
+		}
 
-                    while (reader.Read())
-                    {
-                        if (userNameBox.Items.Contains(reader.GetString(4)) == false)
-                        {
-                            userNameBox.Items.Add(reader.GetString(4));
-                        }
-                        index++;
-                    }
-                    userNameBox.SelectedIndex = 0;
-                }
+		private void ku_fax_box_TextChanged(object sender, EventArgs e)
+		{
+			if (!ku_fax_box.IsValid)
+				ku_Ok_Butt.Enabled = false;
+			else if (bearbeitungsStatus != 0)
+				ku_Ok_Butt.Enabled = true;
+		}
 
+		private bool validateKunden()
+		{
+			bool valid = true;
+			if (!ku_firma_box.IsValid) { valid = false; }
+			if (!ku_anspr_box.IsValid) { valid = false; }
+			if (!ku_mail_box.IsValid) { valid = false; }
+			if (!ku_str_box.IsValid) { valid = false; }
+			if (!ku_plz_box.IsValid) { valid = false; }
+			if (!ku_ort_box.IsValid) { valid = false; }
+			if (!ku_tel_box.IsValid) { valid = false; }
+			if (!ku_fax_box.IsValid) { valid = false; }
 
-                //Mitarbeiter einfügen
-                DataTable alleRollen = SqlConnection.SelectStatement("SELECT  roBezeichnung FROM tRolle");
+			return valid;
+		}
 
-                DataTableReader roreader = alleRollen.CreateDataReader();
+		#endregion
 
-                if (roreader.HasRows)
-                {
-                    int index = 0;
-
-                    while (roreader.Read())
-                    {
-                        roleBox.Items.Add(roreader.GetString(0));
-
-                        index++;
-                    }
-                    userNameBox.SelectedIndex = 0;
-                }
-            }
-
-        }
+		#endregion
 
 
         #region 'Mitarbeiter'
 
-        //Am besten eine eigene Methode zum aktualisieren schreiben
-        private void userNameBox_SelectedValueChanged(object sender, EventArgs e)
+		//Bearbeitungsstatus, 0 = Keine Bearbeitung, 1 = Bearbeiten, 2 = Neuer Mitarbeiter
+		private int mitarbeiterBearbStatus = 0;
+
+		/// <summary>
+		/// Initialisiert alle Mitarbeiter und holt alle verfügbaren Mitarbeiter und Rollen in die Liste.
+		/// </summary>
+		private void mitarbeiterInitialisieren()
+		{
+			//Mitarbeiterliste säubern
+			userNameBox.Items.Clear();
+
+			DataTable allema = SqlConnection.SelectStatement("SELECT miID ,miUsername FROM tMitarbeiter");
+
+			DataTableReader reader = allema.CreateDataReader();
+
+			if (reader.HasRows)
+			{
+				while (reader.Read())
+				{
+					userNameBox.Items.Add(new ListItem(reader.GetInt32(0), reader.GetString(1)));
+				}
+			}
+
+			//Rollen säubern
+			roleBox.Items.Clear();
+
+			//Mitarbeiter einfügen
+			DataTable alleRollen = SqlConnection.SelectStatement("SELECT roID ,roBezeichnung FROM tRolle");
+
+			reader = alleRollen.CreateDataReader();
+
+			if (reader.HasRows)
+			{
+				while (reader.Read())
+				{
+					roleBox.Items.Add(new ListItem(reader.GetInt32(0),reader.GetString(1)));
+				}
+			}
+
+			roleBox.SelectedIndex = 0;
+
+			userNameBox.SelectedIndex = 0;
+		}
+
+		/// <summary>
+		/// Aktualisiert die Mitarbeiterdaten des ausgewählten Mitarbeiters.
+		/// </summary>
+		private void mitarbeiterAktualisieren()
+		{
+			DataTable maTable = SqlConnection.SelectStatement("SELECT miUsername, miName, miVorname, miEmail, roID FROM tmitarbeiter WHERE miID = " + ((ListItem)userNameBox.SelectedItem).DatabankID);
+
+			DataTableReader reader = maTable.CreateDataReader();
+
+			if (reader.HasRows)
+			{
+				while (reader.Read())
+				{
+					userNameTB.Text = reader.GetString(0);
+					nameTB.Text = reader.GetString(1);
+					vornameTB.Text = reader.GetString(2);
+					mailTB.Text = reader.GetString(3);
+
+					//Rolle festlegen
+					if (Convert.ToInt32(maTable.Rows[0]["roID"]) == 1)
+						roleBox.SelectedIndex = 0;
+					else
+						roleBox.SelectedIndex = 1;
+				}
+			}
+		}
+
+		private void mitarbeiter_Tab_Enter(object sender, EventArgs e)
+		{
+			mitarbeiterInitialisieren();
+		}
+
+		private void userNameBox_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			mitarbeiterAktualisieren();
+		}
+
+		//Textboxes aktivieren/deaktivieren
+		private void setMitarbeiterReadOnly(bool readOnly)
+		{
+			userNameBox.Enabled = readOnly;
+
+			nameTB.ReadOnly = readOnly;
+			vornameTB.ReadOnly = readOnly;
+			mailTB.ReadOnly = readOnly;
+			userNameTB.ReadOnly = readOnly;
+
+			roleBox.Enabled = !readOnly;
+		}
+
+		//Benutze barbeiten
+        private void mi_change_Butt_Click(object sender, EventArgs e)
         {
-            nameTB.Enabled = false;
-            vornameTB.Enabled = false;
-            mailTB.Enabled = false;
-            roleBox.Enabled = false;
-            //Mitarbeiter lässt sich präziser bestimmen über den Index, siehe Kundenadministration, oder Hauptmaske
-            DataTable mareader = SqlConnection.SelectStatement("SELECT  tMitarbeiter.*, roBezeichnung FROM tMitarbeiter left join trolle using (roID) where miUsername='" + userNameBox.SelectedItem.ToString() + "'");
-
-            DataTableReader reader = mareader.CreateDataReader();
-
-            if (reader.HasRows)
+			//Keine Änderung aktiv
+            if (mitarbeiterBearbStatus == 0)
             {
-                int index = 0;
+				mi_Cancel_Butt.Visible = true;
+				mi_Save_Butt.Text = "Speichern";
+				setMitarbeiterReadOnly(false);
 
-                while (reader.Read())
-                {
-                    roleBox.Text = reader.GetString(7);
-                    nameTB.Text = reader.GetString(2);
-                    vornameTB.Text = reader.GetString(3);
-                    mailTB.Text = reader.GetString(6);
+				mitarbeiterBearbStatus = 1;
+			}
+			//Im Bearbeitungsstatus
+            else if(mitarbeiterBearbStatus == 1)
+            {
+				if (mitarbeiterValid() && userNameTB.Text != "" && nameTB.Text != "" && vornameTB.Text != "" && mailTB.Text != "")
+				{
+					mi_Save_Butt.Text = "Ändern";
+					setMitarbeiterReadOnly(true);
+					SqlConnection.ExecuteStatement("UPDATE tmitarbeiter SET " +
+						"miUsername = '" + userNameTB.Text +
+						"', miVorname = '" + vornameTB.Text +
+						"', miName = '" + nameTB.Text +
+						"', miEmail = '" + mailTB.Text +
+						"', roID= '" + ((ListItem)roleBox.SelectedItem).DatabankID +
+						"'   where miID='" + ((ListItem)userNameBox.SelectedItem).DatabankID + "'");
 
-                    //KundenID festhalten
-                    // kundenIds.Add(index, reader.GetInt32(0));
+					mi_Cancel_Butt.Visible = false;
 
-                    index++;
-                }
-
+					mitarbeiterBearbStatus = 0;
+				}
             }
-
         }
 
-
-        private void mi_Save_Butt_Click(object sender, EventArgs e)
-        {
-
-            if (mi_Save_Butt.Text.Equals("Speichern"))
-            {
-                mi_Save_Butt.Text = "Ändern";
-                userNameBox.Enabled = true;
-                nameTB.Enabled = false;
-                vornameTB.Enabled = false;
-                mailTB.Enabled = false;
-                roleBox.Enabled = false;
-                SqlConnection.ExecuteStatement("UPDATE tmitarbeiter SET miVorname = '" + vornameTB.Text + "', miName = '" + nameTB.Text + "', miEmail = '" + mailTB.Text + "', roID=(select roID from trolle where roBezeichnung='" + roleBox.SelectedItem.ToString() + "')   where miUsername='" + userNameBox.SelectedItem.ToString() + "'");
-
-            }
-
-            else
-            {
-                mi_Cancel_Butt.Visible = true;
-                userNameBox_SelectedValueChanged(null, null);
-                mi_Save_Butt.Text = "Speichern";
-                userNameBox.Enabled = false;
-                nameTB.Enabled = true;
-                vornameTB.Enabled = true;
-                mailTB.Enabled = true;
-                roleBox.Enabled = true;
-            }
-
-
-
-        }
-
+		//Passwort zurücksetzen
         private void mi_PW_Butt_Click(object sender, EventArgs e)
         {
+			//Standartpasswort wird gesetzt
             string startpw = "#start12";
-            SqlConnection.SelectStatement("UPDATE tmitarbeiter SET miPasswort = '" + Md5.GetMD5(startpw) + "' WHERE miUsername = '" + userNameBox.SelectedItem.ToString() + "'");
+            SqlConnection.SelectStatement("UPDATE tmitarbeiter SET miPasswort = '" + Md5.GetMD5(startpw) + 
+				"' WHERE miID = '" + ((ListItem)userNameBox.SelectedItem).DatabankID + "'");
             MessageBox.Show("Das Passwort wurde auf " + startpw + " gesetzt");
 
         }
 
+		//Mitarbeiter löschen
         private void mi_Del_Butt_Click(object sender, EventArgs e)
         {
-            if (roleBox.Text == "Mitarbeiter")
-            {
-                userNameBox.Select();
-                SqlConnection.SelectStatement("DELETE FROM tmitarbeiter WHERE miUsername = '" + userNameBox.SelectedItem.ToString() + "'");
-                tabbi_SelectedIndexChanged(null, null);
-            }
-            else
-            {
-                MessageBox.Show("Sie können kein Geschäftsführer löschen");
-            }
+			//Überprüfung, ob dem Mitarbeiter Projekte zugewiesen wurden
+			DataTable result = SqlConnection.SelectStatement("SELECT miID FROM tmita_proj WHERE miID = " + 
+				((ListItem)userNameBox.SelectedItem).DatabankID);
+
+			if (result.Rows.Count == 0)
+			{
+				if (((ListItem)roleBox.SelectedItem).DatabankID == 2)
+				{
+					SqlConnection.SelectStatement("DELETE FROM tmitarbeiter WHERE miID = '" + ((ListItem)userNameBox.SelectedItem).DatabankID + "'");
+					mitarbeiterInitialisieren();
+				}
+				else
+				{
+					MessageBox.Show("Sie können keine Geschäftsführer löschen");
+				}
+			}
+			else
+				MessageBox.Show("Sie können keine Mitarbeiter löschen, die in Projekten aktiv sind.");
         }
 
+		//Neuen Mitarbeiter anlegen
         private void mit_New_Butt_Click(object sender, EventArgs e)
         {
-            if (mit_New_Butt.Text.Equals("Neuer Mitarbeiter"))
+			//Keine Bearbeitung aktiv
+			if (mitarbeiterBearbStatus == 0)
             {
+				mit_New_Butt.Text = "Anlegen";
                 mi_Cancel_Butt.Visible = true;
-                mit_New_Butt.Text = "Anlegen";
-                roleBox.Select();
                 mi_Del_Butt.Enabled = false;
                 mi_PW_Butt.Enabled = false;
                 mi_Save_Butt.Enabled = false;
-                userNameBox.Enabled = true;
-                nameTB.Enabled = true;
-                vornameTB.Enabled = true;
-                mailTB.Enabled = true;
-                roleBox.Enabled = true;
-                userNameBox.Select();
-                userNameBox.SelectedText = "";
+
+				//Textboxen enablen
+				setMitarbeiterReadOnly(false);
+				
+				//Textboxen leeren
+				userNameTB.Text = "";
                 nameTB.Text = "";
                 vornameTB.Text = "";
                 mailTB.Text = "";
-            }
 
-            else
+				mitarbeiterBearbStatus = 2;
+            }
+			//Neuer Mitarbeiter
+			else if (mitarbeiterBearbStatus == 2)
             {
-                userNameBox.Select();
-                if (nameTB.Text != "" && vornameTB.Text != "" && mailTB.Text != "" && userNameBox.SelectedText != "")
+                if (mitarbeiterValid() && userNameTB.Text != "" && nameTB.Text != "" && vornameTB.Text != "" && mailTB.Text != "")
                 {
-                    roleBox.Select();
-                    string rolle = roleBox.SelectedText;
-                    userNameBox.Select();
-                    SqlConnection.ExecuteStatement("INSERT INTO tmitarbeiter (`roID`, `miName`, `miVorname`, `miUsername`, `miPasswort`, `miEMail`) VALUES ((select roID from trolle where roBezeichnung='" + rolle + "'),'" + vornameTB.Text + "','" + nameTB.Text + "','" + userNameBox.SelectedText + "','83095e7ae40304e6c03c9da2f1ce2302','" + mailTB.Text + "')");
+					//Benutzer abspeichern
+                    SqlConnection.ExecuteStatement("INSERT INTO tmitarbeiter " +
+						"(`roID`, `miName`, `miVorname`, `miUsername`, `miPasswort`, `miEMail`) " + 
+						"VALUES ('"+ ((ListItem)roleBox.SelectedItem).DatabankID + "','" 
+						+ vornameTB.Text + "','" + nameTB.Text + "','" 
+						+ userNameTB.Text + "','83095e7ae40304e6c03c9da2f1ce2302','" 
+						+ mailTB.Text + "')");
+
                     MessageBox.Show("Neuer User wurde angelegt. Passwort ist:");
+					//Buttons enablen
                     mit_New_Butt.Text = "Neuer Mitarbeiter";
                     mi_Del_Butt.Enabled = true;
                     mi_PW_Butt.Enabled = true;
                     mi_Save_Butt.Enabled = true;
-                    nameTB.Enabled = false;
-                    vornameTB.Enabled = false;
-                    mailTB.Enabled = false;
-                    roleBox.Enabled = false;
-                    tabbi_SelectedIndexChanged(null, null);
+
+					mi_Cancel_Butt.Visible = false;
+
+					setMitarbeiterReadOnly(true);
+					
+					mitarbeiterInitialisieren();
+
+					mitarbeiterBearbStatus = 0;
                 }
                 else
                 {
-                    MessageBox.Show("Bitte alle Felder ausfüllen");
+                    MessageBox.Show("Es wurden nicht alle Felder korrekt ausgefüllt.");
                 }
             }
         }
 
-        private void mit_New_Butt_Click_1(object sender, EventArgs e)
+		//Anlegen wird abgebrochen
+        private void mit_Cancel_Click(object sender, EventArgs e)
         {
-            if (mit_New_Butt.Text == "Anlegen")
+			userNameBox.Enabled = true;
+
+			if (mitarbeiterBearbStatus == 2)
             {
                 userNameBox.SelectedIndex = 0;
             }
+			//Buttons zurücksetzen
             mit_New_Butt.Text = "Neuer Mitarbeiter";
             mi_Save_Butt.Text = "Ändern";
             mi_Del_Butt.Enabled = true;
             mi_PW_Butt.Enabled = true;
             mi_Save_Butt.Enabled = true;
-            userNameBox.Enabled = true;
-            nameTB.Enabled = false;
-            vornameTB.Enabled = false;
-            mailTB.Enabled = false;
-            roleBox.Enabled = false;
-            nameTB.Select();
-            mi_Cancel_Butt.Visible = false;
+
+			setMitarbeiterReadOnly(true);
+
+			mi_Cancel_Butt.Visible = false;
+
+			mitarbeiterBearbStatus = 0;
+
+			mitarbeiterAktualisieren();
         }
+
+		private bool mitarbeiterValid()
+		{
+			bool valid = true;
+			if(!userNameTB.IsValid) {valid = false;}
+			if(!nameTB.IsValid) {valid = false;}
+			if(!vornameTB.IsValid) {valid = false;}
+			if(!mailTB.IsValid) {valid = false;}
+
+			return valid;
+		}
 
         #endregion
 
@@ -673,6 +786,15 @@ namespace Zeiterfassung
         }
 
         #endregion
+
+
+
+
+
+
+
+
+
 
 
 
