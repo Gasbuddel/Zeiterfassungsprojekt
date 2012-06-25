@@ -7,64 +7,58 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
+
 namespace Zeiterfassung
 {
-    public partial class AddTaetigkeit : Form
-    {
-        private Dictionary<int, int> tätikeitIds;
+	public partial class AddTaetigkeit : Form
+	{
 
-        int prID;
-        
-        public AddTaetigkeit(int prID_temp)
-        {
-            InitializeComponent();
+		int prID;
 
-            this.prID= prID_temp;
+		public AddTaetigkeit(int prID_temp)
+		{
+			InitializeComponent();
 
-            tätikeitIds = new Dictionary<int, int>();
+			this.prID = prID_temp;
 
-            DataTable AllTaetig = SqlConnection.SelectStatement("SELECT taID, taBeschreibung " +
-            "FROM ttaetigkeitenvorlage " +
-            "WHERE taID NOT IN (" +
-            "SELECT taID " +
-            "FROM tproj_taet " +
-            "WHERE prID = " + prID + ")");
+			DataTable AllTaetig = SqlConnection.SelectStatement("SELECT taID, taBeschreibung " +
+			"FROM ttaetigkeitenvorlage " +
+			"WHERE taID NOT IN (" +
+			"SELECT taID " +
+			"FROM tproj_taet " +
+			"WHERE prID = " + prID + ")");
 
-            DataTableReader reader = AllTaetig.CreateDataReader();
+			DataTableReader reader = AllTaetig.CreateDataReader();
 
-            int index = 0;
+			if (reader.HasRows)
+			{
+				while (reader.Read())
+				{
+					tätigkeitListe.Items.Add(new ListItem(reader.GetInt32(0),reader.GetString(1)));
+				}
+			}
+		}
 
-            if (reader.HasRows)
-            {
-                while (reader.Read())
-                {
-                    tätigkeitListe.Items.Add(reader.GetString(1));
-                    tätikeitIds.Add(index,reader.GetInt32(0));
-                    index ++;
-                }
-            }
-        }
+		private void ok_Click(object sender, EventArgs e)
+		{
 
-        private void ok_Click(object sender, EventArgs e)
-        {
-     
-            foreach (object itemChecked in tätigkeitListe.CheckedItems)
-            {
-                SqlConnection.ExecuteStatement("INSERT INTO `tproj_taet`(`prID`, `taID`) " +
-                    "VALUES (" + prID + ", " + tätikeitIds[tätigkeitListe.Items.IndexOf(itemChecked)] + ")");
-            }
+			foreach (object itemChecked in tätigkeitListe.CheckedItems)
+			{
+				SqlConnection.ExecuteStatement("INSERT INTO `tproj_taet`(`prID`, `taID`) " +
+					"VALUES (" + prID + ", " + ((ListItem)itemChecked).DatabankID + ")");
+			}
 
-            this.DialogResult = DialogResult.OK;
-            this.Close();                    
-        }
+			this.DialogResult = DialogResult.OK;
+			this.Close();
+		}
 
-        private void abort_Click(object sender, EventArgs e)
-        {
-            this.DialogResult = DialogResult.Cancel;
-            this.Close();
+		private void abort_Click(object sender, EventArgs e)
+		{
+			this.DialogResult = DialogResult.Cancel;
+			this.Close();
 
-        }
+		}
 
 
-    }
+	}
 }

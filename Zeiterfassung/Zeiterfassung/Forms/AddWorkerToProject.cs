@@ -13,15 +13,11 @@ namespace Zeiterfassung
     {
         private int prID;
 
-        private Dictionary<int, int> mitarbeiterIds;
-
         public AddWorkerToProject(int proj_id_temp)
         {
             InitializeComponent();
 
             this.prID = proj_id_temp;
-
-            mitarbeiterIds = new Dictionary<int, int>();
 
             DataTable AllWorkers = SqlConnection.SelectStatement("SELECT miID, miName, miVorname " +
             "FROM tmitarbeiter " +
@@ -32,15 +28,11 @@ namespace Zeiterfassung
 
             DataTableReader reader = AllWorkers.CreateDataReader();
 
-            int index = 0;
-
             if (reader.HasRows)
             {
                 while (reader.Read())
                 {
-                    arbeiterListe.Items.Add(reader.GetString(1) + ", " + reader.GetString(2));
-                    mitarbeiterIds.Add(index,reader.GetInt32(0));
-                    index++;
+                    arbeiterListe.Items.Add(new ListItem(reader.GetInt32(0),reader.GetString(1) + ", " + reader.GetString(2)));
                 }
             }
 
@@ -57,7 +49,7 @@ namespace Zeiterfassung
                 foreach(object itemChecked in arbeiterListe.CheckedItems) 
                 {
                     SqlConnection.ExecuteStatement("INSERT INTO tmita_proj(miID, prID, mpAktiv) " +
-                        "VALUES (" + mitarbeiterIds[arbeiterListe.Items.IndexOf(itemChecked)] + ", " + prID + ",1)");
+                        "VALUES (" + ((ListItem)itemChecked).DatabankID + ", " + prID + ",1)");
                   
                 }
                 this.DialogResult = DialogResult.OK;

@@ -77,20 +77,29 @@ namespace Zeiterfassung
 
 		private void kundenToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-            AdministrationControl adminControl = new AdministrationControl();
-            adminControl.ShowAdministration(0);
+			Administration admin = new Administration();
+			admin.TabSelect(0);
+			admin.StartPosition = FormStartPosition.CenterParent;
+
+			admin.ShowDialog();
 		}
 
         private void projekteToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            AdministrationControl adminControl = new AdministrationControl();
-            adminControl.ShowAdministration(1);
+			Administration admin = new Administration();
+			admin.TabSelect(1);
+			admin.StartPosition = FormStartPosition.CenterParent;
+
+			admin.ShowDialog();
         }
 
         private void mitarbeiterToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            AdministrationControl adminControl = new AdministrationControl();
-            adminControl.ShowAdministration(2);
+			Administration admin = new Administration();
+			admin.TabSelect(2);
+			admin.StartPosition = FormStartPosition.CenterParent;
+
+			admin.ShowDialog();
         }
 
 

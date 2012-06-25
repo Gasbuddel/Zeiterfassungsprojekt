@@ -59,10 +59,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\DataHauptmaske.cs" />
+    <Compile Include="Classes\ListItem.cs" />
     <Compile Include="Classes\Md5.cs" />
     <Compile Include="Classes\Session.cs" />
     <Compile Include="Classes\SqlConnection.cs" />
-    <Compile Include="Controls\AdministrationControl.cs" />
     <Compile Include="Forms\AddTaetigkeit.cs">
       <SubType>Form</SubType>
     </Compile>
