@@ -116,6 +116,24 @@
     <Compile Include="Forms\NewTaet.Designer.cs">
       <DependentUpon>NewTaet.cs</DependentUpon>
     </Compile>
+    <Compile Include="Panels\KundenPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Panels\KundenPanel.Designer.cs">
+      <DependentUpon>KundenPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Panels\MitarbeiterPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Panels\MitarbeiterPanel.Designer.cs">
+      <DependentUpon>MitarbeiterPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Panels\ProjektePanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Panels\ProjektePanel.Designer.cs">
+      <DependentUpon>ProjektePanel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Steuerelemente\RegExTextbox.cs">
@@ -150,6 +168,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\NewTaet.resx">
       <DependentUpon>NewTaet.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Panels\KundenPanel.resx">
+      <DependentUpon>KundenPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Panels\MitarbeiterPanel.resx">
+      <DependentUpon>MitarbeiterPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Panels\ProjektePanel.resx">
+      <DependentUpon>ProjektePanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
