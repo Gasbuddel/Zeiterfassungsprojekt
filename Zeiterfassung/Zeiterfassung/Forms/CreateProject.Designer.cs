@@ -57,6 +57,7 @@
             this.abort.TabIndex = 3;
             this.abort.Text = "Abbrechen";
             this.abort.UseVisualStyleBackColor = true;
+            this.abort.Click += new System.EventHandler(this.abort_Click);
             // 
             // label1
             // 
@@ -102,6 +103,7 @@
             this.descBox.Regular_Expression = null;
             this.descBox.Size = new System.Drawing.Size(287, 125);
             this.descBox.TabIndex = 9;
+            this.descBox.ToolTipText = null;
             // 
             // nameBox
             // 
@@ -110,6 +112,7 @@
             this.nameBox.Regular_Expression = null;
             this.nameBox.Size = new System.Drawing.Size(288, 20);
             this.nameBox.TabIndex = 8;
+            this.nameBox.ToolTipText = null;
             // 
             // CreateProject
             // 

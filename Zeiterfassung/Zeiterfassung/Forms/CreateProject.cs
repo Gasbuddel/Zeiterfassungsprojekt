@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using MySql.Data.MySqlClient;
 
 namespace Zeiterfassung
 {
@@ -47,12 +48,21 @@ namespace Zeiterfassung
                 "VALUES ( " + kundenIds[kunde_box.SelectedIndex] + ", '" + nameBox.Text + "','" + descBox.Text + "')");
 
                 MessageBox.Show("Das Projekt" + " '" + nameBox.Text + "' wurde angelegt");
+
+                this.DialogResult = DialogResult.OK;
+
                 this.Close();
             }
-            catch
+            catch(MySqlException)
             {
                 MessageBox.Show("Es ist ein Fehler aufgetreten.\nBitte überprüfen Sie ihre Eingaben.");
             } 
+        }
+
+        private void abort_Click(object sender, EventArgs e)
+        {
+            this.DialogResult = DialogResult.Cancel;
+            this.Close();
         }
 
     

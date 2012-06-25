@@ -140,6 +140,8 @@ namespace Zeiterfassung
 
             if (newPro.ShowDialog() == DialogResult.OK)
                 projekteInitialisieren();
+
+            newPro.Dispose();
         }
 
         private bool isBearb = false;
@@ -195,6 +197,8 @@ namespace Zeiterfassung
 
             if (neueTätigkeiten.ShowDialog() == DialogResult.OK)
                 projekteAktualisieren();
+
+            neueTätigkeiten.Dispose();
         }
 
         //Neue Tätigkeit erstellen
@@ -206,6 +210,8 @@ namespace Zeiterfassung
 
             if (neueTätigkeit.ShowDialog() == DialogResult.OK)
                 projekteAktualisieren();
+
+            neueTätigkeit.Dispose();
         }
 
         //tätigkeit entfernen
