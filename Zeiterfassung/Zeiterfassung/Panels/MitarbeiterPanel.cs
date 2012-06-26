@@ -267,10 +267,10 @@ namespace Zeiterfassung
         private bool mitarbeiterValid()
         {
             bool valid = true;
-            if (!userNameTB.IsValid) { valid = false; }
-            if (!nameTB.IsValid) { valid = false; }
-            if (!vornameTB.IsValid) { valid = false; }
-            if (!mailTB.IsValid) { valid = false; }
+			if (!userNameTB.IsValid) { valid = false; }
+			if (!nameTB.IsValid) { valid = false; }
+			if (!vornameTB.IsValid) { valid = false; }
+			if (!mailTB.IsValid) { valid = false; }
 
             return valid;
         }

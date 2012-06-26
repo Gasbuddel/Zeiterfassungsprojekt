@@ -38,26 +38,24 @@ namespace Zeiterfassung
 
 		private void initialisierenProj()
 		{
-			DataTable projekt = SqlConnection.SelectStatement("SELECT prID, prName FROM tprojekt WHERE prID IN(SELECT prID FROM tmita_proj WHERE miID = " + Session.GetSession().UserId + " and mpAktiv=1)");
+			DataTable projekt = SqlConnection.SelectStatement("SELECT prID, prName FROM tprojekt " + 
+				"WHERE prID IN(SELECT prID FROM tmita_proj " + 
+				"WHERE miID = " + Session.GetSession().UserId + " AND mpAktiv=1)");
 			DataTableReader reader = projekt.CreateDataReader();
 
 
 			if (reader.HasRows)
 			{
-				int index = 0;
-
 				while (reader.Read())
 				{
 
 					if (pro_Box.Items.Contains(reader.GetString(1)) == false)
 					{
-
-						pro_Box.Items.Add(reader.GetString(1));
-						pojektIds.Add(index, reader.GetInt32(0));
-
-						index++;
+						pro_Box.Items.Add(new ListItem(reader.GetInt32(0),reader.GetString(1)));
 					}
 				}
+
+				pro_Box.SelectedIndex = 0;
 
 			}
 		}
@@ -109,22 +107,27 @@ namespace Zeiterfassung
         {
             Buchung buch = new Buchung();
             buch.StartPosition = FormStartPosition.CenterParent;
-            buch.ShowDialog(this);
+			if (buch.ShowDialog() == DialogResult.OK)
+			{
+				getBuchungen();
+				getSumStunden();
+				getReisekosten();
+			}
         }
 
         private void pro_Box_SelectedValueChanged(object sender, EventArgs e)
 		{
-			Session.GetSession().ProId = pojektIds[pro_Box.SelectedIndex];
+			Session.GetSession().ProId = ((ListItem)pro_Box.SelectedItem).DatabankID;
 			getBuchungen();
 			getSumStunden();
 			getReisekosten();
-
-
 		}
 
 		private void getBuchungen(string date)
 		{
-			DataTable buchung = SqlConnection.SelectStatement("SELECT zeDauer,zeReisekosten,zeTag,zeTaetigkeit FROM tzeiterfassung WHERE miID=" + Session.GetSession().UserId + " and prID=" + Session.GetSession().ProId + " and zeTag='" + date + "'");
+			DataTable buchung = SqlConnection.SelectStatement("SELECT zeDauer,zeReisekosten,zeTag,zeTaetigkeit " +
+				" FROM tzeiterfassung WHERE miID=" + Session.GetSession().UserId + 
+				" AND prID=" + Session.GetSession().ProId + " AND zeTag='" + date + "'");
 			DataTableReader reader = buchung.CreateDataReader();
 
 			tabelleGebuchteZeiten.Rows.Clear();
@@ -146,7 +149,9 @@ namespace Zeiterfassung
 
 		private void getBuchungen()
 		{
-			DataTable buchung = SqlConnection.SelectStatement("SELECT zeDauer,zeReisekosten,zeTag,zeTaetigkeit FROM tzeiterfassung WHERE miID=" + Session.GetSession().UserId + " and prID=" + Session.GetSession().ProId + "");
+			DataTable buchung = SqlConnection.SelectStatement("SELECT zeDauer,zeReisekosten,zeTag,zeTaetigkeit " +
+				" FROM tzeiterfassung WHERE miID=" + Session.GetSession().UserId + 
+				" AND prID=" + Session.GetSession().ProId + "");
 			DataTableReader reader = buchung.CreateDataReader();
 
 			tabelleGebuchteZeiten.Rows.Clear();
@@ -161,14 +166,15 @@ namespace Zeiterfassung
 					tabelleGebuchteZeiten.Rows[n].Cells["Reisekosten"].Value = reader.GetDecimal(1);
 					tabelleGebuchteZeiten.Rows[n].Cells["Datum"].Value = reader.GetDateTime(2);
 					tabelleGebuchteZeiten.Rows[n].Cells["Tätigkeitsbeschreibung"].Value = reader.GetString(3);
-
 				}
 			}
 		}
 
 		private void getSumStunden()
 		{
-			DataTable sql = SqlConnection.SelectStatement("SELECT sum(zeDauer)FROM tzeiterfassung WHERE miID=" + Session.GetSession().UserId + " and prID=" + Session.GetSession().ProId + "");
+			DataTable sql = SqlConnection.SelectStatement("SELECT sum(zeDauer)FROM tzeiterfassung WHERE miID=" + 
+				Session.GetSession().UserId + 
+				" AND prID=" + Session.GetSession().ProId + "");
 			DataTableReader reader = sql.CreateDataReader();
 
 			reader.Read();
@@ -189,7 +195,9 @@ namespace Zeiterfassung
 
 		private void getReisekosten()
 		{
-			DataTable sql = SqlConnection.SelectStatement("SELECT sum(zeReisekosten)FROM tzeiterfassung WHERE miID=" + Session.GetSession().UserId + " and prID=" + Session.GetSession().ProId + "");
+			DataTable sql = SqlConnection.SelectStatement("SELECT sum(zeReisekosten)FROM tzeiterfassung WHERE miID=" + 
+				Session.GetSession().UserId + 
+				" AND prID=" + Session.GetSession().ProId + "");
 			DataTableReader reader = sql.CreateDataReader();
 
 			reader.Read();

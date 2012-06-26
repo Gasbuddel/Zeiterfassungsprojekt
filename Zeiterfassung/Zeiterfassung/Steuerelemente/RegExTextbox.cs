@@ -52,7 +52,11 @@ namespace Zeiterfassung
 
 		public bool IsValid
 		{
-			get { return valid; }
+			get 
+			{
+				ValidateControl();
+				return valid; 
+			}
 		}
 
         #endregion
@@ -78,34 +82,35 @@ namespace Zeiterfassung
 
         public bool ValidateControl()
         {
-            string TextToValidate;
 
-            Regex expression;
+			string TextToValidate;
 
-            try
-            {
-                TextToValidate = this.Text;
-                expression = new Regex(Regular_Expression);
-            }
-            catch
-            {
-                return false;
-            }
+			Regex expression;
 
-            // Text auf richtigkeit überprüfen
-            if (expression.IsMatch(TextToValidate))
-            {
+			try
+			{
+				TextToValidate = this.Text;
+				expression = new Regex(Regular_Expression);
+			}
+			catch
+			{
+				return false;
+			}
+
+			// Text auf richtigkeit überprüfen
+			if (expression.IsMatch(TextToValidate))
+			{
 				valid = true;
 				this.ForeColor = Color.Black;
-                return true;
-            }
-            else
-            {
-                // Falscher Text
+				return true;
+			}
+			else
+			{
+				// Falscher Text
 				valid = false;
 				this.ForeColor = Color.RosyBrown;
-                return false;
-            }
+				return false;
+			}
         }
 
 		private void ShowTip()

@@ -33,8 +33,6 @@
 			this.buchungsDatum = new System.Windows.Forms.DateTimePicker();
 			this.label2 = new System.Windows.Forms.Label();
 			this.label3 = new System.Windows.Forms.Label();
-			this.stunden_Box = new System.Windows.Forms.TextBox();
-			this.kosten_Box = new System.Windows.Forms.TextBox();
 			this.label4 = new System.Windows.Forms.Label();
 			this.tätigkeits_Box = new System.Windows.Forms.ComboBox();
 			this.custom_Box = new System.Windows.Forms.TextBox();
@@ -42,6 +40,8 @@
 			this.book_Booking_Butt = new System.Windows.Forms.Button();
 			this.bu_Custom_CheckBox = new System.Windows.Forms.CheckBox();
 			this.label5 = new System.Windows.Forms.Label();
+			this.kosten_Box = new Zeiterfassung.RegExTextbox();
+			this.stunden_Box = new Zeiterfassung.RegExTextbox();
 			this.SuspendLayout();
 			// 
 			// label1
@@ -78,21 +78,6 @@
 			this.label3.TabIndex = 3;
 			this.label3.Text = "Reisekosten:";
 			// 
-			// stunden_Box
-			// 
-			this.stunden_Box.Location = new System.Drawing.Point(61, 37);
-			this.stunden_Box.Name = "stunden_Box";
-			this.stunden_Box.Size = new System.Drawing.Size(100, 20);
-			this.stunden_Box.TabIndex = 4;
-			this.stunden_Box.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-			// 
-			// kosten_Box
-			// 
-			this.kosten_Box.Location = new System.Drawing.Point(268, 40);
-			this.kosten_Box.Name = "kosten_Box";
-			this.kosten_Box.Size = new System.Drawing.Size(110, 20);
-			this.kosten_Box.TabIndex = 5;
-			// 
 			// label4
 			// 
 			this.label4.AutoSize = true;
@@ -113,15 +98,17 @@
 			// 
 			// custom_Box
 			// 
+			this.custom_Box.Enabled = false;
 			this.custom_Box.Location = new System.Drawing.Point(16, 149);
-			this.custom_Box.Multiline = true;
+			this.custom_Box.MaxLength = 50;
 			this.custom_Box.Name = "custom_Box";
-			this.custom_Box.Size = new System.Drawing.Size(521, 158);
+			this.custom_Box.Size = new System.Drawing.Size(521, 20);
 			this.custom_Box.TabIndex = 8;
 			// 
 			// book_Cancel_Butt
 			// 
-			this.book_Cancel_Butt.Location = new System.Drawing.Point(418, 314);
+			this.book_Cancel_Butt.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+			this.book_Cancel_Butt.Location = new System.Drawing.Point(419, 175);
 			this.book_Cancel_Butt.Name = "book_Cancel_Butt";
 			this.book_Cancel_Butt.Size = new System.Drawing.Size(118, 23);
 			this.book_Cancel_Butt.TabIndex = 9;
@@ -131,7 +118,8 @@
 			// 
 			// book_Booking_Butt
 			// 
-			this.book_Booking_Butt.Location = new System.Drawing.Point(290, 314);
+			this.book_Booking_Butt.Enabled = false;
+			this.book_Booking_Butt.Location = new System.Drawing.Point(291, 175);
 			this.book_Booking_Butt.Name = "book_Booking_Butt";
 			this.book_Booking_Butt.Size = new System.Drawing.Size(122, 23);
 			this.book_Booking_Butt.TabIndex = 10;
@@ -159,11 +147,41 @@
 			this.label5.TabIndex = 12;
 			this.label5.Text = "(Vorlagen)";
 			// 
+			// kosten_Box
+			// 
+			this.kosten_Box.ForeColor = System.Drawing.Color.Black;
+			this.kosten_Box.Location = new System.Drawing.Point(267, 37);
+			this.kosten_Box.MaxLength = 64;
+			this.kosten_Box.Name = "kosten_Box";
+			this.kosten_Box.Regular_Expression = "^[\\d\\,\\.\\€]*$";
+			this.kosten_Box.Size = new System.Drawing.Size(125, 20);
+			this.kosten_Box.TabIndex = 16;
+			this.kosten_Box.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+			this.kosten_Box.ToolTipText = "Es sind nur Zahlen als Eingabe erlaubt.";
+			this.kosten_Box.TextChanged += new System.EventHandler(this.kosten_Box_TextChanged);
+			// 
+			// stunden_Box
+			// 
+			this.stunden_Box.ForeColor = System.Drawing.Color.RosyBrown;
+			this.stunden_Box.Location = new System.Drawing.Point(61, 37);
+			this.stunden_Box.MaxLength = 64;
+			this.stunden_Box.Name = "stunden_Box";
+			this.stunden_Box.Regular_Expression = "^[\\d\\,\\.]+$";
+			this.stunden_Box.Size = new System.Drawing.Size(125, 20);
+			this.stunden_Box.TabIndex = 15;
+			this.stunden_Box.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+			this.stunden_Box.ToolTipText = "Es sind nur Zahlen als Eingabe erlaubt.";
+			this.stunden_Box.TextChanged += new System.EventHandler(this.stunden_Box_TextChanged);
+			// 
 			// Buchung
 			// 
+			this.AcceptButton = this.book_Booking_Butt;
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(549, 346);
+			this.CancelButton = this.book_Cancel_Butt;
+			this.ClientSize = new System.Drawing.Size(549, 205);
+			this.Controls.Add(this.kosten_Box);
+			this.Controls.Add(this.stunden_Box);
 			this.Controls.Add(this.label5);
 			this.Controls.Add(this.bu_Custom_CheckBox);
 			this.Controls.Add(this.book_Booking_Butt);
@@ -171,8 +189,6 @@
 			this.Controls.Add(this.custom_Box);
 			this.Controls.Add(this.tätigkeits_Box);
 			this.Controls.Add(this.label4);
-			this.Controls.Add(this.kosten_Box);
-			this.Controls.Add(this.stunden_Box);
 			this.Controls.Add(this.label3);
 			this.Controls.Add(this.label2);
 			this.Controls.Add(this.buchungsDatum);
@@ -194,8 +210,6 @@
 		private System.Windows.Forms.DateTimePicker buchungsDatum;
 		private System.Windows.Forms.Label label2;
 		private System.Windows.Forms.Label label3;
-		private System.Windows.Forms.TextBox stunden_Box;
-		private System.Windows.Forms.TextBox kosten_Box;
 		private System.Windows.Forms.Label label4;
 		private System.Windows.Forms.ComboBox tätigkeits_Box;
 		private System.Windows.Forms.TextBox custom_Box;
@@ -203,6 +217,8 @@
 		private System.Windows.Forms.Button book_Booking_Butt;
 		private System.Windows.Forms.CheckBox bu_Custom_CheckBox;
 		private System.Windows.Forms.Label label5;
+		private RegExTextbox stunden_Box;
+		private RegExTextbox kosten_Box;
 
 	}
 }

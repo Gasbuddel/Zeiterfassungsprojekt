@@ -296,14 +296,14 @@ namespace Zeiterfassung
         private bool validateKunden()
         {
             bool valid = true;
-            if (!ku_firma_box.IsValid) { valid = false; }
-            if (!ku_anspr_box.IsValid) { valid = false; }
-            if (!ku_mail_box.IsValid) { valid = false; }
-            if (!ku_str_box.IsValid) { valid = false; }
-            if (!ku_plz_box.IsValid) { valid = false; }
-            if (!ku_ort_box.IsValid) { valid = false; }
-            if (!ku_tel_box.IsValid) { valid = false; }
-            if (!ku_fax_box.IsValid) { valid = false; }
+			if (!ku_firma_box.IsValid) { valid = false; }
+			if (!ku_anspr_box.IsValid) { valid = false; }
+			if (!ku_mail_box.IsValid) { valid = false; }
+			if (!ku_str_box.IsValid) { valid = false; }
+			if (!ku_plz_box.IsValid) { valid = false; }
+			if (!ku_ort_box.IsValid) { valid = false; }
+			if (!ku_tel_box.IsValid) { valid = false; }
+			if (!ku_fax_box.IsValid) { valid = false; }
 
             return valid;
         }

@@ -295,12 +295,12 @@
 			// 
 			// pro_Box
 			// 
+			this.pro_Box.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
 			this.pro_Box.FormattingEnabled = true;
 			this.pro_Box.Location = new System.Drawing.Point(52, 17);
 			this.pro_Box.Name = "pro_Box";
 			this.pro_Box.Size = new System.Drawing.Size(199, 21);
 			this.pro_Box.TabIndex = 0;
-			this.pro_Box.Text = "Projekt auswählen ...";
 			this.pro_Box.SelectedValueChanged += new System.EventHandler(this.pro_Box_SelectedValueChanged);
 			// 
 			// Hauptmaske

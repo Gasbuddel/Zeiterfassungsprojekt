@@ -14,34 +14,60 @@ namespace Zeiterfassung
 		public Buchung()
 		{
 			InitializeComponent();
+			tätigkeitenInitialisieren();
+		}
+
+		private void tätigkeitenInitialisieren()
+		{
+			DataTable tätigkeiten = SqlConnection.SelectStatement("SELECT taID, taBeschreibung " +
+				"FROM ttaetigkeitenvorlage " +
+				"WHERE taID IN (" +
+				"SELECT taID FROM tproj_taet " +
+				"WHERE prID = " + Session.GetSession().ProId + ")");
+
+			DataTableReader reader = tätigkeiten.CreateDataReader();
+
+			if(reader.HasRows)
+			{
+				while(reader.Read())
+				{
+					tätigkeits_Box.Items.Add(new ListItem(reader.GetInt32(0), reader.GetString(1)));
+				}
+				tätigkeits_Box.SelectedIndex = 0;
+			}
 		}
 
 		private void book_Cancel_Butt_Click(object sender, EventArgs e)
 		{
+			this.DialogResult = DialogResult.Cancel;
 			this.Close();
 		}
 
 		private void book_Booking_Butt_Click(object sender, EventArgs e)
 		{
-
-			decimal h = Convert.ToDecimal(stunden_Box.Text);
-			decimal k = Convert.ToDecimal(kosten_Box.Text);
-			string aktiv1 = tätigkeits_Box.Text.ToString();
+			decimal stunden = Convert.ToDecimal(stunden_Box.Text);
+			decimal kosten = Convert.ToDecimal(kosten_Box.Text);
+			string tätigkeit = tätigkeits_Box.Text.ToString();
 
 			DateTime da = buchungsDatum.Value;
 			string date = da.ToString("yyyy-MM-dd");
-			string aktiv2 = custom_Box.Text.ToString();
+			string customTätigkeit = custom_Box.Text.ToString();
 
 			if (bu_Custom_CheckBox.Checked == true)
 			{
-				SqlConnection.ExecuteStatement("insert into tzeiterfassung (miID, prID, zeTag, zeTaetigkeit, zeDauer, zeReisekosten) values(" + Session.GetSession().UserId + "," + Session.GetSession().ProId + ",'" + date + "','" + aktiv2 + "'," + h + " ," + k + ")");
+				SqlConnection.ExecuteStatement("insert into tzeiterfassung (miID, prID, zeTag, zeTaetigkeit, zeDauer, zeReisekosten) " +
+					" values(" + Session.GetSession().UserId + "," + Session.GetSession().ProId + 
+					",'" + date + "','" + customTätigkeit + "'," + stunden + " ," + kosten + ")");
 			}
 
 			else
 			{
-				SqlConnection.ExecuteStatement("insert into tzeiterfassung (miID, prID, zeTag, zeTaetigkeit, zeDauer, zeReisekosten) values(" + Session.GetSession().UserId + "," + Session.GetSession().ProId + ",'" + date + "','" + aktiv1 + "'," + h + " ," + k + ")");
+				SqlConnection.ExecuteStatement("insert into tzeiterfassung (miID, prID, zeTag, zeTaetigkeit, zeDauer, zeReisekosten) " +
+					" values(" + Session.GetSession().UserId + "," + Session.GetSession().ProId + 
+					",'" + date + "','" + tätigkeit + "'," + stunden + " ," + kosten + ")");
 			}
 
+			this.DialogResult = DialogResult.OK;
 
 
 			this.Close();
@@ -50,22 +76,44 @@ namespace Zeiterfassung
 
 		private void bu_Custom_Checkbox_CheckedChanged(object sender, EventArgs e)
 		{
-
 			if (bu_Custom_CheckBox.Checked == true)
 			{
-
+				custom_Box.Enabled = true;
 				tätigkeits_Box.Enabled = false;
-
-
 			}
-
 			else
 			{
+				custom_Box.Enabled = false;
 				tätigkeits_Box.Enabled = true;
-
-
 			}
+		}
 
+		private bool isValid()
+		{
+			bool valid = true;
+
+			if (stunden_Box.Text == "")
+				valid = false;
+			if (!stunden_Box.IsValid) { valid = false; }
+			if (!kosten_Box.IsValid) { valid = false; }
+
+			return valid;
+		}
+
+		private void stunden_Box_TextChanged(object sender, EventArgs e)
+		{
+			if (isValid())
+				book_Booking_Butt.Enabled = true;
+			else
+				book_Booking_Butt.Enabled = false;
+		}
+
+		private void kosten_Box_TextChanged(object sender, EventArgs e)
+		{
+			if (isValid())
+				book_Booking_Butt.Enabled = true;
+			else
+				book_Booking_Butt.Enabled = false;
 		}
 	}
 }
