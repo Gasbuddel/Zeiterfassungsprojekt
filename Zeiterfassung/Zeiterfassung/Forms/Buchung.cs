@@ -45,7 +45,7 @@ namespace Zeiterfassung
 
 		private void book_Booking_Butt_Click(object sender, EventArgs e)
 		{
-			decimal stunden = Convert.ToDecimal(stunden_Box.Text);
+			decimal stunden = stunden_Box.Value;
 			decimal kosten = Convert.ToDecimal(kosten_Box.Text);
 			string tätigkeit = tätigkeits_Box.Text.ToString();
 
@@ -57,14 +57,14 @@ namespace Zeiterfassung
 			{
 				SqlConnection.ExecuteStatement("insert into tzeiterfassung (miID, prID, zeTag, zeTaetigkeit, zeDauer, zeReisekosten) " +
 					" values(" + Session.GetSession().UserId + "," + Session.GetSession().ProId + 
-					",'" + date + "','" + customTätigkeit + "'," + stunden + " ," + kosten + ")");
+					",'" + date + "','" + customTätigkeit + "','" + stunden + "' ,'" + kosten + "')");
 			}
 
 			else
 			{
 				SqlConnection.ExecuteStatement("insert into tzeiterfassung (miID, prID, zeTag, zeTaetigkeit, zeDauer, zeReisekosten) " +
 					" values(" + Session.GetSession().UserId + "," + Session.GetSession().ProId + 
-					",'" + date + "','" + tätigkeit + "'," + stunden + " ," + kosten + ")");
+					",'" + date + "','" + tätigkeit + "','" + stunden + "' ,'" + kosten + "')");
 			}
 
 			this.DialogResult = DialogResult.OK;
@@ -94,18 +94,12 @@ namespace Zeiterfassung
 
 			if (stunden_Box.Text == "")
 				valid = false;
-			if (!stunden_Box.IsValid) { valid = false; }
-			if (!kosten_Box.IsValid) { valid = false; }
+			if (stunden_Box.Value <= 0)
+				valid = false;
+			if (!kosten_Box.IsValid) 
+				valid = false; 
 
 			return valid;
-		}
-
-		private void stunden_Box_TextChanged(object sender, EventArgs e)
-		{
-			if (isValid())
-				book_Booking_Butt.Enabled = true;
-			else
-				book_Booking_Butt.Enabled = false;
 		}
 
 		private void kosten_Box_TextChanged(object sender, EventArgs e)
@@ -115,5 +109,14 @@ namespace Zeiterfassung
 			else
 				book_Booking_Butt.Enabled = false;
 		}
+
+		private void stunden_Box_ValueChanged(object sender, EventArgs e)
+		{
+			if (isValid())
+				book_Booking_Butt.Enabled = true;
+			else
+				book_Booking_Butt.Enabled = false;
+		}
+
 	}
 }

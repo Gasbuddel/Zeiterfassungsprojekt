@@ -28,16 +28,15 @@ namespace Zeiterfassung
 			{
 				administrationToolStripMenuItem.Enabled = false;
 				administrationToolStripMenuItem.Visible = false;
-
 			}
-
-
 			initialisierenProj();
-
 		}
 
+		//Projekte des mitarbeiters laden
 		private void initialisierenProj()
 		{
+			pro_Box.Items.Clear();
+
 			DataTable projekt = SqlConnection.SelectStatement("SELECT prID, prName FROM tprojekt " + 
 				"WHERE prID IN(SELECT prID FROM tmita_proj " + 
 				"WHERE miID = " + Session.GetSession().UserId + " AND mpAktiv=1)");
@@ -54,10 +53,15 @@ namespace Zeiterfassung
 						pro_Box.Items.Add(new ListItem(reader.GetInt32(0),reader.GetString(1)));
 					}
 				}
-
 				pro_Box.SelectedIndex = 0;
-
 			}
+
+			if (pro_Box.Items.Count == 0)
+			{
+				groupBox1.Enabled = false;
+			}
+			else
+				groupBox1.Enabled = true;
 		}
 
 
@@ -80,6 +84,8 @@ namespace Zeiterfassung
 			admin.StartPosition = FormStartPosition.CenterParent;
 
 			admin.ShowDialog();
+
+			initialisierenProj();
 		}
 
         private void projekteToolStripMenuItem_Click(object sender, EventArgs e)
@@ -89,6 +95,8 @@ namespace Zeiterfassung
 			admin.StartPosition = FormStartPosition.CenterParent;
 
 			admin.ShowDialog();
+
+			initialisierenProj();
         }
 
         private void mitarbeiterToolStripMenuItem_Click(object sender, EventArgs e)
@@ -98,6 +106,8 @@ namespace Zeiterfassung
 			admin.StartPosition = FormStartPosition.CenterParent;
 
 			admin.ShowDialog();
+
+			initialisierenProj();
         }
 
 
@@ -123,6 +133,7 @@ namespace Zeiterfassung
 			getReisekosten();
 		}
 
+		//Verbuchte Zeit laden
 		private void getBuchungen(string date)
 		{
 			DataTable buchung = SqlConnection.SelectStatement("SELECT zeDauer,zeReisekosten,zeTag,zeTaetigkeit " +
@@ -225,6 +236,12 @@ namespace Zeiterfassung
         }
 
         #endregion
+
+
+
+
+
+
 
 
     }

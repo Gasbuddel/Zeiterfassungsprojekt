@@ -41,7 +41,9 @@
 			this.bu_Custom_CheckBox = new System.Windows.Forms.CheckBox();
 			this.label5 = new System.Windows.Forms.Label();
 			this.kosten_Box = new Zeiterfassung.RegExTextbox();
-			this.stunden_Box = new Zeiterfassung.RegExTextbox();
+			this.stunden_Box = new System.Windows.Forms.NumericUpDown();
+			this.label6 = new System.Windows.Forms.Label();
+			((System.ComponentModel.ISupportInitialize)(this.stunden_Box)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// label1
@@ -149,11 +151,11 @@
 			// 
 			// kosten_Box
 			// 
-			this.kosten_Box.ForeColor = System.Drawing.Color.Black;
+			this.kosten_Box.ForeColor = System.Drawing.Color.RosyBrown;
 			this.kosten_Box.Location = new System.Drawing.Point(267, 37);
 			this.kosten_Box.MaxLength = 64;
 			this.kosten_Box.Name = "kosten_Box";
-			this.kosten_Box.Regular_Expression = "^[\\d\\,\\.\\€]*$";
+			this.kosten_Box.Regular_Expression = "^[\\d\\,\\.]*$";
 			this.kosten_Box.Size = new System.Drawing.Size(125, 20);
 			this.kosten_Box.TabIndex = 16;
 			this.kosten_Box.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
@@ -162,16 +164,27 @@
 			// 
 			// stunden_Box
 			// 
-			this.stunden_Box.ForeColor = System.Drawing.Color.RosyBrown;
+			this.stunden_Box.DecimalPlaces = 2;
+			this.stunden_Box.Increment = new decimal(new int[] {
+            25,
+            0,
+            0,
+            131072});
 			this.stunden_Box.Location = new System.Drawing.Point(61, 37);
-			this.stunden_Box.MaxLength = 64;
 			this.stunden_Box.Name = "stunden_Box";
-			this.stunden_Box.Regular_Expression = "^[\\d\\,\\.]+$";
 			this.stunden_Box.Size = new System.Drawing.Size(125, 20);
-			this.stunden_Box.TabIndex = 15;
+			this.stunden_Box.TabIndex = 17;
 			this.stunden_Box.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-			this.stunden_Box.ToolTipText = "Es sind nur Zahlen als Eingabe erlaubt.";
-			this.stunden_Box.TextChanged += new System.EventHandler(this.stunden_Box_TextChanged);
+			this.stunden_Box.ValueChanged += new System.EventHandler(this.stunden_Box_ValueChanged);
+			// 
+			// label6
+			// 
+			this.label6.AutoSize = true;
+			this.label6.Location = new System.Drawing.Point(399, 39);
+			this.label6.Name = "label6";
+			this.label6.Size = new System.Drawing.Size(13, 13);
+			this.label6.TabIndex = 18;
+			this.label6.Text = "€";
 			// 
 			// Buchung
 			// 
@@ -180,8 +193,9 @@
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.CancelButton = this.book_Cancel_Butt;
 			this.ClientSize = new System.Drawing.Size(549, 205);
-			this.Controls.Add(this.kosten_Box);
+			this.Controls.Add(this.label6);
 			this.Controls.Add(this.stunden_Box);
+			this.Controls.Add(this.kosten_Box);
 			this.Controls.Add(this.label5);
 			this.Controls.Add(this.bu_Custom_CheckBox);
 			this.Controls.Add(this.book_Booking_Butt);
@@ -199,6 +213,7 @@
 			this.MinimizeBox = false;
 			this.Name = "Buchung";
 			this.Text = "Buchung";
+			((System.ComponentModel.ISupportInitialize)(this.stunden_Box)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -217,8 +232,9 @@
 		private System.Windows.Forms.Button book_Booking_Butt;
 		private System.Windows.Forms.CheckBox bu_Custom_CheckBox;
 		private System.Windows.Forms.Label label5;
-		private RegExTextbox stunden_Box;
 		private RegExTextbox kosten_Box;
+		private System.Windows.Forms.NumericUpDown stunden_Box;
+		private System.Windows.Forms.Label label6;
 
 	}
 }

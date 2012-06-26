@@ -41,7 +41,6 @@
 			this.überToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.groupBox1 = new System.Windows.Forms.GroupBox();
 			this.buch_Butt = new System.Windows.Forms.Button();
-			this.cancel_Butt = new System.Windows.Forms.Button();
 			this.label5 = new System.Windows.Forms.Label();
 			this.tabelleGebuchteZeiten = new System.Windows.Forms.DataGridView();
 			this.Zeit = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -56,6 +55,7 @@
 			this.anzeigeTag = new System.Windows.Forms.DateTimePicker();
 			this.label1 = new System.Windows.Forms.Label();
 			this.pro_Box = new System.Windows.Forms.ComboBox();
+			this.cancel_Butt = new System.Windows.Forms.Button();
 			this.menuStrip1.SuspendLayout();
 			this.groupBox1.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.tabelleGebuchteZeiten)).BeginInit();
@@ -143,7 +143,6 @@
 			// groupBox1
 			// 
 			this.groupBox1.Controls.Add(this.buch_Butt);
-			this.groupBox1.Controls.Add(this.cancel_Butt);
 			this.groupBox1.Controls.Add(this.label5);
 			this.groupBox1.Controls.Add(this.tabelleGebuchteZeiten);
 			this.groupBox1.Controls.Add(this.cost_Box);
@@ -163,24 +162,13 @@
 			// 
 			// buch_Butt
 			// 
-			this.buch_Butt.Location = new System.Drawing.Point(400, 300);
+			this.buch_Butt.Location = new System.Drawing.Point(566, 299);
 			this.buch_Butt.Name = "buch_Butt";
 			this.buch_Butt.Size = new System.Drawing.Size(140, 23);
 			this.buch_Butt.TabIndex = 11;
 			this.buch_Butt.Text = "Zeit buchen";
 			this.buch_Butt.UseVisualStyleBackColor = true;
 			this.buch_Butt.Click += new System.EventHandler(this.buch_Butt_Click);
-			// 
-			// cancel_Butt
-			// 
-			this.cancel_Butt.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-			this.cancel_Butt.Location = new System.Drawing.Point(546, 300);
-			this.cancel_Butt.Name = "cancel_Butt";
-			this.cancel_Butt.Size = new System.Drawing.Size(159, 23);
-			this.cancel_Butt.TabIndex = 10;
-			this.cancel_Butt.Text = "Beenden";
-			this.cancel_Butt.UseVisualStyleBackColor = true;
-			this.cancel_Butt.Click += new System.EventHandler(this.cancel_Butt_Click);
 			// 
 			// label5
 			// 
@@ -303,13 +291,25 @@
 			this.pro_Box.TabIndex = 0;
 			this.pro_Box.SelectedValueChanged += new System.EventHandler(this.pro_Box_SelectedValueChanged);
 			// 
+			// cancel_Butt
+			// 
+			this.cancel_Butt.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+			this.cancel_Butt.Location = new System.Drawing.Point(566, 368);
+			this.cancel_Butt.Name = "cancel_Butt";
+			this.cancel_Butt.Size = new System.Drawing.Size(159, 23);
+			this.cancel_Butt.TabIndex = 10;
+			this.cancel_Butt.Text = "Beenden";
+			this.cancel_Butt.UseVisualStyleBackColor = true;
+			this.cancel_Butt.Click += new System.EventHandler(this.cancel_Butt_Click);
+			// 
 			// Hauptmaske
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.CancelButton = this.cancel_Butt;
-			this.ClientSize = new System.Drawing.Size(737, 372);
+			this.ClientSize = new System.Drawing.Size(737, 397);
 			this.Controls.Add(this.groupBox1);
+			this.Controls.Add(this.cancel_Butt);
 			this.Controls.Add(this.menuStrip1);
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -317,6 +317,7 @@
 			this.MaximizeBox = false;
 			this.Name = "Hauptmaske";
 			this.Text = "Zeiterfassung";
+			this.Enter += new System.EventHandler(this.Hauptmaske_Enter);
 			this.menuStrip1.ResumeLayout(false);
 			this.menuStrip1.PerformLayout();
 			this.groupBox1.ResumeLayout(false);
