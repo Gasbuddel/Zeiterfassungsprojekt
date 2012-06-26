@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using MySql.Data.MySqlClient;
 
 namespace Zeiterfassung
 {
@@ -18,7 +19,7 @@ namespace Zeiterfassung
             if (Session.GetSession().StartPw == true)
             {
                 Session.GetSession().StartPwChange();
-                this.Text = "Bitte Startpasswort ändern";
+				this.Text = "Bitte das Passwort neu setzen.";
                 this.newPW.Select();
                 string startpw = "#start12";
                 altesPW.Text = startpw;
@@ -39,24 +40,30 @@ namespace Zeiterfassung
             //Wurde kein Treffer gefunden, existiert der Mitarbeiter nicht, bzw falsches Passwort
             if (reader.HasRows)
             {
-                //Rolle abspeichern
+				try
+				{
+					if (newpw1 == newpw2)
+					{
+						SqlConnection.SelectStatement("UPDATE tmitarbeiter SET miPasswort = '" + newpw1 + "' WHERE miID = " + userid + "");
+						this.DialogResult = DialogResult.OK;
+						this.Close();
+					}
+					else
+						MessageBox.Show("Die Passwort stimmen nicht überein!");
+				}
+				catch (MySqlException ex)
+				{
+					switch(ex.Number)
+					{
+						case 0:
+							MessageBox.Show("Datenbank konnte nicht erreicht werden.");
+							break;
 
-                try
-                {
-
-                    if (newpw1 == newpw2)
-                    {
-                        SqlConnection.SelectStatement("UPDATE tmitarbeiter SET miPasswort = '" + newpw1 + "' WHERE miID = " + userid + "");
-                        this.DialogResult = DialogResult.OK;
-                        this.Close();
-                    }
-
-                }
-                catch (FormatException)
-                {
-                    //Falls der Benutzer nicht die Rolle 1, oder 2 hatte, was nicht passieren darf.
-                    MessageBox.Show("Die Passwort stimmen nicht überein!");
-                }
+						default:
+							MessageBox.Show("Es kam zu einem unerwarteten Fehler mit der Datenbank.");
+							break;
+					}
+				}
             }
             else
             {

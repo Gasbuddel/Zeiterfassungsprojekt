@@ -317,7 +317,6 @@
 			this.MaximizeBox = false;
 			this.Name = "Hauptmaske";
 			this.Text = "Zeiterfassung";
-			this.Enter += new System.EventHandler(this.Hauptmaske_Enter);
 			this.menuStrip1.ResumeLayout(false);
 			this.menuStrip1.PerformLayout();
 			this.groupBox1.ResumeLayout(false);
