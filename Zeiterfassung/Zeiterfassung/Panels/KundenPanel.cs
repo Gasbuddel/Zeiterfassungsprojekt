@@ -119,6 +119,7 @@ namespace Zeiterfassung
                 setKundenTextboxReadonly(false);
 
                 ku_Bearb_Butt.Enabled = false;
+				ku_Delete_Butt.Enabled = false;
 
                 //Bearbeitungsstatus auf "Neuer Kunde" setzen
                 bearbeitungsStatus = 2;
@@ -146,6 +147,7 @@ namespace Zeiterfassung
                 bearbeitungsStatus = 1;
 
                 ku_New_Button.Enabled = false;
+				ku_Delete_Butt.Enabled = false;
             }
             else
                 ku_Cancel_Butt_Click(this, new EventArgs());
@@ -210,6 +212,7 @@ namespace Zeiterfassung
 
             ku_Bearb_Butt.Enabled = true;
             ku_New_Button.Enabled = true;
+			ku_Delete_Butt.Enabled = true;
         }
 
         private void ku_Delete_Butt_Click(object sender, EventArgs e)

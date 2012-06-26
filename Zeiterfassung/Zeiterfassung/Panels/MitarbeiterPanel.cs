@@ -248,10 +248,6 @@ namespace Zeiterfassung
         {
             userNameBox.Enabled = true;
 
-            if (mitarbeiterBearbStatus == 2)
-            {
-                userNameBox.SelectedIndex = 0;
-            }
             //Buttons zurücksetzen
             mit_New_Butt.Text = "Neuer Mitarbeiter";
             mi_Change_Butt.Text = "Ändern";

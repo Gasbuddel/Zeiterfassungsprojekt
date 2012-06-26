@@ -63,6 +63,7 @@ namespace Zeiterfassung
         {
             InitializeComponent();
 			this.TextChanged += new EventHandler(RegexTextbox_TextChanged);
+			this.Leave += new EventHandler(RegeexTextbox_Leave);
 			tip = new ToolTip();
         }
         
@@ -124,6 +125,11 @@ namespace Zeiterfassung
 		}
 
 		void RegexTextbox_TextChanged(object sender, EventArgs e)
+		{
+			ValidateControl();
+		}
+
+		void RegeexTextbox_Leave(object sender, EventArgs e)
 		{
 			ValidateControl();
 			ShowTip();
