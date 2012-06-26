@@ -62,6 +62,12 @@
     <Compile Include="Classes\Md5.cs" />
     <Compile Include="Classes\Session.cs" />
     <Compile Include="Classes\SqlConnection.cs" />
+    <Compile Include="Forms\AboutBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\AboutBox.Designer.cs">
+      <DependentUpon>AboutBox.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\AddTaetigkeit.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -142,6 +148,9 @@
     <Compile Include="Steuerelemente\RegExTextbox.Designer.cs">
       <DependentUpon>RegExTextbox.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Forms\AboutBox.resx">
+      <DependentUpon>AboutBox.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\AddTaetigkeit.resx">
       <DependentUpon>AddTaetigkeit.cs</DependentUpon>
     </EmbeddedResource>
