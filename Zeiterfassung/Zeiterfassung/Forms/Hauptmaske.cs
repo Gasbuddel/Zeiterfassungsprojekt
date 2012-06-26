@@ -110,6 +110,13 @@ namespace Zeiterfassung
 			initialisierenProj();
         }
 
+        private void überToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Zeiterfassung.Forms.AboutBox ueber = new Zeiterfassung.Forms.AboutBox();
+            ueber.StartPosition = FormStartPosition.CenterParent;
+            ueber.ShowDialog();
+        }
+
 
         #region 'Buchung'
 
@@ -237,14 +244,7 @@ namespace Zeiterfassung
 
         #endregion
 
-        private void überToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Zeiterfassung.Forms.AboutBox ueber = new Zeiterfassung.Forms.AboutBox();
-            ueber.StartPosition = FormStartPosition.CenterParent;
-            ueber.ShowDialog();
 
-            initialisierenProj();
-        }
 
 
 

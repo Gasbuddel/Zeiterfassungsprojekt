@@ -101,20 +101,6 @@ namespace Zeiterfassung.Forms
         }
         #endregion
 
-        private void labelVersion_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void labelCopyright_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void tableLayoutPanel_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
 
         private void okButton_Click(object sender, EventArgs e)
         {

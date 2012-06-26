@@ -61,7 +61,6 @@
             this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
             this.tableLayoutPanel.Size = new System.Drawing.Size(508, 273);
             this.tableLayoutPanel.TabIndex = 0;
-            this.tableLayoutPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.tableLayoutPanel_Paint);
             // 
             // logoPictureBox
             // 
@@ -71,7 +70,7 @@
             this.logoPictureBox.Name = "logoPictureBox";
             this.tableLayoutPanel.SetRowSpan(this.logoPictureBox, 5);
             this.logoPictureBox.Size = new System.Drawing.Size(265, 267);
-            this.logoPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.logoPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.logoPictureBox.TabIndex = 12;
             this.logoPictureBox.TabStop = false;
             // 
@@ -98,7 +97,6 @@
             this.labelVersion.TabIndex = 0;
             this.labelVersion.Text = "Version 0.5";
             this.labelVersion.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.labelVersion.Click += new System.EventHandler(this.labelVersion_Click);
             // 
             // labelCopyright
             // 
@@ -112,9 +110,8 @@
             this.labelCopyright.Size = new System.Drawing.Size(228, 34);
             this.labelCopyright.TabIndex = 21;
             this.labelCopyright.Text = "Copyright by Björn Albers, Ingo Brattka, Mark Brings, Oliver Hemmerling, Simon Me" +
-    "ndt";
+                "ndt";
             this.labelCopyright.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.labelCopyright.Click += new System.EventHandler(this.labelCopyright_Click);
             // 
             // textBoxDescription
             // 
@@ -129,7 +126,7 @@
             this.textBoxDescription.TabIndex = 23;
             this.textBoxDescription.TabStop = false;
             this.textBoxDescription.Text = "Beschreibung: \r\n\r\nDas Programm wurde für das HHEK Bonn geschrieben\r\nund dient zur" +
-    " Zeiterfassung innerhalb von Projekten.";
+                " Zeiterfassung innerhalb von Projekten.";
             // 
             // okButton
             // 
