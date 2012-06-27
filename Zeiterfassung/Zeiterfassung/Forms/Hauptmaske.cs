@@ -119,10 +119,12 @@ namespace Zeiterfassung
 
 
         //Passwort ändern
-        private void pwChangeToolStripMenuItem_Click(object sender, EventArgs e)
+        private void passwortÄndernToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ChangePW changepwform = new ChangePW();
             changepwform.ShowDialog();
+
+            changepwform.Dispose();
         }
 
         //Hilfe öffnen
@@ -315,6 +317,8 @@ namespace Zeiterfassung
 
 
         #endregion
+
+
 
 
 

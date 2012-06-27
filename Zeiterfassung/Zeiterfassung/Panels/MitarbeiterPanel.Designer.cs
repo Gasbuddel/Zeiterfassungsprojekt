@@ -33,7 +33,7 @@
             this.mi_Cancel_Butt = new System.Windows.Forms.Button();
             this.mi_PW_Butt = new System.Windows.Forms.Button();
             this.mi_Del_Butt = new System.Windows.Forms.Button();
-            this.mit_New_Butt = new System.Windows.Forms.Button();
+            this.mi_New_Butt = new System.Windows.Forms.Button();
             this.mi_Change_Butt = new System.Windows.Forms.Button();
             this.roleBox = new System.Windows.Forms.ComboBox();
             this.label13 = new System.Windows.Forms.Label();
@@ -55,7 +55,7 @@
             this.groupBox2.Controls.Add(this.mi_Cancel_Butt);
             this.groupBox2.Controls.Add(this.mi_PW_Butt);
             this.groupBox2.Controls.Add(this.mi_Del_Butt);
-            this.groupBox2.Controls.Add(this.mit_New_Butt);
+            this.groupBox2.Controls.Add(this.mi_New_Butt);
             this.groupBox2.Controls.Add(this.mi_Change_Butt);
             this.groupBox2.Controls.Add(this.roleBox);
             this.groupBox2.Controls.Add(this.label13);
@@ -115,15 +115,15 @@
             this.mi_Del_Butt.UseVisualStyleBackColor = true;
             this.mi_Del_Butt.Click += new System.EventHandler(this.mi_Del_Butt_Click);
             // 
-            // mit_New_Butt
+            // mi_New_Butt
             // 
-            this.mit_New_Butt.Location = new System.Drawing.Point(13, 133);
-            this.mit_New_Butt.Name = "mit_New_Butt";
-            this.mit_New_Butt.Size = new System.Drawing.Size(115, 34);
-            this.mit_New_Butt.TabIndex = 13;
-            this.mit_New_Butt.Text = "Neuer Mitarbeiter";
-            this.mit_New_Butt.UseVisualStyleBackColor = true;
-            this.mit_New_Butt.Click += new System.EventHandler(this.mit_New_Butt_Click);
+            this.mi_New_Butt.Location = new System.Drawing.Point(13, 133);
+            this.mi_New_Butt.Name = "mi_New_Butt";
+            this.mi_New_Butt.Size = new System.Drawing.Size(115, 34);
+            this.mi_New_Butt.TabIndex = 13;
+            this.mi_New_Butt.Text = "Neuer Mitarbeiter";
+            this.mi_New_Butt.UseVisualStyleBackColor = true;
+            this.mi_New_Butt.Click += new System.EventHandler(this.mit_New_Butt_Click);
             // 
             // mi_Change_Butt
             // 
@@ -265,7 +265,7 @@
         private System.Windows.Forms.Button mi_Cancel_Butt;
         private System.Windows.Forms.Button mi_PW_Butt;
         private System.Windows.Forms.Button mi_Del_Butt;
-        private System.Windows.Forms.Button mit_New_Butt;
+        private System.Windows.Forms.Button mi_New_Butt;
         private System.Windows.Forms.Button mi_Change_Butt;
         private System.Windows.Forms.ComboBox roleBox;
         private System.Windows.Forms.Label label13;

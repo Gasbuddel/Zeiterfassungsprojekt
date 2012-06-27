@@ -124,6 +124,10 @@ namespace Zeiterfassung
                 mi_Change_Butt.Text = "Speichern";
                 setMitarbeiterReadOnly(false);
 
+                mi_New_Butt.Enabled = false;
+                mi_PW_Butt.Enabled = false;
+                mi_Del_Butt.Enabled = false;
+
                 mitarbeiterBearbStatus = 1;
             }
             //Im Bearbeitungsstatus
@@ -142,6 +146,10 @@ namespace Zeiterfassung
                         "'   where miID='" + ((ListItem)userNameBox.SelectedItem).DatabankID + "'");
 
                     mi_Cancel_Butt.Visible = false;
+
+                    mi_PW_Butt.Enabled = true;
+                    mi_Del_Butt.Enabled = true;
+                    mi_New_Butt.Enabled = true;
 
                     mitarbeiterBearbStatus = 0;
                 }
@@ -205,7 +213,7 @@ namespace Zeiterfassung
             //Keine Bearbeitung aktiv
             if (mitarbeiterBearbStatus == 0)
             {
-                mit_New_Butt.Text = "Anlegen";
+                mi_New_Butt.Text = "Anlegen";
                 mi_Cancel_Butt.Visible = true;
                 mi_Del_Butt.Enabled = false;
                 mi_PW_Butt.Enabled = false;
@@ -240,7 +248,7 @@ namespace Zeiterfassung
 
                         MessageBox.Show("Neuer User wurde angelegt. Passwort ist:");
                         //Buttons enablen
-                        mit_New_Butt.Text = "Neuer Mitarbeiter";
+                        mi_New_Butt.Text = "Neuer Mitarbeiter";
                         mi_Del_Butt.Enabled = true;
                         mi_PW_Butt.Enabled = true;
                         mi_Change_Butt.Enabled = true;
@@ -271,11 +279,12 @@ namespace Zeiterfassung
             userNameBox.Enabled = true;
 
             //Buttons zurücksetzen
-            mit_New_Butt.Text = "Neuer Mitarbeiter";
+            mi_New_Butt.Text = "Neuer Mitarbeiter";
             mi_Change_Butt.Text = "Bearbeiten";
             mi_Del_Butt.Enabled = true;
             mi_PW_Butt.Enabled = true;
             mi_Change_Butt.Enabled = true;
+            mi_New_Butt.Enabled = true;
 
             setMitarbeiterReadOnly(true);
 
