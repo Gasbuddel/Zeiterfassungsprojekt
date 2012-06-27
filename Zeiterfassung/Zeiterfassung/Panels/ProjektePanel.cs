@@ -30,7 +30,7 @@ namespace Zeiterfassung
         {
             selectBoxProjekt.Items.Clear();
 
-            DataTable projekte = SqlConnection.SelectStatement("SELECT prId ,prName FROM tprojekt");
+            DataTable projekte = SqlConnection.SelectStatement("SELECT prId ,prName FROM tprojekt ORDER BY prname");
 
             DataTableReader reader = projekte.CreateDataReader();
 
@@ -60,7 +60,7 @@ namespace Zeiterfassung
             DataTableReader reader;
 
             //Kunde abfragen
-            DataTable kunde = SqlConnection.SelectStatement("SELECT kuFirma FROM tkunde WHERE kuID = (SELECT kuID From tprojekt WHERE prId='" + ((ListItem)selectBoxProjekt.SelectedItem).DatabankID + "') ");
+            DataTable kunde = SqlConnection.SelectStatement("SELECT kuFirma FROM tkunde WHERE kuID = (SELECT kuID From tprojekt WHERE prId='" + ((ListItem)selectBoxProjekt.SelectedItem).DatabankID + "') ORDER BY kufirma");
 
             if (kunde.Rows.Count > 0)
                 kund_Box.Text = kunde.Rows[0]["kuFirma"].ToString();
@@ -77,7 +77,8 @@ namespace Zeiterfassung
                 "WHERE m.miID IN (" +
                 "SELECT t.miID " +
                 "FROM tmita_proj t " +
-                "WHERE t.prID = " + ((ListItem)selectBoxProjekt.SelectedItem).DatabankID + ")");
+                "WHERE t.prID = " + ((ListItem)selectBoxProjekt.SelectedItem).DatabankID + 
+                " AND mpAktiv = 1) ORDER BY miName");
 
             reader = arbeiter.CreateDataReader();
 
@@ -97,13 +98,14 @@ namespace Zeiterfassung
                 "WHERE taID IN (" +
                 "SELECT taID " +
                 "FROM tproj_taet " +
-                "WHERE prID = " + ((ListItem)selectBoxProjekt.SelectedItem).DatabankID + ")");
+                "WHERE prID = " + ((ListItem)selectBoxProjekt.SelectedItem).DatabankID + ") ORDER BY taBeschreibung");
 
             reader = taetDesc.CreateDataReader();
 
+            taet_List.Items.Clear();
+
             if (reader.HasRows)
             {
-                taet_List.Items.Clear();
                 while (reader.Read())
                 {
                     taet_List.Items.Add(new ListItem(reader.GetInt32(0), reader.GetString(1)));
@@ -116,7 +118,7 @@ namespace Zeiterfassung
         {
             if (mitarbeit_List.SelectedIndex != -1)
             {
-                SqlConnection.ExecuteStatement("DELETE FROM tmita_proj WHERE miID = " + ((ListItem)mitarbeit_List.SelectedItem).DatabankID);
+                SqlConnection.ExecuteStatement("UPDATE tmita_proj SET mpAktiv = 0 WHERE miID = " + ((ListItem)mitarbeit_List.SelectedItem).DatabankID);
                 projekteAktualisieren();
             }
         }

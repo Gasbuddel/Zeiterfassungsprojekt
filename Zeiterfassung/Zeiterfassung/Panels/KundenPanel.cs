@@ -44,8 +44,10 @@ namespace Zeiterfassung
             {
                 while (reader.Read())
                 {
-                    if (reader.GetString(1) != "")
+                    //Wenn eine Firma angegeben wurde, Firmenname benutzen
+                    if (reader["kuFirma"].ToString() != "")
                         kunden_box.Items.Add(new ListItem(reader.GetInt32(0), reader.GetString(1)));
+                    //Sonst Ansprechpartner benutzen
                     else
                         kunden_box.Items.Add(new ListItem(reader.GetInt32(0), reader.GetString(2)));
                 }
@@ -217,11 +219,26 @@ namespace Zeiterfassung
 
         private void ku_Delete_Butt_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show("Möchten sie diesen Kunden wirklich löschen?", "Warnung!", MessageBoxButtons.OKCancel,MessageBoxIcon.Warning) == DialogResult.OK)
+            //Herrausfinden, ob der Kunde bereits ein Projekt hat
+            int projectCount = SqlConnection.CountStatement("SELECT kuID FROM tProjekt WHERE kuID = " + 
+                ((ListItem)kunden_box.SelectedItem).DatabankID);
+            if (projectCount > 0)
             {
-                SqlConnection.ExecuteStatement("DELETE FROM tkunde WHERE kuID = " + ((ListItem)kunden_box.SelectedItem).DatabankID);
-                kundenInitialisieren();
-                kunden_box.SelectedIndex = 0;
+                if (MessageBox.Show("Wenn sie diesen Kunden löschen, werden Projekte mitgelöscht. \n Fortfahren?", "Warnung!", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == DialogResult.OK)
+                {
+                    SqlConnection.ExecuteStatement("DELETE FROM tkunde WHERE kuID = " + ((ListItem)kunden_box.SelectedItem).DatabankID);
+                    kundenInitialisieren();
+                    kunden_box.SelectedIndex = 0;
+                }
+            }
+            else
+            {
+                if (MessageBox.Show("Kunde wird gelöscht \n Fortfahren?", "Information" ,MessageBoxButtons.OKCancel, MessageBoxIcon.Information) == DialogResult.OK)
+                {
+                    SqlConnection.ExecuteStatement("DELETE FROM tkunde WHERE kuID = " + ((ListItem)kunden_box.SelectedItem).DatabankID);
+                    kundenInitialisieren();
+                    kunden_box.SelectedIndex = 0;
+                }
             }
         }
 

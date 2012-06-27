@@ -35,7 +35,7 @@ namespace Zeiterfassung
             //Mitarbeiterliste säubern
             userNameBox.Items.Clear();
 
-            DataTable allema = SqlConnection.SelectStatement("SELECT miID ,miUsername FROM tMitarbeiter");
+            DataTable allema = SqlConnection.SelectStatement("SELECT miID ,miUsername, roBezeichnung FROM tMitarbeiter JOIN trolle USING(roID)");
 
             DataTableReader reader = allema.CreateDataReader();
 
@@ -43,7 +43,7 @@ namespace Zeiterfassung
             {
                 while (reader.Read())
                 {
-                    userNameBox.Items.Add(new ListItem(reader.GetInt32(0), reader.GetString(1)));
+                    userNameBox.Items.Add(new ListItem(reader.GetInt32(0), reader.GetString(1) + ", " + reader.GetString(2)));
                 }
             }
 
@@ -131,7 +131,7 @@ namespace Zeiterfassung
             {
                 if (mitarbeiterValid() && userNameTB.Text != "" && nameTB.Text != "" && vornameTB.Text != "" && mailTB.Text != "")
                 {
-                    mi_Change_Butt.Text = "Ändern";
+                    mi_Change_Butt.Text = "Bearbeiten";
                     setMitarbeiterReadOnly(true);
                     SqlConnection.ExecuteStatement("UPDATE tmitarbeiter SET " +
                         "miUsername = '" + userNameTB.Text +
@@ -157,7 +157,7 @@ namespace Zeiterfassung
         {
             //Standartpasswort wird gesetzt
             string startpw = "#start12";
-            SqlConnection.SelectStatement("UPDATE tmitarbeiter SET miPasswort = '" + Md5.GetMD5(startpw) +
+            SqlConnection.SelectStatement("UPDATE tmitarbeiter SET miPasswort = '" + Md5.GetMD5("#10!?" + userNameTB.Text.ToLower() + startpw + "~^g2+3") +
                 "' WHERE miID = '" + ((ListItem)userNameBox.SelectedItem).DatabankID + "'");
             MessageBox.Show("Das Passwort wurde auf " + startpw + " gesetzt");
         }
@@ -165,24 +165,38 @@ namespace Zeiterfassung
         //Mitarbeiter löschen
         private void mi_Del_Butt_Click(object sender, EventArgs e)
         {
-            //Überprüfung, ob dem Mitarbeiter Projekte zugewiesen wurden
-            DataTable result = SqlConnection.SelectStatement("SELECT miID FROM tmita_proj WHERE miID = " +
-                ((ListItem)userNameBox.SelectedItem).DatabankID);
-
-            if (result.Rows.Count == 0)
+            if (((ListItem)roleBox.SelectedItem).DatabankID == 2)
             {
-                if (((ListItem)roleBox.SelectedItem).DatabankID == 2)
+                //Überprüfung, ob dem Mitarbeiter Projekte zugewiesen wurden
+                int result = SqlConnection.CountStatement("SELECT COUNT(miID) FROM tmita_proj WHERE miID = " +
+                    ((ListItem)userNameBox.SelectedItem).DatabankID);
+
+                if (result <= 0)
                 {
-                    SqlConnection.SelectStatement("DELETE FROM tmitarbeiter WHERE miID = '" + ((ListItem)userNameBox.SelectedItem).DatabankID + "'");
-                    mitarbeiterInitialisieren();
+
+                        if (MessageBox.Show("Mitarbeiter wirklich löschen?", "Hinweis", MessageBoxButtons.OKCancel, MessageBoxIcon.Information) == DialogResult.OK)
+                        {
+                            SqlConnection.ExecuteStatement("DELETE FROM tmitarbeiter WHERE miID = '" + ((ListItem)userNameBox.SelectedItem).DatabankID + "'");
+                            mitarbeiterInitialisieren();
+                        }
                 }
                 else
                 {
-                    MessageBox.Show("Sie können keine Geschäftsführer löschen");
+                    if (MessageBox.Show("Dieser Mitarbeiter ist Projekten aktiv. \n Trotzdem löschen?", "Warnung", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == DialogResult.OK)
+                    {
+                        SqlConnection.ExecuteStatement("DELETE FROM tZeiterfassung WHERE miID = '" + ((ListItem)userNameBox.SelectedItem).DatabankID + "'");
+                        SqlConnection.ExecuteStatement("DELETE FROM tmita_proj WHERE miID = '" + ((ListItem)userNameBox.SelectedItem).DatabankID + "'");
+                        SqlConnection.ExecuteStatement("DELETE FROM tmitarbeiter WHERE miID = '" + ((ListItem)userNameBox.SelectedItem).DatabankID + "'");
+
+                        mitarbeiterInitialisieren();
+                    }
                 }
+        
             }
             else
-                MessageBox.Show("Sie können keine Mitarbeiter löschen, die in Projekten aktiv sind.");
+            {
+                MessageBox.Show("Sie können keine Geschäftsführer löschen","Hinweis",MessageBoxButtons.OK,MessageBoxIcon.Hand);
+            }
         }
 
         //Neuen Mitarbeiter anlegen
@@ -213,28 +227,36 @@ namespace Zeiterfassung
             {
                 if (mitarbeiterValid() && userNameTB.Text != "" && nameTB.Text != "" && vornameTB.Text != "" && mailTB.Text != "")
                 {
-                    //Benutzer abspeichern
-                    SqlConnection.ExecuteStatement("INSERT INTO tmitarbeiter " +
-                        "(`roID`, `miName`, `miVorname`, `miUsername`, `miPasswort`, `miEMail`) " +
-                        "VALUES ('" + ((ListItem)roleBox.SelectedItem).DatabankID + "','"
-                        + vornameTB.Text + "','" + nameTB.Text + "','"
-                        + userNameTB.Text + "','83095e7ae40304e6c03c9da2f1ce2302','"
-                        + mailTB.Text + "')");
+                    //Überpprüfen, ob Benutzername bereits benutzt wird
+                    if(SqlConnection.CountStatement("SELECT COUNT(miUsername) FROM tMitarbeiter WHERE miUsername LIKE '" + userNameTB.Text + "'") < 1)
+                    {
+                        //Benutzer abspeichern
+                        SqlConnection.ExecuteStatement("INSERT INTO tmitarbeiter " +
+                            "(`roID`, `miName`, `miVorname`, `miUsername`, `miPasswort`, `miEMail`) " +
+                            "VALUES ('" + ((ListItem)roleBox.SelectedItem).DatabankID + "','"
+                            + vornameTB.Text + "','" + nameTB.Text + "','"
+                            + userNameTB.Text + "','83095e7ae40304e6c03c9da2f1ce2302','"
+                            + mailTB.Text + "')");
 
-                    MessageBox.Show("Neuer User wurde angelegt. Passwort ist:");
-                    //Buttons enablen
-                    mit_New_Butt.Text = "Neuer Mitarbeiter";
-                    mi_Del_Butt.Enabled = true;
-                    mi_PW_Butt.Enabled = true;
-                    mi_Change_Butt.Enabled = true;
+                        MessageBox.Show("Neuer User wurde angelegt. Passwort ist:");
+                        //Buttons enablen
+                        mit_New_Butt.Text = "Neuer Mitarbeiter";
+                        mi_Del_Butt.Enabled = true;
+                        mi_PW_Butt.Enabled = true;
+                        mi_Change_Butt.Enabled = true;
 
-                    mi_Cancel_Butt.Visible = false;
+                        mi_Cancel_Butt.Visible = false;
 
-                    setMitarbeiterReadOnly(true);
+                        setMitarbeiterReadOnly(true);
 
-                    mitarbeiterInitialisieren();
+                        mitarbeiterInitialisieren();
 
-                    mitarbeiterBearbStatus = 0;
+                        mitarbeiterBearbStatus = 0;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Dieser Benutzername wird bereits verwendet.","Hinweis",MessageBoxButtons.OK,MessageBoxIcon.Stop);
+                    }
                 }
                 else
                 {
@@ -250,7 +272,7 @@ namespace Zeiterfassung
 
             //Buttons zurücksetzen
             mit_New_Butt.Text = "Neuer Mitarbeiter";
-            mi_Change_Butt.Text = "Ändern";
+            mi_Change_Butt.Text = "Bearbeiten";
             mi_Del_Butt.Enabled = true;
             mi_PW_Butt.Enabled = true;
             mi_Change_Butt.Enabled = true;

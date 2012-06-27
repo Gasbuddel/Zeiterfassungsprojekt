@@ -24,7 +24,7 @@ namespace Zeiterfassung
             "WHERE miID NOT IN (" +
             "SELECT miID " + 
             "FROM tmita_proj " +
-            "WHERE prID = " + prID +")");
+            "WHERE prID = " + prID +" AND mpAktiv = 1) ORDER BY miName");
 
             DataTableReader reader = AllWorkers.CreateDataReader();
 
@@ -45,12 +45,20 @@ namespace Zeiterfassung
 
         private void AddWorkers_Click(object sender, EventArgs e)
         {
-                  // Next show the object title and check state for each item selected.
                 foreach(object itemChecked in arbeiterListe.CheckedItems) 
                 {
-                    SqlConnection.ExecuteStatement("INSERT INTO tmita_proj(miID, prID, mpAktiv) " +
-                        "VALUES (" + ((ListItem)itemChecked).DatabankID + ", " + prID + ",1)");
-                  
+                    if (SqlConnection.CountStatement("SELECT COUNT(miID) FROM tmita_proj WHERE miID = " +
+                        ((ListItem)itemChecked).DatabankID +
+                        " AND mpAktiv = 0") > 0)
+                    {
+                        SqlConnection.ExecuteStatement("UPDATE tmita_proj SET mpAktiv = 1 WHERE miID = " +
+                            ((ListItem)itemChecked).DatabankID + " AND prID = " + prID);
+                    }
+                    else
+                    {
+                        SqlConnection.ExecuteStatement("INSERT INTO tmita_proj(miID, prID, mpAktiv) " +
+                            "VALUES (" + ((ListItem)itemChecked).DatabankID + ", " + prID + ",1)");
+                    }
                 }
                 this.DialogResult = DialogResult.OK;
                 this.Close(); 

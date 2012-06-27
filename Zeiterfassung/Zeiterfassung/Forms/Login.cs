@@ -31,8 +31,8 @@ namespace Zeiterfassung
             {
                 try
                 {
-                    string startpw = "83095e7ae40304e6c03c9da2f1ce2302";
-                    string pw = Md5.GetMD5(login_PW_Box.Text);
+                    string startpw = Md5.GetMD5("#10!?" + login_Name_Box.Text + "#start12~^g2+3");
+                    string pw = Md5.GetMD5("#10!?" + login_Name_Box.Text.ToLower() + login_PW_Box.Text + "~^g2+3");
 
                     DataTable user = SqlConnection.SelectStatement("SELECT  miId, roID FROM tmitarbeiter WHERE miUsername = '" + login_Name_Box.Text + "' AND miPasswort = '" + pw + "'");
 
@@ -79,20 +79,20 @@ namespace Zeiterfassung
                 }
                 catch (MySqlException ex)
                 {
-					switch (ex.Number)
-					{
-						case 0:
-							MessageBox.Show("Datenbank konnte nicht erreicht werden.");
-							break;
+                    switch (ex.Number)
+                    {
+                        case 0:
+                            MessageBox.Show("Datenbank konnte nicht erreicht werden.");
+                            break;
 
-						case 1045:
-							MessageBox.Show("Falscher Datenbankbenutzer/Passwort.");
-							break;
-							
-						default:
-							MessageBox.Show("Es kam zu einem unerwarteten Fehler mit der Datenbank.");
-							break;
-					}
+                        case 1045:
+                            MessageBox.Show("Falscher Datenbankbenutzer/Passwort.");
+                            break;
+
+                        default:
+                            MessageBox.Show("Es kam zu einem unerwarteten Fehler mit der Datenbank.");
+                            break;
+                    }
                 }
             }
         }

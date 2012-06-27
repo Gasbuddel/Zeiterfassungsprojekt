@@ -1,33 +1,33 @@
 ﻿namespace Zeiterfassung
 {
-	partial class Hauptmaske
-	{
-		/// <summary>
-		/// Required designer variable.
-		/// </summary>
-		private System.ComponentModel.IContainer components = null;
+    partial class Hauptmaske
+    {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
 
-		/// <summary>
-		/// Clean up any resources being used.
-		/// </summary>
-		/// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-		protected override void Dispose(bool disposing)
-		{
-			if (disposing && (components != null))
-			{
-				components.Dispose();
-			}
-			base.Dispose(disposing);
-		}
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
 
-		#region Windows Form Designer generated code
+        #region Windows Form Designer generated code
 
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Hauptmaske));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.dateiToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -36,23 +36,27 @@
             this.kundenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mitarbeiterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.projekteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pwChangeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.hilfeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.hilfeÖffnenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.überToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.bisTag = new System.Windows.Forms.DateTimePicker();
+            this.showAll = new System.Windows.Forms.CheckBox();
             this.buch_Butt = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
             this.tabelleGebuchteZeiten = new System.Windows.Forms.DataGridView();
+            this.Datum = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Zeit = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Reisekosten = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Datum = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Tätigkeitsbeschreibung = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cost_Box = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.zeit_Box = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.anzeigeTag = new System.Windows.Forms.DateTimePicker();
+            this.vonTag = new System.Windows.Forms.DateTimePicker();
             this.label1 = new System.Windows.Forms.Label();
             this.pro_Box = new System.Windows.Forms.ComboBox();
             this.cancel_Butt = new System.Windows.Forms.Button();
@@ -66,6 +70,7 @@
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.dateiToolStripMenuItem,
             this.administrationToolStripMenuItem,
+            this.pwChangeToolStripMenuItem,
             this.hilfeToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
@@ -78,13 +83,13 @@
             this.dateiToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.beendenToolStripMenuItem});
             this.dateiToolStripMenuItem.Name = "dateiToolStripMenuItem";
-            this.dateiToolStripMenuItem.Size = new System.Drawing.Size(46, 20);
+            this.dateiToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
             this.dateiToolStripMenuItem.Text = "Datei";
             // 
             // beendenToolStripMenuItem
             // 
             this.beendenToolStripMenuItem.Name = "beendenToolStripMenuItem";
-            this.beendenToolStripMenuItem.Size = new System.Drawing.Size(120, 22);
+            this.beendenToolStripMenuItem.Size = new System.Drawing.Size(127, 22);
             this.beendenToolStripMenuItem.Text = "Beenden";
             this.beendenToolStripMenuItem.Click += new System.EventHandler(this.beendenToolStripMenuItem_Click);
             // 
@@ -95,29 +100,36 @@
             this.mitarbeiterToolStripMenuItem,
             this.projekteToolStripMenuItem});
             this.administrationToolStripMenuItem.Name = "administrationToolStripMenuItem";
-            this.administrationToolStripMenuItem.Size = new System.Drawing.Size(98, 20);
+            this.administrationToolStripMenuItem.Size = new System.Drawing.Size(87, 20);
             this.administrationToolStripMenuItem.Text = "Administration";
             // 
             // kundenToolStripMenuItem
             // 
             this.kundenToolStripMenuItem.Name = "kundenToolStripMenuItem";
-            this.kundenToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
+            this.kundenToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
             this.kundenToolStripMenuItem.Text = "Kunden";
             this.kundenToolStripMenuItem.Click += new System.EventHandler(this.kundenToolStripMenuItem_Click);
             // 
             // mitarbeiterToolStripMenuItem
             // 
             this.mitarbeiterToolStripMenuItem.Name = "mitarbeiterToolStripMenuItem";
-            this.mitarbeiterToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
+            this.mitarbeiterToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
             this.mitarbeiterToolStripMenuItem.Text = "Mitarbeiter";
             this.mitarbeiterToolStripMenuItem.Click += new System.EventHandler(this.projekteToolStripMenuItem_Click);
             // 
             // projekteToolStripMenuItem
             // 
             this.projekteToolStripMenuItem.Name = "projekteToolStripMenuItem";
-            this.projekteToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
+            this.projekteToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
             this.projekteToolStripMenuItem.Text = "Projekte";
             this.projekteToolStripMenuItem.Click += new System.EventHandler(this.mitarbeiterToolStripMenuItem_Click);
+            // 
+            // pwChangeToolStripMenuItem
+            // 
+            this.pwChangeToolStripMenuItem.Name = "pwChangeToolStripMenuItem";
+            this.pwChangeToolStripMenuItem.Size = new System.Drawing.Size(100, 20);
+            this.pwChangeToolStripMenuItem.Text = "Passwort ändern";
+            this.pwChangeToolStripMenuItem.Click += new System.EventHandler(this.pwChangeToolStripMenuItem_Click);
             // 
             // hilfeToolStripMenuItem
             // 
@@ -125,24 +137,27 @@
             this.hilfeÖffnenToolStripMenuItem,
             this.überToolStripMenuItem});
             this.hilfeToolStripMenuItem.Name = "hilfeToolStripMenuItem";
-            this.hilfeToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
+            this.hilfeToolStripMenuItem.Size = new System.Drawing.Size(40, 20);
             this.hilfeToolStripMenuItem.Text = "Hilfe";
             // 
             // hilfeÖffnenToolStripMenuItem
             // 
             this.hilfeÖffnenToolStripMenuItem.Name = "hilfeÖffnenToolStripMenuItem";
-            this.hilfeÖffnenToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.hilfeÖffnenToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
             this.hilfeÖffnenToolStripMenuItem.Text = "Hilfe öffnen";
             // 
             // überToolStripMenuItem
             // 
             this.überToolStripMenuItem.Name = "überToolStripMenuItem";
-            this.überToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.überToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
             this.überToolStripMenuItem.Text = "Über";
             this.überToolStripMenuItem.Click += new System.EventHandler(this.überToolStripMenuItem_Click);
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.label6);
+            this.groupBox1.Controls.Add(this.bisTag);
+            this.groupBox1.Controls.Add(this.showAll);
             this.groupBox1.Controls.Add(this.buch_Butt);
             this.groupBox1.Controls.Add(this.label5);
             this.groupBox1.Controls.Add(this.tabelleGebuchteZeiten);
@@ -151,7 +166,7 @@
             this.groupBox1.Controls.Add(this.zeit_Box);
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Controls.Add(this.anzeigeTag);
+            this.groupBox1.Controls.Add(this.vonTag);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.pro_Box);
             this.groupBox1.Location = new System.Drawing.Point(13, 28);
@@ -160,6 +175,34 @@
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Zeit erfassen";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(459, 63);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(24, 13);
+            this.label6.TabIndex = 14;
+            this.label6.Text = "Bis:";
+            // 
+            // bisTag
+            // 
+            this.bisTag.Location = new System.Drawing.Point(506, 59);
+            this.bisTag.Name = "bisTag";
+            this.bisTag.Size = new System.Drawing.Size(200, 20);
+            this.bisTag.TabIndex = 13;
+            this.bisTag.ValueChanged += new System.EventHandler(this.bisTag_ValueChanged);
+            // 
+            // showAll
+            // 
+            this.showAll.AutoSize = true;
+            this.showAll.Location = new System.Drawing.Point(292, 19);
+            this.showAll.Name = "showAll";
+            this.showAll.Size = new System.Drawing.Size(101, 17);
+            this.showAll.TabIndex = 12;
+            this.showAll.Text = "Alle Buchungen";
+            this.showAll.UseVisualStyleBackColor = true;
+            this.showAll.CheckedChanged += new System.EventHandler(this.showAll_CheckedChanged);
             // 
             // buch_Butt
             // 
@@ -182,22 +225,34 @@
             // 
             // tabelleGebuchteZeiten
             // 
+            this.tabelleGebuchteZeiten.AllowUserToAddRows = false;
+            this.tabelleGebuchteZeiten.AllowUserToDeleteRows = false;
             this.tabelleGebuchteZeiten.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.tabelleGebuchteZeiten.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Datum,
             this.Zeit,
             this.Reisekosten,
-            this.Datum,
             this.Tätigkeitsbeschreibung});
             this.tabelleGebuchteZeiten.Location = new System.Drawing.Point(6, 105);
             this.tabelleGebuchteZeiten.Name = "tabelleGebuchteZeiten";
+            this.tabelleGebuchteZeiten.ReadOnly = true;
             this.tabelleGebuchteZeiten.Size = new System.Drawing.Size(700, 188);
             this.tabelleGebuchteZeiten.TabIndex = 8;
+            // 
+            // Datum
+            // 
+            this.Datum.Frozen = true;
+            this.Datum.HeaderText = "Datum";
+            this.Datum.Name = "Datum";
+            this.Datum.ReadOnly = true;
+            this.Datum.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             // 
             // Zeit
             // 
             this.Zeit.Frozen = true;
             this.Zeit.HeaderText = "Zeit";
             this.Zeit.Name = "Zeit";
+            this.Zeit.ReadOnly = true;
             this.Zeit.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             // 
             // Reisekosten
@@ -205,20 +260,16 @@
             this.Reisekosten.Frozen = true;
             this.Reisekosten.HeaderText = "Reisekosten";
             this.Reisekosten.Name = "Reisekosten";
+            this.Reisekosten.ReadOnly = true;
             this.Reisekosten.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            // 
-            // Datum
-            // 
-            this.Datum.Frozen = true;
-            this.Datum.HeaderText = "Datum";
-            this.Datum.Name = "Datum";
-            this.Datum.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.Reisekosten.Width = 130;
             // 
             // Tätigkeitsbeschreibung
             // 
             this.Tätigkeitsbeschreibung.Frozen = true;
             this.Tätigkeitsbeschreibung.HeaderText = "Tätigkeitsbeschreibung";
             this.Tätigkeitsbeschreibung.Name = "Tätigkeitsbeschreibung";
+            this.Tätigkeitsbeschreibung.ReadOnly = true;
             this.Tätigkeitsbeschreibung.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.Tätigkeitsbeschreibung.Width = 400;
             // 
@@ -259,19 +310,19 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(459, 20);
+            this.label2.Location = new System.Drawing.Point(459, 24);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(41, 13);
+            this.label2.Size = new System.Drawing.Size(29, 13);
             this.label2.TabIndex = 3;
-            this.label2.Text = "Datum:";
+            this.label2.Text = "Von:";
             // 
-            // anzeigeTag
+            // vonTag
             // 
-            this.anzeigeTag.Location = new System.Drawing.Point(506, 20);
-            this.anzeigeTag.Name = "anzeigeTag";
-            this.anzeigeTag.Size = new System.Drawing.Size(200, 20);
-            this.anzeigeTag.TabIndex = 2;
-            this.anzeigeTag.ValueChanged += new System.EventHandler(this.dateTimePicker1_ValueChanged);
+            this.vonTag.Location = new System.Drawing.Point(506, 20);
+            this.vonTag.Name = "vonTag";
+            this.vonTag.Size = new System.Drawing.Size(200, 20);
+            this.vonTag.TabIndex = 2;
+            this.vonTag.ValueChanged += new System.EventHandler(this.vonTag_ValueChanged);
             // 
             // label1
             // 
@@ -326,36 +377,40 @@
             this.ResumeLayout(false);
             this.PerformLayout();
 
-		}
+        }
 
-		#endregion
+        #endregion
 
-		private System.Windows.Forms.MenuStrip menuStrip1;
-		private System.Windows.Forms.ToolStripMenuItem dateiToolStripMenuItem;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem dateiToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem beendenToolStripMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem administrationToolStripMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem kundenToolStripMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem mitarbeiterToolStripMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem projekteToolStripMenuItem;
-		private System.Windows.Forms.GroupBox groupBox1;
-		private System.Windows.Forms.Label label5;
-		private System.Windows.Forms.DataGridView tabelleGebuchteZeiten;
-		private System.Windows.Forms.TextBox cost_Box;
-		private System.Windows.Forms.Label label4;
-		private System.Windows.Forms.TextBox zeit_Box;
-		private System.Windows.Forms.Label label3;
-		private System.Windows.Forms.Label label2;
-		private System.Windows.Forms.DateTimePicker anzeigeTag;
-		private System.Windows.Forms.Label label1;
-		private System.Windows.Forms.ComboBox pro_Box;
-		private System.Windows.Forms.DataGridViewTextBoxColumn Zeit;
-		private System.Windows.Forms.DataGridViewTextBoxColumn Reisekosten;
-		private System.Windows.Forms.DataGridViewTextBoxColumn Datum;
-		private System.Windows.Forms.DataGridViewTextBoxColumn Tätigkeitsbeschreibung;
-		private System.Windows.Forms.Button buch_Butt;
-		private System.Windows.Forms.Button cancel_Butt;
-		private System.Windows.Forms.ToolStripMenuItem hilfeToolStripMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem hilfeÖffnenToolStripMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem überToolStripMenuItem;
-	}
+        private System.Windows.Forms.ToolStripMenuItem administrationToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem kundenToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem mitarbeiterToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem projekteToolStripMenuItem;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.DataGridView tabelleGebuchteZeiten;
+        private System.Windows.Forms.TextBox cost_Box;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TextBox zeit_Box;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.DateTimePicker vonTag;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ComboBox pro_Box;
+        private System.Windows.Forms.Button buch_Butt;
+        private System.Windows.Forms.Button cancel_Butt;
+        private System.Windows.Forms.ToolStripMenuItem hilfeToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem hilfeÖffnenToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem überToolStripMenuItem;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Datum;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Zeit;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Reisekosten;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Tätigkeitsbeschreibung;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.DateTimePicker bisTag;
+        private System.Windows.Forms.CheckBox showAll;
+        private System.Windows.Forms.ToolStripMenuItem pwChangeToolStripMenuItem;
+    }
 }

@@ -66,5 +66,28 @@ namespace Zeiterfassung
 
             return result;
         }
+
+        public static int CountStatement(string sql)
+        {
+            int count = -1;
+
+            MySqlConnection con = SqlConnection.GetConnection();
+            MySqlCommand cmd = con.CreateCommand();
+            cmd.CommandText = sql;
+
+            con.Open();
+
+            object result = cmd.ExecuteScalar();
+
+            if (result != null)
+            {
+
+                count = int.Parse(result + "");
+            }
+
+            con.Close();
+
+            return count;
+        }
     }
 }

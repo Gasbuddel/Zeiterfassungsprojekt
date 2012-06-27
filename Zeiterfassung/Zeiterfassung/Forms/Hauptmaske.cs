@@ -39,7 +39,7 @@ namespace Zeiterfassung
 
 			DataTable projekt = SqlConnection.SelectStatement("SELECT prID, prName FROM tprojekt " + 
 				"WHERE prID IN(SELECT prID FROM tmita_proj " + 
-				"WHERE miID = " + Session.GetSession().UserId + " AND mpAktiv=1)");
+				"WHERE miID = " + Session.GetSession().UserId + " AND mpAktiv = 1)");
 			DataTableReader reader = projekt.CreateDataReader();
 
 
@@ -118,131 +118,211 @@ namespace Zeiterfassung
         }
 
 
+        //Passwort ändern
+        private void pwChangeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ChangePW changepwform = new ChangePW();
+            changepwform.ShowDialog();
+        }
+
+        //Hilfe öffnen
+        private void hilfeÖffnenToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //prüft welche Rolle der Nutzer hat und öffnet das entsprechende Handbuch
+            if (Session.GetSession().Authorization == 1)
+            {
+                System.Diagnostics.Process.Start(Application.StartupPath + "\\admin.pdf");
+            }
+            else
+            {
+                System.Diagnostics.Process.Start(Application.StartupPath + "\\manual.pdf");
+            }
+
+        }
+
+
         #region 'Buchung'
 
         private void buch_Butt_Click(object sender, EventArgs e)
         {
             Buchung buch = new Buchung();
             buch.StartPosition = FormStartPosition.CenterParent;
-			if (buch.ShowDialog() == DialogResult.OK)
-			{
-				getBuchungen();
-				getSumStunden();
-				getReisekosten();
-			}
+            if (buch.ShowDialog() == DialogResult.OK)
+            {
+                showAll.Checked = true;
+                getBuchungen();
+                getSumStunden();
+                getReisekosten();
+            }
         }
 
         private void pro_Box_SelectedValueChanged(object sender, EventArgs e)
-		{
-			Session.GetSession().ProId = ((ListItem)pro_Box.SelectedItem).DatabankID;
-			getBuchungen();
-			getSumStunden();
-			getReisekosten();
-		}
-
-		//Verbuchte Zeit laden
-		private void getBuchungen(string date)
-		{
-			DataTable buchung = SqlConnection.SelectStatement("SELECT zeDauer,zeReisekosten,zeTag,zeTaetigkeit " +
-				" FROM tzeiterfassung WHERE miID=" + Session.GetSession().UserId + 
-				" AND prID=" + Session.GetSession().ProId + " AND zeTag='" + date + "'");
-			DataTableReader reader = buchung.CreateDataReader();
-
-			tabelleGebuchteZeiten.Rows.Clear();
-
-			if (reader.HasRows)
-			{
-				List<string> temp = new List<string>();
-				while (reader.Read())
-				{
-					int n = tabelleGebuchteZeiten.Rows.Add();
-					tabelleGebuchteZeiten.Rows[n].Cells["Zeit"].Value = reader.GetDecimal(0);
-					tabelleGebuchteZeiten.Rows[n].Cells["Reisekosten"].Value = reader.GetDecimal(1);
-					tabelleGebuchteZeiten.Rows[n].Cells["Datum"].Value = reader.GetDateTime(2);
-					tabelleGebuchteZeiten.Rows[n].Cells["Tätigkeitsbeschreibung"].Value = reader.GetString(3);
-
-				}
-			}
-		}
-
-		private void getBuchungen()
-		{
-			DataTable buchung = SqlConnection.SelectStatement("SELECT zeDauer,zeReisekosten,zeTag,zeTaetigkeit " +
-				" FROM tzeiterfassung WHERE miID=" + Session.GetSession().UserId + 
-				" AND prID=" + Session.GetSession().ProId + "");
-			DataTableReader reader = buchung.CreateDataReader();
-
-			tabelleGebuchteZeiten.Rows.Clear();
-
-			if (reader.HasRows)
-			{
-				List<string> temp = new List<string>();
-				while (reader.Read())
-				{
-					int n = tabelleGebuchteZeiten.Rows.Add();
-					tabelleGebuchteZeiten.Rows[n].Cells["Zeit"].Value = reader.GetDecimal(0);
-					tabelleGebuchteZeiten.Rows[n].Cells["Reisekosten"].Value = reader.GetDecimal(1);
-					tabelleGebuchteZeiten.Rows[n].Cells["Datum"].Value = reader.GetDateTime(2);
-					tabelleGebuchteZeiten.Rows[n].Cells["Tätigkeitsbeschreibung"].Value = reader.GetString(3);
-				}
-			}
-		}
-
-		private void getSumStunden()
-		{
-			DataTable sql = SqlConnection.SelectStatement("SELECT sum(zeDauer)FROM tzeiterfassung WHERE miID=" + 
-				Session.GetSession().UserId + 
-				" AND prID=" + Session.GetSession().ProId + "");
-			DataTableReader reader = sql.CreateDataReader();
-
-			reader.Read();
-
-			if (reader.HasRows)
-			{
-
-				if (reader.IsDBNull(0) == false)
-				{
-					zeit_Box.Text = reader.GetDecimal(0).ToString();
-				}
-				else
-				{
-					zeit_Box.Text = "00.00";
-				}
-			}
-		}
-
-		private void getReisekosten()
-		{
-			DataTable sql = SqlConnection.SelectStatement("SELECT sum(zeReisekosten)FROM tzeiterfassung WHERE miID=" + 
-				Session.GetSession().UserId + 
-				" AND prID=" + Session.GetSession().ProId + "");
-			DataTableReader reader = sql.CreateDataReader();
-
-			reader.Read();
-
-			if (reader.HasRows)
-			{
-
-				if (reader.IsDBNull(0) == false)
-				{
-					cost_Box.Text = reader.GetDecimal(0).ToString();
-				}
-				else
-				{
-					cost_Box.Text = "00.00";
-				}
-			}
-		}
-
-		private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
-		{
-			DateTime da = anzeigeTag.Value;
-
-			string date = da.ToString("yyyy-MM-dd");
-			getBuchungen(date);
+        {
+            Session.GetSession().ProId = ((ListItem)pro_Box.SelectedItem).DatabankID;
+            showAll.Checked = true;
+            getBuchungen();
+            getSumStunden();
+            getReisekosten();
         }
 
+        //Verbuchte Zeit laden
+        private void getBuchungen(string von, string bis)
+        {
+            DataTable buchung = SqlConnection.SelectStatement("SELECT zeDauer,zeReisekosten, DATE_FORMAT(zeTag,GET_FORMAT(DATE,'EUR')) as zeTag,zeTaetigkeit " +
+                " FROM tzeiterfassung WHERE miID=" + Session.GetSession().UserId +
+                " AND prID=" + Session.GetSession().ProId + " AND zeTag>='" + von + "' AND zeTag<='" + bis + "' ORDER BY zeTag");
+            DataTableReader reader = buchung.CreateDataReader();
+
+            tabelleGebuchteZeiten.Rows.Clear();
+
+            if (reader.HasRows)
+            {
+                List<string> temp = new List<string>();
+                while (reader.Read())
+                {
+                    int n = tabelleGebuchteZeiten.Rows.Add();
+                    tabelleGebuchteZeiten.Rows[n].Cells["Zeit"].Value = reader.GetDecimal(0);
+                    tabelleGebuchteZeiten.Rows[n].Cells["Reisekosten"].Value = reader.GetDecimal(1);
+                    tabelleGebuchteZeiten.Rows[n].Cells["Datum"].Value = reader.GetString(2);
+                    tabelleGebuchteZeiten.Rows[n].Cells["Tätigkeitsbeschreibung"].Value = reader.GetString(3);
+
+                }
+            }
+        }
+
+        private void getBuchungen()
+        {
+            DataTable buchung = SqlConnection.SelectStatement("SELECT zeDauer,zeReisekosten, DATE_FORMAT(zeTag,GET_FORMAT(DATE,'EUR')) as zeTag,zeTaetigkeit " +
+                " FROM tzeiterfassung WHERE miID=" + Session.GetSession().UserId +
+                " AND prID=" + Session.GetSession().ProId + " ORDER BY zeTag");
+            DataTableReader reader = buchung.CreateDataReader();
+
+            tabelleGebuchteZeiten.Rows.Clear();
+
+            if (reader.HasRows)
+            {
+                List<string> temp = new List<string>();
+                while (reader.Read())
+                {
+                    int n = tabelleGebuchteZeiten.Rows.Add();
+                    tabelleGebuchteZeiten.Rows[n].Cells["Zeit"].Value = reader.GetDecimal(0);
+                    tabelleGebuchteZeiten.Rows[n].Cells["Reisekosten"].Value = reader.GetDecimal(1);
+                    tabelleGebuchteZeiten.Rows[n].Cells["Datum"].Value = reader.GetString(2);
+                    tabelleGebuchteZeiten.Rows[n].Cells["Tätigkeitsbeschreibung"].Value = reader.GetString(3);
+                }
+            }
+        }
+
+        private void getSumStunden()
+        {
+            DataTable sql = SqlConnection.SelectStatement("SELECT sum(zeDauer)FROM tzeiterfassung WHERE miID=" +
+                Session.GetSession().UserId +
+                " AND prID=" + Session.GetSession().ProId + "");
+            DataTableReader reader = sql.CreateDataReader();
+
+            reader.Read();
+
+            if (reader.HasRows)
+            {
+
+                if (reader.IsDBNull(0) == false)
+                {
+                    zeit_Box.Text = reader.GetDecimal(0).ToString();
+                }
+                else
+                {
+                    zeit_Box.Text = "00.00";
+                }
+            }
+        }
+
+        private void getReisekosten()
+        {
+            DataTable sql = SqlConnection.SelectStatement("SELECT sum(zeReisekosten)FROM tzeiterfassung WHERE miID=" +
+                Session.GetSession().UserId +
+                " AND prID=" + Session.GetSession().ProId + "");
+            DataTableReader reader = sql.CreateDataReader();
+
+            reader.Read();
+
+            if (reader.HasRows)
+            {
+
+                if (reader.IsDBNull(0) == false)
+                {
+                    cost_Box.Text = reader.GetDecimal(0).ToString();
+                }
+                else
+                {
+                    cost_Box.Text = "00.00";
+                }
+            }
+        }
+
+        private void vonTag_ValueChanged(object sender, EventArgs e)
+        {
+
+            if (showAll.Checked == false)
+            {
+                if (vonTag.Value > bisTag.Value)
+                {
+                    bisTag.Value = vonTag.Value;
+                }
+
+                string von = vonTag.Value.ToString("yyyy-MM-dd");
+                string bis = bisTag.Value.ToString("yyyy-MM-dd");
+                getBuchungen(von, bis);
+            }
+
+        }
+
+
+        private void showAll_CheckedChanged(object sender, EventArgs e)
+        {
+            if (showAll.Checked == true)
+            {
+                vonTag.Enabled = false;
+                bisTag.Enabled = false;
+                getBuchungen();
+            }
+
+            if (showAll.Checked == false)
+            {
+                vonTag.Enabled = true;
+                bisTag.Enabled = true;
+                string von = vonTag.Value.ToString("yyyy-MM-dd");
+                string bis = bisTag.Value.ToString("yyyy-MM-dd");
+
+                getBuchungen(von, bis);
+            }
+        }
+
+        private void bisTag_ValueChanged(object sender, EventArgs e)
+        {
+            if (showAll.Checked == false)
+            {
+                if (vonTag.Value > bisTag.Value)
+                {
+                    vonTag.Value = bisTag.Value;
+                }
+
+                string von = vonTag.Value.ToString("yyyy-MM-dd");
+                string bis = bisTag.Value.ToString("yyyy-MM-dd");
+
+                getBuchungen(von, bis);
+            }
+        }
+
+
         #endregion
+
+
+
+
+
+
+
+
 
 
 

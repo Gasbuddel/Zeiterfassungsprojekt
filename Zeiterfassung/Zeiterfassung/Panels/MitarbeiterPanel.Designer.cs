@@ -131,7 +131,7 @@
             this.mi_Change_Butt.Name = "mi_Change_Butt";
             this.mi_Change_Butt.Size = new System.Drawing.Size(115, 34);
             this.mi_Change_Butt.TabIndex = 12;
-            this.mi_Change_Butt.Text = "Ändern";
+            this.mi_Change_Butt.Text = "Bearbeiten";
             this.mi_Change_Butt.UseVisualStyleBackColor = true;
             this.mi_Change_Butt.Click += new System.EventHandler(this.mi_Change_Butt_Click);
             // 
