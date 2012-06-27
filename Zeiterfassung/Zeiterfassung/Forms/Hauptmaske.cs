@@ -139,7 +139,6 @@ namespace Zeiterfassung
             {
                 System.Diagnostics.Process.Start(Application.StartupPath + "\\manual.pdf");
             }
-
         }
 
 
@@ -317,6 +316,8 @@ namespace Zeiterfassung
 
 
         #endregion
+
+
 
 
 

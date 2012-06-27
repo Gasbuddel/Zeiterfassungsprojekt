@@ -113,21 +113,21 @@
             // kundenToolStripMenuItem
             // 
             this.kundenToolStripMenuItem.Name = "kundenToolStripMenuItem";
-            this.kundenToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.kundenToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
             this.kundenToolStripMenuItem.Text = "Kunden";
             this.kundenToolStripMenuItem.Click += new System.EventHandler(this.kundenToolStripMenuItem_Click);
             // 
             // mitarbeiterToolStripMenuItem
             // 
             this.mitarbeiterToolStripMenuItem.Name = "mitarbeiterToolStripMenuItem";
-            this.mitarbeiterToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.mitarbeiterToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
             this.mitarbeiterToolStripMenuItem.Text = "Mitarbeiter";
             this.mitarbeiterToolStripMenuItem.Click += new System.EventHandler(this.projekteToolStripMenuItem_Click);
             // 
             // projekteToolStripMenuItem
             // 
             this.projekteToolStripMenuItem.Name = "projekteToolStripMenuItem";
-            this.projekteToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.projekteToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
             this.projekteToolStripMenuItem.Text = "Projekte";
             this.projekteToolStripMenuItem.Click += new System.EventHandler(this.mitarbeiterToolStripMenuItem_Click);
             // 
@@ -143,13 +143,14 @@
             // hilfeÖffnenToolStripMenuItem
             // 
             this.hilfeÖffnenToolStripMenuItem.Name = "hilfeÖffnenToolStripMenuItem";
-            this.hilfeÖffnenToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
+            this.hilfeÖffnenToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.hilfeÖffnenToolStripMenuItem.Text = "Hilfe öffnen";
+            this.hilfeÖffnenToolStripMenuItem.Click += new System.EventHandler(this.hilfeÖffnenToolStripMenuItem_Click);
             // 
             // überToolStripMenuItem
             // 
             this.überToolStripMenuItem.Name = "überToolStripMenuItem";
-            this.überToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
+            this.überToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.überToolStripMenuItem.Text = "Über";
             this.überToolStripMenuItem.Click += new System.EventHandler(this.überToolStripMenuItem_Click);
             // 
