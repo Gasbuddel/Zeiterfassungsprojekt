@@ -30,19 +30,28 @@ namespace Zeiterfassung
         {
             selectBoxProjekt.Items.Clear();
 
-            DataTable projekte = SqlConnection.SelectStatement("SELECT prId ,prName FROM tprojekt ORDER BY prname");
-
-            DataTableReader reader = projekte.CreateDataReader();
-
-            if (reader.HasRows)
+            try
             {
-                while (reader.Read())
-                {
-                    selectBoxProjekt.Items.Add(new ListItem(reader.GetInt32(0), reader.GetString(1)));
-                }
-            }
+                DataTable projekte = SqlConnection.SelectStatement("SELECT prId ,prName FROM tprojekt ORDER BY prname");
 
-            selectBoxProjekt.SelectedIndex = 0;
+                DataTableReader reader = projekte.CreateDataReader();
+
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        selectBoxProjekt.Items.Add(new ListItem(reader.GetInt32(0), reader.GetString(1)));
+                    }
+                }
+
+                selectBoxProjekt.SelectedIndex = 0;
+            }
+            catch (MySqlException ex)
+            {
+                MessageBox.Show("Es kam zu einem Problem mit der Datenbank." + Environment.NewLine +
+                "Fehlernummer: " + ex.Number + Environment.NewLine +
+                "Fehlerbeschreibung: " + ex.Message, "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         //Bei Auswahl eine Projektes
@@ -55,71 +64,89 @@ namespace Zeiterfassung
         //Aktualisiert die Informationen über das ausgewählte Projekt
         private void projekteAktualisieren()
         {
-
-            //Nur einen allgemeinen Reader erstellen
-            DataTableReader reader;
-
-            //Kunde abfragen
-            DataTable kunde = SqlConnection.SelectStatement("SELECT kuFirma FROM tkunde WHERE kuID = (SELECT kuID From tprojekt WHERE prId='" + ((ListItem)selectBoxProjekt.SelectedItem).DatabankID + "') ORDER BY kufirma");
-
-            if (kunde.Rows.Count > 0)
-                kund_Box.Text = kunde.Rows[0]["kuFirma"].ToString();
-
-            //projektbeschreibung anzeigen
-            DataTable projektDesc = SqlConnection.SelectStatement("SELECT prBeschreibung FROM tprojekt WHERE prId = '" + ((ListItem)selectBoxProjekt.SelectedItem).DatabankID + "'");
-
-            if (projektDesc.Rows.Count > 0)
-                beschr_Box.Text = projektDesc.Rows[0]["prBeschreibung"].ToString();
-
-            //aktuell zuständige mitarbeiter anzeigen
-            DataTable arbeiter = SqlConnection.SelectStatement("SELECT m.miID, m.miName, m.miVorname " +
-                "FROM tmitarbeiter m " +
-                "WHERE m.miID IN (" +
-                "SELECT t.miID " +
-                "FROM tmita_proj t " +
-                "WHERE t.prID = " + ((ListItem)selectBoxProjekt.SelectedItem).DatabankID + 
-                " AND mpAktiv = 1) ORDER BY miName");
-
-            reader = arbeiter.CreateDataReader();
-
-            mitarbeit_List.Items.Clear();
-
-            if (reader.HasRows)
+            try
             {
-                while (reader.Read())
+
+                //Nur einen allgemeinen Reader erstellen
+                DataTableReader reader;
+
+                //Kunde abfragen
+                DataTable kunde = SqlConnection.SelectStatement("SELECT kuFirma FROM tkunde WHERE kuID = (SELECT kuID From tprojekt WHERE prId='" + ((ListItem)selectBoxProjekt.SelectedItem).DatabankID + "') ORDER BY kufirma");
+
+                if (kunde.Rows.Count > 0)
+                    kund_Box.Text = kunde.Rows[0]["kuFirma"].ToString();
+
+                //projektbeschreibung anzeigen
+                DataTable projektDesc = SqlConnection.SelectStatement("SELECT prBeschreibung FROM tprojekt WHERE prId = '" + ((ListItem)selectBoxProjekt.SelectedItem).DatabankID + "'");
+
+                if (projektDesc.Rows.Count > 0)
+                    beschr_Box.Text = projektDesc.Rows[0]["prBeschreibung"].ToString();
+
+                //aktuell zuständige mitarbeiter anzeigen
+                DataTable arbeiter = SqlConnection.SelectStatement("SELECT m.miID, m.miName, m.miVorname " +
+                    "FROM tmitarbeiter m " +
+                    "WHERE m.miID IN (" +
+                    "SELECT t.miID " +
+                    "FROM tmita_proj t " +
+                    "WHERE t.prID = " + ((ListItem)selectBoxProjekt.SelectedItem).DatabankID +
+                    " AND mpAktiv = 1) ORDER BY miName");
+
+                reader = arbeiter.CreateDataReader();
+
+                mitarbeit_List.Items.Clear();
+
+                if (reader.HasRows)
                 {
-                    mitarbeit_List.Items.Add(new ListItem(reader.GetInt32(0), reader.GetString(1) + ", " + reader.GetString(2)));
+                    while (reader.Read())
+                    {
+                        mitarbeit_List.Items.Add(new ListItem(reader.GetInt32(0), reader.GetString(1) + ", " + reader.GetString(2)));
+                    }
+                }
+
+                //tätigkeitsbeschr anzeigen
+                DataTable taetDesc = SqlConnection.SelectStatement("SELECT taId, taBeschreibung " +
+                    "FROM ttaetigkeitenvorlage " +
+                    "WHERE taID IN (" +
+                    "SELECT taID " +
+                    "FROM tproj_taet " +
+                    "WHERE prID = " + ((ListItem)selectBoxProjekt.SelectedItem).DatabankID + ") ORDER BY taBeschreibung");
+
+                reader = taetDesc.CreateDataReader();
+
+                taet_List.Items.Clear();
+
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        taet_List.Items.Add(new ListItem(reader.GetInt32(0), reader.GetString(1)));
+                    }
                 }
             }
-
-            //tätigkeitsbeschr anzeigen
-            DataTable taetDesc = SqlConnection.SelectStatement("SELECT taId, taBeschreibung " +
-                "FROM ttaetigkeitenvorlage " +
-                "WHERE taID IN (" +
-                "SELECT taID " +
-                "FROM tproj_taet " +
-                "WHERE prID = " + ((ListItem)selectBoxProjekt.SelectedItem).DatabankID + ") ORDER BY taBeschreibung");
-
-            reader = taetDesc.CreateDataReader();
-
-            taet_List.Items.Clear();
-
-            if (reader.HasRows)
+            catch (MySqlException ex)
             {
-                while (reader.Read())
-                {
-                    taet_List.Items.Add(new ListItem(reader.GetInt32(0), reader.GetString(1)));
-                }
+                MessageBox.Show("Es kam zu einem Problem mit der Datenbank." + Environment.NewLine +
+                "Fehlernummer: " + ex.Number + Environment.NewLine +
+                "Fehlerbeschreibung: " + ex.Message, "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
         //Arbeiter aus dem Projekt löschen
         private void deleteArbeiter_Click(object sender, EventArgs e)
         {
-            if (mitarbeit_List.SelectedIndex != -1)
+            try
             {
-                SqlConnection.ExecuteStatement("UPDATE tmita_proj SET mpAktiv = 0 WHERE miID = " + ((ListItem)mitarbeit_List.SelectedItem).DatabankID);
-                projekteAktualisieren();
+                if (mitarbeit_List.SelectedIndex != -1)
+                {
+                    SqlConnection.ExecuteStatement("UPDATE tmita_proj SET mpAktiv = 0 WHERE miID = " + ((ListItem)mitarbeit_List.SelectedItem).DatabankID);
+                    projekteAktualisieren();
+                }
+            }
+            catch (MySqlException ex)
+            {
+                MessageBox.Show("Es kam zu einem Problem mit der Datenbank." + Environment.NewLine +
+                "Fehlernummer: " + ex.Number + Environment.NewLine +
+                "Fehlerbeschreibung: " + ex.Message, "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -132,6 +159,8 @@ namespace Zeiterfassung
 
             if (neueMitarbeiter.ShowDialog() == DialogResult.OK)
                 projekteAktualisieren();
+
+            neueMitarbeiter.Dispose();
         }
 
         //neues projekt anlegen
@@ -145,6 +174,44 @@ namespace Zeiterfassung
 
             newPro.Dispose();
         }
+
+        //Projekt löschen
+        private void pro_Del_Butt_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                int timeCount = SqlConnection.CountStatement("SELECT COUNT(prID) FROM tZeiterfassung WHERE prID = " + ((ListItem)selectBoxProjekt.SelectedItem).DatabankID);
+                if (timeCount > 0)
+                {
+                    if (MessageBox.Show("Wenn Sie dieses Projekt löschen, werden " + timeCount + " Zeiterfassungen gelöscht. " + Environment.NewLine + "Fortfahren?"
+                        , "Warnung!", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == DialogResult.OK)
+                    {
+                        SqlConnection.ExecuteStatement("DELETE FROM tzeiterfassung WHERE prID = " + ((ListItem)selectBoxProjekt.SelectedItem).DatabankID);
+                        SqlConnection.ExecuteStatement("DELETE FROM tmita_proj WHERE prID = " + ((ListItem)selectBoxProjekt.SelectedItem).DatabankID);
+                        SqlConnection.ExecuteStatement("DELETE FROM tproj_taet WHERE prID = " + ((ListItem)selectBoxProjekt.SelectedItem).DatabankID);
+                        SqlConnection.ExecuteStatement("DELETE FROM tprojekt WHERE prID = " + ((ListItem)selectBoxProjekt.SelectedItem).DatabankID);
+                        projekteInitialisieren();
+                    }
+                }
+                else
+                {
+                    if (MessageBox.Show("Möchten Sie dieses Projekt wirklich löschen?", "Frage", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
+                    {
+                        SqlConnection.ExecuteStatement("DELETE FROM tmita_proj WHERE prID = " + ((ListItem)selectBoxProjekt.SelectedItem).DatabankID);
+                        SqlConnection.ExecuteStatement("DELETE FROM tproj_taet WHERE prID = " + ((ListItem)selectBoxProjekt.SelectedItem).DatabankID);
+                        SqlConnection.ExecuteStatement("DELETE FROM tprojekt WHERE prID = " + ((ListItem)selectBoxProjekt.SelectedItem).DatabankID);
+                        projekteInitialisieren();
+                    }
+                }
+            }
+            catch (MySqlException ex)
+            {
+                MessageBox.Show("Es kam zu einem Problem mit der Datenbank." + Environment.NewLine +
+                "Fehlernummer: " + ex.Number + Environment.NewLine +
+                "Fehlerbeschreibung: " + ex.Message, "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
 
         private bool isBearb = false;
 
@@ -166,9 +233,11 @@ namespace Zeiterfassung
                         "SET prBeschreibung = '" + beschr_Box.Text + "' " +
                         "WHERE prID = " + ((ListItem)selectBoxProjekt.SelectedItem).DatabankID);
                 }
-                catch (MySqlException)
+                catch (MySqlException ex)
                 {
-                    MessageBox.Show("Es scheint ein Problem mit der Datenbank vorzuliegen");
+                    MessageBox.Show("Es kam zu einem Problem mit der Datenbank." + Environment.NewLine +
+                    "Fehlernummer: " + ex.Number + Environment.NewLine +
+                    "Fehlerbeschreibung: " + ex.Message, "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
 
                 beschr_Box.ReadOnly = true;
@@ -219,16 +288,48 @@ namespace Zeiterfassung
         //tätigkeit entfernen
         private void pro_Tät_Entf_Butt_Click(object sender, EventArgs e)
         {
-            if (taet_List.SelectedIndex != -1)
+            try
             {
-                DataTable prID = SqlConnection.SelectStatement("DELETE FROM tproj_taet " +
-                    "WHERE prID= " + ((ListItem)selectBoxProjekt.SelectedItem).DatabankID +
-                    " AND taID= " + ((ListItem)taet_List.SelectedItem).DatabankID);
-                projekteAktualisieren();
+                if (taet_List.SelectedIndex != -1)
+                {
+                    DataTable prID = SqlConnection.SelectStatement("DELETE FROM tproj_taet " +
+                        "WHERE prID= " + ((ListItem)selectBoxProjekt.SelectedItem).DatabankID +
+                        " AND taID= " + ((ListItem)taet_List.SelectedItem).DatabankID);
+
+
+                    //Abfrage, ob die Tätigkeit auch aus der Datenbank gelöscht werden soll
+                    if (MessageBox.Show("Möchten Sie diese Tätigkeit aus der Datenbank entfernen?", "Frage", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                    {
+                        int countTät = SqlConnection.CountStatement("SELECT COUNT(prID) FROM tproj_taet WHERE taID = " + ((ListItem)taet_List.SelectedItem).DatabankID +
+                            " AND prID != " + ((ListItem)selectBoxProjekt.SelectedItem).DatabankID);
+                        if (countTät > 0)
+                        {
+                            //Tätigkeit wird bereits in anderen Projekten verwendet
+                            if (MessageBox.Show("Diese Tätigkeit wird bereits in " + countTät + " Projekten verwendet." + Environment.NewLine + "Fortfahren?",
+                                "Warnung", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == DialogResult.OK)
+                            {
+                                SqlConnection.ExecuteStatement("DELETE FROM ttaetigkeitenvorlage WHERE taID = " + ((ListItem)taet_List.SelectedItem).DatabankID);
+                            }
+
+                        }
+                        else
+                        {
+                            SqlConnection.ExecuteStatement("DELETE FROM ttaetigkeitenvorlage WHERE taID = " + ((ListItem)taet_List.SelectedItem).DatabankID);
+                        }
+                    }
+                    projekteAktualisieren();
+                }
+            }
+            catch (MySqlException ex)
+            {
+                MessageBox.Show("Es kam zu einem Problem mit der Datenbank." + Environment.NewLine +
+                "Fehlernummer: " + ex.Number + Environment.NewLine +
+                "Fehlerbeschreibung: " + ex.Message, "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
         #endregion
+
 
 
 

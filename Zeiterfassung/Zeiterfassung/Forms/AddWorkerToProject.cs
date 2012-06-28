@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using MySql.Data.MySqlClient;
 
 namespace Zeiterfassung
 {
@@ -17,23 +18,32 @@ namespace Zeiterfassung
         {
             InitializeComponent();
 
-            this.prID = proj_id_temp;
-
-            DataTable AllWorkers = SqlConnection.SelectStatement("SELECT miID, miName, miVorname " +
-            "FROM tmitarbeiter " +
-            "WHERE miID NOT IN (" +
-            "SELECT miID " + 
-            "FROM tmita_proj " +
-            "WHERE prID = " + prID +" AND mpAktiv = 1) ORDER BY miName");
-
-            DataTableReader reader = AllWorkers.CreateDataReader();
-
-            if (reader.HasRows)
+            try
             {
-                while (reader.Read())
+                this.prID = proj_id_temp;
+
+                DataTable AllWorkers = SqlConnection.SelectStatement("SELECT miID, miName, miVorname " +
+                "FROM tmitarbeiter " +
+                "WHERE miID NOT IN (" +
+                "SELECT miID " +
+                "FROM tmita_proj " +
+                "WHERE prID = " + prID + " AND mpAktiv = 1) ORDER BY miName");
+
+                DataTableReader reader = AllWorkers.CreateDataReader();
+
+                if (reader.HasRows)
                 {
-                    arbeiterListe.Items.Add(new ListItem(reader.GetInt32(0),reader.GetString(1) + ", " + reader.GetString(2)));
+                    while (reader.Read())
+                    {
+                        arbeiterListe.Items.Add(new ListItem(reader.GetInt32(0), reader.GetString(1) + ", " + reader.GetString(2)));
+                    }
                 }
+            }
+            catch (MySqlException ex)
+            {
+                MessageBox.Show("Es kam zu einem Problem mit der Datenbank." + Environment.NewLine +
+                "Fehlernummer: " + ex.Number + Environment.NewLine +
+                "Fehlerbeschreibung: " + ex.Message, "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
         }
@@ -45,7 +55,9 @@ namespace Zeiterfassung
 
         private void AddWorkers_Click(object sender, EventArgs e)
         {
-                foreach(object itemChecked in arbeiterListe.CheckedItems) 
+            try
+            {
+                foreach (object itemChecked in arbeiterListe.CheckedItems)
                 {
                     if (SqlConnection.CountStatement("SELECT COUNT(miID) FROM tmita_proj WHERE miID = " +
                         ((ListItem)itemChecked).DatabankID +
@@ -61,7 +73,14 @@ namespace Zeiterfassung
                     }
                 }
                 this.DialogResult = DialogResult.OK;
-                this.Close(); 
+                this.Close();
+            }
+            catch (MySqlException ex)
+            {
+                MessageBox.Show("Es kam zu einem Problem mit der Datenbank." + Environment.NewLine +
+                "Fehlernummer: " + ex.Number + Environment.NewLine +
+                "Fehlerbeschreibung: " + ex.Message, "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
        

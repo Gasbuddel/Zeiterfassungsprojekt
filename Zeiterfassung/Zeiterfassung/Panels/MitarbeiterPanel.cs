@@ -6,6 +6,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using MySql.Data.MySqlClient;
 
 namespace Zeiterfassung
 {
@@ -15,6 +16,8 @@ namespace Zeiterfassung
         {
             InitializeComponent();
         }
+
+        private const string startpw = "#start12";
 
 
         #region 'Mitarbeiter'
@@ -32,40 +35,51 @@ namespace Zeiterfassung
         /// </summary>
         private void mitarbeiterInitialisieren()
         {
-            //Mitarbeiterliste säubern
-            userNameBox.Items.Clear();
-
-            DataTable allema = SqlConnection.SelectStatement("SELECT miID ,miUsername, roBezeichnung FROM tMitarbeiter JOIN trolle USING(roID)");
-
-            DataTableReader reader = allema.CreateDataReader();
-
-            if (reader.HasRows)
+            try
             {
-                while (reader.Read())
+                //Mitarbeiterliste säubern
+                userNameBox.Items.Clear();
+
+                string test = "SELECT miID ,miUsername, roBezeichnung FROM tMitarbeiter WHERE miID != " + Session.GetSession().UserId + " JOIN trolle USING(roID)";
+
+                DataTable allema = SqlConnection.SelectStatement("SELECT miID ,miUsername, roBezeichnung FROM tMitarbeiter JOIN trolle USING(roID) WHERE miID != " + Session.GetSession().UserId);
+
+                DataTableReader reader = allema.CreateDataReader();
+
+                if (reader.HasRows)
                 {
-                    userNameBox.Items.Add(new ListItem(reader.GetInt32(0), reader.GetString(1) + ", " + reader.GetString(2)));
+                    while (reader.Read())
+                    {
+                        userNameBox.Items.Add(new ListItem(reader.GetInt32(0), reader.GetString(1) + ", " + reader.GetString(2)));
+                    }
                 }
+
+                //Rollen säubern
+                roleBox.Items.Clear();
+
+                //Mitarbeiter einfügen
+                DataTable alleRollen = SqlConnection.SelectStatement("SELECT roID ,roBezeichnung FROM tRolle");
+
+                reader = alleRollen.CreateDataReader();
+
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        roleBox.Items.Add(new ListItem(reader.GetInt32(0), reader.GetString(1)));
+                    }
+                }
+
+                roleBox.SelectedIndex = 0;
+
+                userNameBox.SelectedIndex = 0;
             }
-
-            //Rollen säubern
-            roleBox.Items.Clear();
-
-            //Mitarbeiter einfügen
-            DataTable alleRollen = SqlConnection.SelectStatement("SELECT roID ,roBezeichnung FROM tRolle");
-
-            reader = alleRollen.CreateDataReader();
-
-            if (reader.HasRows)
+            catch (MySqlException ex)
             {
-                while (reader.Read())
-                {
-                    roleBox.Items.Add(new ListItem(reader.GetInt32(0), reader.GetString(1)));
-                }
+                MessageBox.Show("Es kam zu einem Problem mit der Datenbank." + Environment.NewLine +
+                "Fehlernummer: " + ex.Number + Environment.NewLine +
+                "Fehlerbeschreibung: " + ex.Message, "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-
-            roleBox.SelectedIndex = 0;
-
-            userNameBox.SelectedIndex = 0;
         }
 
         private void userNameBox_SelectedIndexChanged_1(object sender, EventArgs e)
@@ -78,25 +92,34 @@ namespace Zeiterfassung
         /// </summary>
         private void mitarbeiterAktualisieren()
         {
-            DataTable maTable = SqlConnection.SelectStatement("SELECT miUsername, miName, miVorname, miEmail, roID FROM tmitarbeiter WHERE miID = " + ((ListItem)userNameBox.SelectedItem).DatabankID);
-
-            DataTableReader reader = maTable.CreateDataReader();
-
-            if (reader.HasRows)
+            try
             {
-                while (reader.Read())
-                {
-                    userNameTB.Text = reader.GetString(0);
-                    nameTB.Text = reader.GetString(1);
-                    vornameTB.Text = reader.GetString(2);
-                    mailTB.Text = reader.GetString(3);
+                DataTable maTable = SqlConnection.SelectStatement("SELECT miUsername, miName, miVorname, miEmail, roID FROM tmitarbeiter WHERE miID = " + ((ListItem)userNameBox.SelectedItem).DatabankID);
 
-                    //Rolle festlegen
-                    if (Convert.ToInt32(maTable.Rows[0]["roID"]) == 1)
-                        roleBox.SelectedIndex = 0;
-                    else
-                        roleBox.SelectedIndex = 1;
+                DataTableReader reader = maTable.CreateDataReader();
+
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        userNameTB.Text = reader.GetString(0);
+                        nameTB.Text = reader.GetString(1);
+                        vornameTB.Text = reader.GetString(2);
+                        mailTB.Text = reader.GetString(3);
+
+                        //Rolle festlegen
+                        if (Convert.ToInt32(maTable.Rows[0]["roID"]) == 1)
+                            roleBox.SelectedIndex = 0;
+                        else
+                            roleBox.SelectedIndex = 1;
+                    }
                 }
+            }
+            catch (MySqlException ex)
+            {
+                MessageBox.Show("Es kam zu einem Problem mit der Datenbank." + Environment.NewLine +
+                "Fehlernummer: " + ex.Number + Environment.NewLine +
+                "Fehlerbeschreibung: " + ex.Message, "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -135,23 +158,32 @@ namespace Zeiterfassung
             {
                 if (mitarbeiterValid() && userNameTB.Text != "" && nameTB.Text != "" && vornameTB.Text != "" && mailTB.Text != "")
                 {
-                    mi_Change_Butt.Text = "Bearbeiten";
-                    setMitarbeiterReadOnly(true);
-                    SqlConnection.ExecuteStatement("UPDATE tmitarbeiter SET " +
-                        "miUsername = '" + userNameTB.Text +
-                        "', miVorname = '" + vornameTB.Text +
-                        "', miName = '" + nameTB.Text +
-                        "', miEmail = '" + mailTB.Text +
-                        "', roID= '" + ((ListItem)roleBox.SelectedItem).DatabankID +
-                        "'   where miID='" + ((ListItem)userNameBox.SelectedItem).DatabankID + "'");
+                    try
+                    {
+                        mi_Change_Butt.Text = "Bearbeiten";
+                        setMitarbeiterReadOnly(true);
+                        SqlConnection.ExecuteStatement("UPDATE tmitarbeiter SET " +
+                            "miUsername = '" + userNameTB.Text +
+                            "', miVorname = '" + vornameTB.Text +
+                            "', miName = '" + nameTB.Text +
+                            "', miEmail = '" + mailTB.Text +
+                            "', roID= '" + ((ListItem)roleBox.SelectedItem).DatabankID +
+                            "'   where miID='" + ((ListItem)userNameBox.SelectedItem).DatabankID + "'");
 
-                    mi_Cancel_Butt.Visible = false;
+                        mi_Cancel_Butt.Visible = false;
 
-                    mi_PW_Butt.Enabled = true;
-                    mi_Del_Butt.Enabled = true;
-                    mi_New_Butt.Enabled = true;
+                        mi_PW_Butt.Enabled = true;
+                        mi_Del_Butt.Enabled = true;
+                        mi_New_Butt.Enabled = true;
 
-                    mitarbeiterBearbStatus = 0;
+                        mitarbeiterBearbStatus = 0;
+                    }
+                    catch (MySqlException ex)
+                    {
+                        MessageBox.Show("Es kam zu einem Problem mit der Datenbank." + Environment.NewLine +
+                        "Fehlernummer: " + ex.Number + Environment.NewLine +
+                        "Fehlerbeschreibung: " + ex.Message, "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
                 else
                 {
@@ -163,11 +195,19 @@ namespace Zeiterfassung
         //Passwort zurücksetzen
         private void mi_PW_Butt_Click(object sender, EventArgs e)
         {
-            //Standartpasswort wird gesetzt
-            string startpw = "#start12";
-            SqlConnection.SelectStatement("UPDATE tmitarbeiter SET miPasswort = '" + Md5.GetMD5("#10!?" + userNameTB.Text.ToLower() + startpw + "~^g2+3") +
-                "' WHERE miID = '" + ((ListItem)userNameBox.SelectedItem).DatabankID + "'");
-            MessageBox.Show("Das Passwort wurde auf " + startpw + " gesetzt");
+            try
+            {
+                //Standartpasswort wird gesetzt
+                SqlConnection.ExecuteStatement("UPDATE tmitarbeiter SET miPasswort = '" + Md5.GetMD5("#10!?" + userNameTB.Text.ToLower() + startpw + "~^g2+3") +
+                    "' WHERE miID = '" + ((ListItem)userNameBox.SelectedItem).DatabankID + "'");
+                MessageBox.Show("Das Passwort wurde auf " + startpw + " gesetzt");
+            }
+            catch (MySqlException ex)
+            {
+                MessageBox.Show("Es kam zu einem Problem mit der Datenbank." + Environment.NewLine +
+                "Fehlernummer: " + ex.Number + Environment.NewLine +
+                "Fehlerbeschreibung: " + ex.Message, "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         //Mitarbeiter löschen
@@ -175,32 +215,42 @@ namespace Zeiterfassung
         {
             if (((ListItem)roleBox.SelectedItem).DatabankID == 2)
             {
-                //Überprüfung, ob dem Mitarbeiter Projekte zugewiesen wurden
-                int result = SqlConnection.CountStatement("SELECT COUNT(miID) FROM tmita_proj WHERE miID = " +
-                    ((ListItem)userNameBox.SelectedItem).DatabankID);
-
-                if (result <= 0)
+                try
                 {
+                    //Überprüfung, ob dem Mitarbeiter Projekte zugewiesen wurden
+                    int result = SqlConnection.CountStatement("SELECT COUNT(miID) FROM tmita_proj WHERE miID = " +
+                        ((ListItem)userNameBox.SelectedItem).DatabankID);
 
-                        if (MessageBox.Show("Mitarbeiter wirklich löschen?", "Hinweis", MessageBoxButtons.OKCancel, MessageBoxIcon.Information) == DialogResult.OK)
+                    if (result <= 0)
+                    {
+                        //Mitarbeiter ist keine Projekt zugewiesen, daher nur Hinweis
+                        if (MessageBox.Show("Mitarbeiter wirklich löschen?", "Hinweis", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                         {
                             SqlConnection.ExecuteStatement("DELETE FROM tmitarbeiter WHERE miID = '" + ((ListItem)userNameBox.SelectedItem).DatabankID + "'");
                             mitarbeiterInitialisieren();
                         }
-                }
-                else
-                {
-                    if (MessageBox.Show("Dieser Mitarbeiter ist Projekten aktiv. \n Trotzdem löschen?", "Warnung", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == DialogResult.OK)
+                    }
+                    else
                     {
-                        SqlConnection.ExecuteStatement("DELETE FROM tZeiterfassung WHERE miID = '" + ((ListItem)userNameBox.SelectedItem).DatabankID + "'");
-                        SqlConnection.ExecuteStatement("DELETE FROM tmita_proj WHERE miID = '" + ((ListItem)userNameBox.SelectedItem).DatabankID + "'");
-                        SqlConnection.ExecuteStatement("DELETE FROM tmitarbeiter WHERE miID = '" + ((ListItem)userNameBox.SelectedItem).DatabankID + "'");
+                        if (MessageBox.Show("Dieser Mitarbeiter ist in " + result + " Projekten aktiv. " + Environment.NewLine +
+                            "Trotzdem löschen?", "Warnung", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == DialogResult.OK)
+                        {
+                            SqlConnection.ExecuteStatement("DELETE FROM tZeiterfassung WHERE miID = '" + ((ListItem)userNameBox.SelectedItem).DatabankID + "'");
+                            SqlConnection.ExecuteStatement("DELETE FROM tmita_proj WHERE miID = '" + ((ListItem)userNameBox.SelectedItem).DatabankID + "'");
+                            SqlConnection.ExecuteStatement("DELETE FROM tmitarbeiter WHERE miID = '" + ((ListItem)userNameBox.SelectedItem).DatabankID + "'");
 
-                        mitarbeiterInitialisieren();
+                            mitarbeiterInitialisieren();
+                        }
                     }
                 }
-        
+                catch (MySqlException ex)
+                {
+                    MessageBox.Show("Es kam zu einem Problem mit der Datenbank." + Environment.NewLine +
+                    "Fehlernummer: " + ex.Number + Environment.NewLine +
+                    "Fehlerbeschreibung: " + ex.Message, "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
+            //Geschäftsführer dürfen nicht entfernt werden
             else
             {
                 MessageBox.Show("Sie können keine Geschäftsführer löschen","Hinweis",MessageBoxButtons.OK,MessageBoxIcon.Hand);
@@ -218,6 +268,7 @@ namespace Zeiterfassung
                 mi_Del_Butt.Enabled = false;
                 mi_PW_Butt.Enabled = false;
                 mi_Change_Butt.Enabled = false;
+                roleBox.SelectedIndex = 1;
 
                 //Textboxen enablen
                 setMitarbeiterReadOnly(false);
@@ -235,31 +286,43 @@ namespace Zeiterfassung
             {
                 if (mitarbeiterValid() && userNameTB.Text != "" && nameTB.Text != "" && vornameTB.Text != "" && mailTB.Text != "")
                 {
-                    //Überpprüfen, ob Benutzername bereits benutzt wird
+                    string pwCoded = Md5.GetMD5("#10!?" + userNameTB.Text.ToLower() + startpw + "~^g2+3");
+
+                    //Überprüfen, ob Benutzername bereits benutzt wird
                     if(SqlConnection.CountStatement("SELECT COUNT(miUsername) FROM tMitarbeiter WHERE miUsername LIKE '" + userNameTB.Text + "'") < 1)
                     {
-                        //Benutzer abspeichern
-                        SqlConnection.ExecuteStatement("INSERT INTO tmitarbeiter " +
-                            "(`roID`, `miName`, `miVorname`, `miUsername`, `miPasswort`, `miEMail`) " +
-                            "VALUES ('" + ((ListItem)roleBox.SelectedItem).DatabankID + "','"
-                            + vornameTB.Text + "','" + nameTB.Text + "','"
-                            + userNameTB.Text + "','83095e7ae40304e6c03c9da2f1ce2302','"
-                            + mailTB.Text + "')");
+                        try
+                        {
+                            //Benutzer abspeichern
+                            SqlConnection.ExecuteStatement("INSERT INTO tmitarbeiter " +
+                                "(`roID`, `miName`, `miVorname`, `miUsername`, `miPasswort`, `miEMail`) " +
+                                "VALUES ('" + ((ListItem)roleBox.SelectedItem).DatabankID + "','"
+                                + vornameTB.Text + "','" + nameTB.Text + "','"
+                                + userNameTB.Text + "','" + pwCoded + "','"
+                                + mailTB.Text + "')");
 
-                        MessageBox.Show("Neuer User wurde angelegt. Passwort ist:");
-                        //Buttons enablen
-                        mi_New_Butt.Text = "Neuer Mitarbeiter";
-                        mi_Del_Butt.Enabled = true;
-                        mi_PW_Butt.Enabled = true;
-                        mi_Change_Butt.Enabled = true;
+                            MessageBox.Show("Neuer User wurde angelegt. Passwort ist: " + startpw);
+                            //Buttons enablen
+                            mi_New_Butt.Text = "Neuer Mitarbeiter";
+                            mi_Del_Butt.Enabled = true;
+                            mi_PW_Butt.Enabled = true;
+                            mi_Change_Butt.Enabled = true;
 
-                        mi_Cancel_Butt.Visible = false;
+                            mi_Cancel_Butt.Visible = false;
 
-                        setMitarbeiterReadOnly(true);
+                            setMitarbeiterReadOnly(true);
 
-                        mitarbeiterInitialisieren();
+                            mitarbeiterInitialisieren();
 
-                        mitarbeiterBearbStatus = 0;
+                            mitarbeiterBearbStatus = 0;
+                        }
+                        catch (MySqlException ex)
+                        {
+                            MessageBox.Show("Es kam zu einem Problem mit der Datenbank." + Environment.NewLine +
+                            "Fehlernummer: " + ex.Number + Environment.NewLine +
+                            "Fehlerbeschreibung: " + ex.Message, "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    
                     }
                     else
                     {
@@ -307,19 +370,6 @@ namespace Zeiterfassung
         }
 
         #endregion
-
-
-
-
-
-
- 
-
-
-
-
-
-
 
     }
 }

@@ -12,32 +12,36 @@ namespace Zeiterfassung
 {
     public partial class CreateProject : Form
     {
-        private Dictionary<int, int> kundenIds;
-
         public CreateProject()
         {
             InitializeComponent();
 
-            kundenIds = new Dictionary<int, int>();
-
-            DataTable kunde = SqlConnection.SelectStatement("SELECT kuId ,kuFirma FROM tkunde");
-
-            DataTableReader reader = kunde.CreateDataReader();
-
-            int index = 0;
-            
-            if (reader.HasRows)
+            try
             {
-                while (reader.Read())
+
+                DataTable kunde = SqlConnection.SelectStatement("SELECT kuId ,kuFirma, kuAnsprechpartner FROM tkunde");
+
+                DataTableReader reader = kunde.CreateDataReader();
+
+                if (reader.HasRows)
                 {
-                    kunde_box.Items.Add(reader.GetString(1));
-                    kundenIds.Add(index, reader.GetInt32(0));
-
-                    index++;
+                    while (reader.Read())
+                    {
+                        if (reader["kuFirma"].ToString() == "")
+                            kunde_box.Items.Add(new ListItem(reader.GetInt32(0), reader.GetString(2)));
+                        else
+                            kunde_box.Items.Add(new ListItem(reader.GetInt32(0), reader.GetString(1)));
+                    }
                 }
-            }
 
-            kunde_box.SelectedIndex = 0;
+                kunde_box.SelectedIndex = 0;
+            }
+            catch (MySqlException ex)
+            {
+                MessageBox.Show("Es kam zu einem Problem mit der Datenbank." + Environment.NewLine +
+                "Fehlernummer: " + ex.Number + Environment.NewLine +
+                "Fehlerbeschreibung: " + ex.Message, "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void ok_Click(object sender, EventArgs e)
@@ -45,7 +49,7 @@ namespace Zeiterfassung
             try
             {
                 DataTable arbeiter = SqlConnection.SelectStatement("INSERT INTO tprojekt( kuID, prName, prBeschreibung) " +
-                "VALUES ( " + kundenIds[kunde_box.SelectedIndex] + ", '" + nameBox.Text + "','" + descBox.Text + "')");
+                "VALUES ( " + ((ListItem)kunde_box.SelectedItem).DatabankID + ", '" + nameBox.Text + "','" + descBox.Text + "')");
 
                 MessageBox.Show("Das Projekt" + " '" + nameBox.Text + "' wurde angelegt");
 
@@ -53,10 +57,12 @@ namespace Zeiterfassung
 
                 this.Close();
             }
-            catch(MySqlException)
+            catch (MySqlException ex)
             {
-                MessageBox.Show("Es ist ein Fehler aufgetreten.\nBitte überprüfen Sie ihre Eingaben.");
-            } 
+                MessageBox.Show("Es kam zu einem Problem mit der Datenbank." + Environment.NewLine +
+                "Fehlernummer: " + ex.Number + Environment.NewLine +
+                "Fehlerbeschreibung: " + ex.Message, "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void abort_Click(object sender, EventArgs e)

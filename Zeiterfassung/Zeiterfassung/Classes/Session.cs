@@ -19,8 +19,6 @@ namespace Zeiterfassung
 
 		private int ProID;
 
-        private bool startPw = false;
-
         private static Session instance;
 
         private Session(int authorization, int userId)
@@ -29,17 +27,6 @@ namespace Zeiterfassung
             this.userId = userId;
         }
 
-        public void StartPwChange()
-        {
-            if (this.startPw == false)
-            {
-                this.startPw = true;
-            }
-            else
-            {
-                this.startPw = false;
-            }
-        }
 
         /// <summary>
         /// Erstellt eine neue Session, es darf nur eine Existieren und der Wert der Authorisierung darf nur einmal gesetzt werden.
@@ -91,6 +78,9 @@ namespace Zeiterfassung
             }
         }
 
+        /// <summary>
+        /// ID des aktuell ausgewählten Projektes
+        /// </summary>
 		public int ProId
 		{
 			get
@@ -103,13 +93,5 @@ namespace Zeiterfassung
 				this.ProID = value;
 			}
 		}
-
-        public bool StartPw
-        {
-            get
-            {
-                return startPw;
-            }
-        }
     }
 }

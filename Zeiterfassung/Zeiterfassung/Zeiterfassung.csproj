@@ -66,6 +66,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Windows.Forms.DataVisualization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -85,6 +86,12 @@
     </Compile>
     <Compile Include="Forms\AboutBox.Designer.cs">
       <DependentUpon>AboutBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\AboutProjects.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\AboutProjects.designer.cs">
+      <DependentUpon>AboutProjects.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\AddTaetigkeit.cs">
       <SubType>Form</SubType>
@@ -122,6 +129,12 @@
     <Compile Include="Forms\CreateProject.designer.cs">
       <DependentUpon>CreateProject.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Hilfe.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Hilfe.Designer.cs">
+      <DependentUpon>Hilfe.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Login.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -133,6 +146,12 @@
     </Compile>
     <Compile Include="Forms\Hauptmaske.Designer.cs">
       <DependentUpon>Hauptmaske.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\MitPie.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\MitPie.Designer.cs">
+      <DependentUpon>MitPie.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\NewTaet.cs">
       <SubType>Form</SubType>
@@ -169,6 +188,9 @@
     <EmbeddedResource Include="Forms\AboutBox.resx">
       <DependentUpon>AboutBox.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\AboutProjects.resx">
+      <DependentUpon>AboutProjects.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\AddTaetigkeit.resx">
       <DependentUpon>AddTaetigkeit.cs</DependentUpon>
     </EmbeddedResource>
@@ -187,11 +209,17 @@
     <EmbeddedResource Include="Forms\CreateProject.resx">
       <DependentUpon>CreateProject.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Hilfe.resx">
+      <DependentUpon>Hilfe.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\Login.resx">
       <DependentUpon>Login.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Hauptmaske.resx">
       <DependentUpon>Hauptmaske.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\MitPie.resx">
+      <DependentUpon>MitPie.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\NewTaet.resx">
       <DependentUpon>NewTaet.cs</DependentUpon>

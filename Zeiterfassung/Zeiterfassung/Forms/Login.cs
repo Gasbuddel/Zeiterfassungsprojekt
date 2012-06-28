@@ -53,13 +53,10 @@ namespace Zeiterfassung
                         try
                         {
                             //Die Session mit der Rolle wird erstellt und die Hauptmaske geöffnet.
-
                             Session.CreateSession(rolle, userId);
                             if (startpw == pw)
                             {
-                                Session.GetSession().StartPwChange();
-                                ChangePW changepwform = new ChangePW();
-                                // changepwform.ShowDialog();
+                                ChangePW changepwform = new ChangePW(true);
                                 if (changepwform.ShowDialog() != DialogResult.OK)
                                     Environment.Exit(0);
                             }
@@ -82,15 +79,18 @@ namespace Zeiterfassung
                     switch (ex.Number)
                     {
                         case 0:
-                            MessageBox.Show("Datenbank konnte nicht erreicht werden.");
+                            MessageBox.Show("Datenbank konnte nicht erreicht werden.","Fehler",MessageBoxButtons.OK,MessageBoxIcon.Error);
                             break;
 
+                        case 1042:
+                            MessageBox.Show("Datenbank konnte nicht erreicht werden","Fehler",MessageBoxButtons.OK,MessageBoxIcon.Error);
+                            break;
                         case 1045:
-                            MessageBox.Show("Falscher Datenbankbenutzer/Passwort.");
+                            MessageBox.Show("Falscher Datenbankbenutzer/Passwort.","Fehler",MessageBoxButtons.OK,MessageBoxIcon.Error);
                             break;
 
                         default:
-                            MessageBox.Show("Es kam zu einem unerwarteten Fehler mit der Datenbank.");
+                            MessageBox.Show("Es kam zu einem unerwarteten Fehler mit der Datenbank.","Fehler",MessageBoxButtons.OK,MessageBoxIcon.Error);
                             break;
                     }
                 }

@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.beschr_Box = new Zeiterfassung.RegExTextbox();
             this.pro_Bearb_Abbr_Butt = new System.Windows.Forms.Button();
             this.pro_New_Tät_Butt = new System.Windows.Forms.Button();
             this.pro_Tät_Entf_Butt = new System.Windows.Forms.Button();
@@ -36,7 +35,6 @@
             this.pro_Add_Tät_Butt = new System.Windows.Forms.Button();
             this.addWorkerToProject_butt = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
-            this.kund_Box = new Zeiterfassung.RegExTextbox();
             this.taet_List = new System.Windows.Forms.ListBox();
             this.label6 = new System.Windows.Forms.Label();
             this.mitarbeit_List = new System.Windows.Forms.ListBox();
@@ -46,19 +44,10 @@
             this.newPro_Butt = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.selectBoxProjekt = new System.Windows.Forms.ComboBox();
+            this.pro_Del_Butt = new System.Windows.Forms.Button();
+            this.beschr_Box = new Zeiterfassung.RegExTextbox();
+            this.kund_Box = new Zeiterfassung.RegExTextbox();
             this.SuspendLayout();
-            // 
-            // beschr_Box
-            // 
-            this.beschr_Box.Location = new System.Drawing.Point(136, 102);
-            this.beschr_Box.MaxLength = 128;
-            this.beschr_Box.Multiline = true;
-            this.beschr_Box.Name = "beschr_Box";
-            this.beschr_Box.ReadOnly = true;
-            this.beschr_Box.Regular_Expression = "";
-            this.beschr_Box.Size = new System.Drawing.Size(366, 75);
-            this.beschr_Box.TabIndex = 54;
-            this.beschr_Box.ToolTipText = "";
             // 
             // pro_Bearb_Abbr_Butt
             // 
@@ -129,16 +118,6 @@
             this.label7.Size = new System.Drawing.Size(63, 13);
             this.label7.TabIndex = 46;
             this.label7.Text = "Tätigkeiten:";
-            // 
-            // kund_Box
-            // 
-            this.kund_Box.Location = new System.Drawing.Point(135, 73);
-            this.kund_Box.Name = "kund_Box";
-            this.kund_Box.ReadOnly = true;
-            this.kund_Box.Regular_Expression = null;
-            this.kund_Box.Size = new System.Drawing.Size(367, 20);
-            this.kund_Box.TabIndex = 52;
-            this.kund_Box.ToolTipText = null;
             // 
             // taet_List
             // 
@@ -222,10 +201,44 @@
             this.selectBoxProjekt.TabIndex = 37;
             this.selectBoxProjekt.SelectedIndexChanged += new System.EventHandler(this.selectBoxProjekt_SelectedIndexChanged);
             // 
+            // pro_Del_Butt
+            // 
+            this.pro_Del_Butt.Location = new System.Drawing.Point(325, 43);
+            this.pro_Del_Butt.Name = "pro_Del_Butt";
+            this.pro_Del_Butt.Size = new System.Drawing.Size(94, 23);
+            this.pro_Del_Butt.TabIndex = 55;
+            this.pro_Del_Butt.Text = "Projekt löschen";
+            this.pro_Del_Butt.UseVisualStyleBackColor = true;
+            this.pro_Del_Butt.Click += new System.EventHandler(this.pro_Del_Butt_Click);
+            // 
+            // beschr_Box
+            // 
+            this.beschr_Box.ForeColor = System.Drawing.Color.Black;
+            this.beschr_Box.Location = new System.Drawing.Point(136, 102);
+            this.beschr_Box.MaxLength = 128;
+            this.beschr_Box.Multiline = true;
+            this.beschr_Box.Name = "beschr_Box";
+            this.beschr_Box.ReadOnly = true;
+            this.beschr_Box.Regular_Expression = "";
+            this.beschr_Box.Size = new System.Drawing.Size(366, 75);
+            this.beschr_Box.TabIndex = 54;
+            this.beschr_Box.ToolTipText = "";
+            // 
+            // kund_Box
+            // 
+            this.kund_Box.Location = new System.Drawing.Point(136, 73);
+            this.kund_Box.Name = "kund_Box";
+            this.kund_Box.ReadOnly = true;
+            this.kund_Box.Regular_Expression = null;
+            this.kund_Box.Size = new System.Drawing.Size(366, 20);
+            this.kund_Box.TabIndex = 52;
+            this.kund_Box.ToolTipText = null;
+            // 
             // ProjektePanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.pro_Del_Butt);
             this.Controls.Add(this.beschr_Box);
             this.Controls.Add(this.pro_Bearb_Abbr_Butt);
             this.Controls.Add(this.pro_New_Tät_Butt);
@@ -272,5 +285,6 @@
         private System.Windows.Forms.Button newPro_Butt;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ComboBox selectBoxProjekt;
+        private System.Windows.Forms.Button pro_Del_Butt;
     }
 }
