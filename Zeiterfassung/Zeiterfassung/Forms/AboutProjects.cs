@@ -51,7 +51,7 @@ namespace Zeiterfassung
 			{
 				this.textMA.Text = summeMitarbeiter.ToString();
 
-				DataTable sum = SqlConnection.SelectStatement("SELECT SUM(zeDauer) as sum FROM tzeiterfassung WHERE prID=(SELECT prID from tprojekt where prName='" + selectBoxProjekt.Text + "')");
+				DataTable sum = SqlConnection.SelectStatement("SELECT SUM(zeDauer) as sum FROM tzeiterfassung WHERE prID = " + ((ListItem)selectBoxProjekt.SelectedItem).DatabankID);
 				reader = sum.CreateDataReader();
 
 				if (reader.HasRows)
