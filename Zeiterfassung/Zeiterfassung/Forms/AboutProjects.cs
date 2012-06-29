@@ -38,37 +38,34 @@ namespace Zeiterfassung
 
         private void selectBoxProjekt_SelectedIndexChanged(object sender, EventArgs e)
         {
+			//Reader erstellen
+			DataTableReader reader;
+
             mitarbeit_List.Enabled = true;
-            DataTable projekteinfos = SqlConnection.SelectStatement("SELECT count(miID) FROM tmita_proj WHERE prID=(SELECT prID from tprojekt where prName='" + selectBoxProjekt.Text +"')");
+			//Summe aller Mitarbeiter herausfinden
+			int summeMitarbeiter = SqlConnection.CountStatement("SELECT count(miID) FROM tmita_proj" +
+				" WHERE prID= " + ((ListItem)selectBoxProjekt.SelectedItem).DatabankID);
 
-            DataTableReader reader = projekteinfos.CreateDataReader();
+			//Mitarbeiter und deren geleistete Stunden aktualisieren
+			if (summeMitarbeiter > 0)
+			{
+				this.textMA.Text = summeMitarbeiter.ToString();
 
-            if (reader.HasRows)
-            {
-                reader.Read();
-                    if (reader.GetInt64(0).ToString()==null)
-                    {
-                        this.textMA.Text = "0";
-                    }
-                    else
-                    {
-                        this.textMA.Text = reader.GetInt64(0).ToString();
-                        //SELECT SUM(zeDauer) FROm tzeiterfassung where prID=1
-                        DataTable sum = SqlConnection.SelectStatement("SELECT SUM(zeDauer) as sum FROM tzeiterfassung WHERE prID=(SELECT prID from tprojekt where prName='" + selectBoxProjekt.Text + "')");
-                        DataTableReader sumreader = sum.CreateDataReader();
-                        
-                        if (sumreader.HasRows)
-                        {
-                            sumreader.Read();
-                            Type test = sumreader.GetFieldType(0);
-                            if (sumreader["sum"].ToString() == "")
-                                this.textgesZeit.Text = "0";
-                            else
-                                this.textgesZeit.Text = sumreader.GetDecimal(0).ToString();
-                        }
-                    }
-                
-            }
+				DataTable sum = SqlConnection.SelectStatement("SELECT SUM(zeDauer) as sum FROM tzeiterfassung WHERE prID=(SELECT prID from tprojekt where prName='" + selectBoxProjekt.Text + "')");
+				reader = sum.CreateDataReader();
+
+				if (reader.HasRows)
+				{
+					reader.Read();
+
+					if (reader["sum"].ToString() == "")
+						this.textgesZeit.Text = "0";
+					else
+						this.textgesZeit.Text = reader.GetDecimal(0).ToString();
+				}				
+			}
+			else
+				textMA.Text = "0";
 
             DataTable arbeiter = SqlConnection.SelectStatement("SELECT m.miID, m.miName, m.miVorname " +
               "FROM tmitarbeiter m " +
@@ -82,24 +79,28 @@ namespace Zeiterfassung
 
             mitarbeit_List.Items.Clear();
 
-            if (reader.HasRows)
-            {
-                while (reader.Read())
-                {
-                    mitarbeit_List.Items.Add(new ListItem(reader.GetInt32(0), reader.GetString(1) + ", " + reader.GetString(2)));
-                }
-            }
-            if (mitarbeit_List.Items.Count == 0)
-                mitarbeit_List.Enabled = false;
-            else
-                mitarbeit_List.SelectedIndex = 0;
+			if (reader.HasRows)
+			{
+				while (reader.Read())
+				{
+					mitarbeit_List.Items.Add(new ListItem(reader.GetInt32(0), reader.GetString(1) + ", " + reader.GetString(2)));
+				}
+				mitarbeit_List.SelectedIndex = 0;
+			}
+			else
+			{
+				mitarbeit_List.Enabled = false;
+				visualisieren.Enabled = false;
+			}
         }
 
         private void mitarbeit_List_SelectedIndexChanged(object sender, EventArgs e)
         {
-            decimal ges = 0;
-            decimal pro = 0;
-            DataTable arbeiter = SqlConnection.SelectStatement("SELECT sum( zeDauer ) as sum FROM tzeiterfassung WHERE miID ="+ ((ListItem)mitarbeit_List.SelectedItem).DatabankID +""); 
+            decimal arbeitszeitGesamt = 0;
+            decimal arbeitszeitProjekt = 0;
+			//Summe der geleisteten Stunden des ausgewählten Mitarbeiters herausfinden
+            DataTable arbeiter = SqlConnection.SelectStatement("SELECT sum( zeDauer ) as sum FROM tzeiterfassung WHERE miID = "
+				+ ((ListItem)mitarbeit_List.SelectedItem).DatabankID +""); 
             DataTableReader reader = arbeiter.CreateDataReader();
             
             if (reader.HasRows)
@@ -113,38 +114,48 @@ namespace Zeiterfassung
                     else
                     {
                         gesZeit.Text = reader["sum"].ToString();
-                        ges = reader.GetDecimal(0);
+						//GesammteArbeitszeit
+						arbeitszeitGesamt = reader.GetDecimal(0);
                     }
                         
                 }
             }
-           arbeiter = SqlConnection.SelectStatement("SELECT sum( zeDauer ) as sum FROM tzeiterfassung WHERE miID =" + ((ListItem)mitarbeit_List.SelectedItem).DatabankID + " AND prID="+ ((ListItem)selectBoxProjekt.SelectedItem).DatabankID + "");
-           reader = arbeiter.CreateDataReader();
 
-            if (reader.HasRows)
-            {
-                while (reader.Read())
-                {
-                    if (reader["sum"].ToString() == "")
-                    {
-                        imProjekt.Text = "0,00";
-                    }
-                    else
-                    {
-                        imProjekt.Text = reader["sum"].ToString();
-                        pro = reader.GetDecimal(0);
-                    }
-                }
-            }
-             decimal temp = 0;
-             visualisieren.Enabled = true;
-            if (pro != 0)
-                temp=pro * 100 / ges;
+			//Summe der geleisteten Stunden im Projekt herausfinden
+			arbeiter = SqlConnection.SelectStatement("SELECT sum( zeDauer ) as sum FROM tzeiterfassung WHERE miID =" +
+				((ListItem)mitarbeit_List.SelectedItem).DatabankID +
+				" AND prID=" + ((ListItem)selectBoxProjekt.SelectedItem).DatabankID + "");
+			reader = arbeiter.CreateDataReader();
 
-            if (ges == 0)
+			if (reader.HasRows)
+			{
+				while (reader.Read())
+				{
+					if (reader["sum"].ToString() == "")
+					{
+						imProjekt.Text = "0,00";
+					}
+					else
+					{
+						imProjekt.Text = reader["sum"].ToString();
+						//Arbeitszeit im Projekt
+						arbeitszeitProjekt = reader.GetDecimal(0);
+					}
+				}
+			}
+
+			//Prozentualen Anteil am Projekt ermitteln
+            decimal temp = 0;
+
+            if (arbeitszeitProjekt != 0)
+				temp = arbeitszeitProjekt * 100 / arbeitszeitGesamt;
+			else
                 visualisieren.Enabled = false;
             temp = Math.Round(temp, 2);
             prozent.Text = temp.ToString();
+
+			//Button visualisieren freigeben
+			visualisieren.Enabled = true;
             
         }
 
