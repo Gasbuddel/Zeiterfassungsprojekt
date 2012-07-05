@@ -32,6 +32,7 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.dateiToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.passwortÄndernToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.projektübersichtAnzeigenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.beendenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.administrationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.kundenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -60,7 +61,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.pro_Box = new System.Windows.Forms.ComboBox();
             this.cancel_Butt = new System.Windows.Forms.Button();
-            this.projektübersichtAnzeigenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tabelleGebuchteZeiten)).BeginInit();
@@ -85,20 +85,27 @@
             this.projektübersichtAnzeigenToolStripMenuItem,
             this.beendenToolStripMenuItem});
             this.dateiToolStripMenuItem.Name = "dateiToolStripMenuItem";
-            this.dateiToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
+            this.dateiToolStripMenuItem.Size = new System.Drawing.Size(46, 20);
             this.dateiToolStripMenuItem.Text = "Datei";
             // 
             // passwortÄndernToolStripMenuItem
             // 
             this.passwortÄndernToolStripMenuItem.Name = "passwortÄndernToolStripMenuItem";
-            this.passwortÄndernToolStripMenuItem.Size = new System.Drawing.Size(209, 22);
+            this.passwortÄndernToolStripMenuItem.Size = new System.Drawing.Size(210, 22);
             this.passwortÄndernToolStripMenuItem.Text = "Passwort ändern";
             this.passwortÄndernToolStripMenuItem.Click += new System.EventHandler(this.passwortÄndernToolStripMenuItem_Click);
+            // 
+            // projektübersichtAnzeigenToolStripMenuItem
+            // 
+            this.projektübersichtAnzeigenToolStripMenuItem.Name = "projektübersichtAnzeigenToolStripMenuItem";
+            this.projektübersichtAnzeigenToolStripMenuItem.Size = new System.Drawing.Size(210, 22);
+            this.projektübersichtAnzeigenToolStripMenuItem.Text = "Projektübersicht anzeigen";
+            this.projektübersichtAnzeigenToolStripMenuItem.Click += new System.EventHandler(this.projektübersichtAnzeigenToolStripMenuItem_Click);
             // 
             // beendenToolStripMenuItem
             // 
             this.beendenToolStripMenuItem.Name = "beendenToolStripMenuItem";
-            this.beendenToolStripMenuItem.Size = new System.Drawing.Size(209, 22);
+            this.beendenToolStripMenuItem.Size = new System.Drawing.Size(210, 22);
             this.beendenToolStripMenuItem.Text = "Beenden";
             this.beendenToolStripMenuItem.Click += new System.EventHandler(this.beendenToolStripMenuItem_Click);
             // 
@@ -109,27 +116,27 @@
             this.mitarbeiterToolStripMenuItem,
             this.projekteToolStripMenuItem});
             this.administrationToolStripMenuItem.Name = "administrationToolStripMenuItem";
-            this.administrationToolStripMenuItem.Size = new System.Drawing.Size(87, 20);
+            this.administrationToolStripMenuItem.Size = new System.Drawing.Size(98, 20);
             this.administrationToolStripMenuItem.Text = "Administration";
             // 
             // kundenToolStripMenuItem
             // 
             this.kundenToolStripMenuItem.Name = "kundenToolStripMenuItem";
-            this.kundenToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
+            this.kundenToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
             this.kundenToolStripMenuItem.Text = "Kunden";
             this.kundenToolStripMenuItem.Click += new System.EventHandler(this.kundenToolStripMenuItem_Click);
             // 
             // mitarbeiterToolStripMenuItem
             // 
             this.mitarbeiterToolStripMenuItem.Name = "mitarbeiterToolStripMenuItem";
-            this.mitarbeiterToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
+            this.mitarbeiterToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
             this.mitarbeiterToolStripMenuItem.Text = "Mitarbeiter";
             this.mitarbeiterToolStripMenuItem.Click += new System.EventHandler(this.projekteToolStripMenuItem_Click);
             // 
             // projekteToolStripMenuItem
             // 
             this.projekteToolStripMenuItem.Name = "projekteToolStripMenuItem";
-            this.projekteToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
+            this.projekteToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
             this.projekteToolStripMenuItem.Text = "Projekte";
             this.projekteToolStripMenuItem.Click += new System.EventHandler(this.mitarbeiterToolStripMenuItem_Click);
             // 
@@ -139,20 +146,20 @@
             this.hilfeÖffnenToolStripMenuItem,
             this.überToolStripMenuItem});
             this.hilfeToolStripMenuItem.Name = "hilfeToolStripMenuItem";
-            this.hilfeToolStripMenuItem.Size = new System.Drawing.Size(40, 20);
+            this.hilfeToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
             this.hilfeToolStripMenuItem.Text = "Hilfe";
             // 
             // hilfeÖffnenToolStripMenuItem
             // 
             this.hilfeÖffnenToolStripMenuItem.Name = "hilfeÖffnenToolStripMenuItem";
-            this.hilfeÖffnenToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.hilfeÖffnenToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
             this.hilfeÖffnenToolStripMenuItem.Text = "Hilfe öffnen";
             this.hilfeÖffnenToolStripMenuItem.Click += new System.EventHandler(this.hilfeÖffnenToolStripMenuItem_Click);
             // 
             // überToolStripMenuItem
             // 
             this.überToolStripMenuItem.Name = "überToolStripMenuItem";
-            this.überToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.überToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
             this.überToolStripMenuItem.Text = "Über";
             this.überToolStripMenuItem.Click += new System.EventHandler(this.überToolStripMenuItem_Click);
             // 
@@ -356,13 +363,6 @@
             this.cancel_Butt.Text = "Beenden";
             this.cancel_Butt.UseVisualStyleBackColor = true;
             this.cancel_Butt.Click += new System.EventHandler(this.cancel_Butt_Click);
-            // 
-            // projektübersichtAnzeigenToolStripMenuItem
-            // 
-            this.projektübersichtAnzeigenToolStripMenuItem.Name = "projektübersichtAnzeigenToolStripMenuItem";
-            this.projektübersichtAnzeigenToolStripMenuItem.Size = new System.Drawing.Size(209, 22);
-            this.projektübersichtAnzeigenToolStripMenuItem.Text = "Projektübersicht anzeigen";
-            this.projektübersichtAnzeigenToolStripMenuItem.Click += new System.EventHandler(this.projektübersichtAnzeigenToolStripMenuItem_Click);
             // 
             // Hauptmaske
             // 

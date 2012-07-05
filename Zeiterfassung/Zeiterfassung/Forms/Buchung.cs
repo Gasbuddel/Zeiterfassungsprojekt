@@ -135,6 +135,14 @@ namespace Zeiterfassung
                 book_Booking_Butt.Enabled = false;
         }
 
+
+
+
+        private void Buchung_Load(object sender, EventArgs e)
+        {
+
+        }
+
         private void custom_Box_TextChanged(object sender, EventArgs e)
         {
             if (isValid())
